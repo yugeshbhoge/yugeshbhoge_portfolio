@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar RTI Research | Yugesh Bhoge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #14532d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #166534; }
+        
+        /* MathJax font adjustments */
+        mjx-container { font-size: 105% !important; color: #1f2937; }
+    </style>
+    <!-- Chosen Palette: Cream (#FDFBF7) & Deep teal (#14532d) - "Academic/Nature" Theme -->
+    <!-- Integration Strategy: 
+         - Used <iframe> tags to embed 'mag_field.html' and 'threshold_surface.html'.
+         - This preserves the exact data and interactivity of your original Plotly files.
+         - Added fallback text in case the files are missing from the folder.
+    -->
+</head>
+<body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-serif font-bold text-xl hover:text-teal-700 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+            <div class="text-sm text-gray-500">M.Sc. Physics '25, IIT Bombay</div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-teal-900 text-white py-20 relative overflow-hidden">
+        <!-- Abstract decorative element -->
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="fa-solid fa-wind text-[300px]"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block px-3 py-1 bg-teal-800 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-teal-200">
+                PH-819 Advanced Astrophysics
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Rayleigh-Taylor Instability in Stellar Interiors</h1>
+            <p class="text-xl text-teal-100 max-w-3xl mx-auto font-light">
+                Investigating the stabilizing effects of magnetic tension on hydrodynamic instabilities in Supernovae and Accretion Disks.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
+        
+        <!-- Left Column: Narrative (Motivation, Methodology, Theory) -->
+        <div class="lg:col-span-1 space-y-10">
+            
+            <!-- Motivation Section -->
+            <section id="motivation" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-teal-100 p-2 rounded-lg text-teal-800">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    The Rayleigh-Taylor Instability (RTI) is a fundamental fluid instability occurring when a heavy fluid is supported by a light fluid against gravity. In astrophysics, this is critical for understanding:
+                </p>
+                <ul class="space-y-2 mt-2">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-burst text-teal-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Supernova Remnants:</strong> The "fingers" seen in the Crab Nebula are classic RTI structures formed as pulsar wind nebulae accelerate ejecta.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-sun text-teal-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Solar Atmosphere:</strong> Magnetic flux tubes rising through the convection zone are subject to RTI, affecting solar flare stability.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <hr class="border-gray-200">
+
+            <!-- Methodology Section -->
+            <section id="methodology" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-teal-100 p-2 rounded-lg text-teal-800">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Methodology</h2>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">1. Linear Stability Analysis</h3>
+                    <p class="text-xs text-gray-600 mb-3">
+                        We utilized Ideal Magneto-Hydrodynamics (MHD) to linearize the equations of motion. For a horizontal magnetic field $\mathbf{B} = B \hat{x}$, the dispersion relation is derived as:
+                    </p>
+                    <div class="text-center py-2 overflow-x-auto text-xs">
+                        $$ n^2 = gk A_t - \frac{B^2 k_x^2}{2\pi(\rho_1 + \rho_2)} $$
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-teal-500 pl-2">
+                        <strong>Significance:</strong> The term with $B^2$ is negative, indicating stabilization. High wavenumbers $k$ (small structures) are stabilized first by magnetic tension.
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">2. Finite Volume Simulation</h3>
+                    <p class="text-xs text-gray-600">
+                        To study the non-linear "mushroom cap" evolution, we solved the compressible Euler equations using a Python-based <strong>Finite Volume Method (FVM)</strong>.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 mt-3">
+                        <div class="bg-gray-50 p-2 rounded text-xs text-center border border-gray-100">
+                            <strong>Flux:</strong> HLL / Rusanov
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded text-xs text-center border border-gray-100">
+                            <strong>Limiter:</strong> Minmod
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-gray-200">
+
+             <!-- Implications Section -->
+             <section id="implications" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-teal-100 p-2 rounded-lg text-teal-800">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Implications</h2>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    Our results confirm that a critical magnetic field $B_c$ exists. If $B > B_c$, the instability is completely suppressed. This explains why certain astrophysical boundaries remain sharp despite strong density contrasts—magnetic tension acts as a "skin" holding the fluid interface together.
+                </p>
+            </section>
+
+        </div>
+
+        <!-- Right Column: Visuals & Synthesis -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Video Section -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-serif font-bold text-gray-900">Non-Linear Evolution (Simulation)</h3>
+                    <span class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full font-medium">Finite Volume Method</span>
+                </div>
+                <!-- Video Container -->
+                <div class="relative w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-300 shadow-inner group">
+                    <video controls class="w-full h-full object-contain">
+                        <source src="finitevolume2_animation.mp4" type="video/mp4">
+                        <div class="flex items-center justify-center h-full text-white p-4 text-center">
+                            <div>
+                                <i class="fa-solid fa-film text-4xl mb-2 opacity-50"></i>
+                                <p>Video not found. Ensure 'finitevolume2_animation.mp4' is in the same folder.</p>
+                            </div>
+                        </div>
+                    </video>
+                </div>
+                <p class="text-xs text-gray-500 mt-3 italic">
+                    Simulation showing the evolution of density. Note the formation of characteristic Kelvin-Helmholtz mushroom structures on the spikes as the instability grows.
+                </p>
+            </section>
+
+            <!-- Embedded Interactive Plot 1: Magnetic Field Stabilization -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-serif font-bold text-gray-900">Magnetic Field Stabilization</h3>
+                    <div class="text-xs text-gray-400">
+                        <i class="fa-solid fa-cube mr-1"></i> Interactive 3D Surface
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mb-4">
+                    Growth Rate Squared ($\gamma^2$) vs Wavenumber ($k$) and Magnetic Field ($B$). The "valley" indicates stability.
+                </p>
+                
+                <div class="h-[500px] w-full border border-gray-100 rounded-lg overflow-hidden bg-white relative">
+                     <!-- EMBEDDED IFRAME FOR mag_field.html -->
+                     <iframe src="mag_field.html" title="Magnetic Field Plot" class="w-full h-full border-none">
+                         <p>Your browser does not support iframes. Please open mag_field.html directly.</p>
+                     </iframe>
+                </div>
+                <p class="text-xs text-red-400 mt-2 hidden" id="error-msg-1">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'mag_field.html' must be in the same directory for this plot to load.
+                </p>
+            </section>
+
+            <!-- Embedded Interactive Plot 2: Stability Threshold -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-serif font-bold text-gray-900">Stability Threshold Surface</h3>
+                    <div class="text-xs text-gray-400">
+                        <i class="fa-solid fa-cube mr-1"></i> Interactive 3D Surface
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mb-4">
+                </p>
+                
+                <div class="h-[500px] w-full border border-gray-100 rounded-lg overflow-hidden bg-white relative">
+                    <!-- EMBEDDED IFRAME FOR threshold_surface.html -->
+                    <iframe src="threshold_surface.html" title="Threshold Surface Plot" class="w-full h-full border-none">
+                        <p>Your browser does not support iframes. Please open threshold_surface.html directly.</p>
+                    </iframe>
+                </div>
+                <p class="text-xs text-red-400 mt-2 hidden" id="error-msg-2">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'threshold_surface.html' must be in the same directory for this plot to load.
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer with Joke -->
+    <footer class="bg-white border-t border-gray-200 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <p class="text-gray-500 text-sm mb-4 font-serif">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
+            
+            <!-- The Joke/Quote -->
+            <div class="max-w-xl text-center bg-[#FDFBF7] px-6 py-4 rounded-full border border-gray-100 shadow-sm">
+                <p class="text-gray-600 text-sm italic font-serif">
+                    <i class="fa-solid fa-quote-left text-teal-200 mr-2"></i>
+                    <span class="text-teal-700 font-medium"><b>One-dimensional optimism corrected by Rayleigh–Taylor instability.</b></span>
+                    <i class="fa-solid fa-quote-right text-teal-200 ml-2"></i>
+                </p>
+            </div>
+            
+            <div class="flex space-x-4 mt-6 text-gray-400">
+                <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-teal-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://github.com/yugeshbhoge" class="hover:text-teal-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-teal-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-teal-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+                
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

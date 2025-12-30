@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malkus Waterwheel & Chaos | Yugesh Bhoge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #581c87; /* purple-900 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b21a8; /* purple-800 */
+        }
+        
+        /* MathJax Adjustments */
+        mjx-container {
+            font-size: 110% !important;
+            color: #1f2937;
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #7e22ce;
+            margin-top: -6px;
+            cursor: pointer;
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #e9d5ff;
+            border-radius: 2px;
+        }
+        
+        /* Video Wrapper */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background-color: #000;
+        }
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Plotly Fixes */
+        .js-plotly-plot .plotly .modebar {
+            left: 50% !important;
+            transform: translateX(-50%);
+        }
+    </style>
+    
+    <!-- Chosen Palette: "Academic Purple" (Cream Background, Purple Primary) -->
+</head>
+<body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-serif font-bold text-xl hover:text-purple-600 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+            <div class="text-sm text-gray-500">M.Sc. Physics '25, IIT Bombay</div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-purple-900 text-white py-20 relative overflow-hidden">
+        <!-- Abstract decorative element -->
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="fa-solid fa-hurricane text-[300px]"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block px-3 py-1 bg-purple-800 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-purple-200">
+                Nonlinear Dynamics & Chaos
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Malkus Waterwheel &<br>The Butterfly Effect</h1>
+            <p class="text-xl text-purple-100 max-w-2xl mx-auto font-light">
+                Experimental verification of the isomorphism between a mechanical waterwheel and the Lorenz strange attractor.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
+        
+        <!-- Left Column: Narrative (Motivation, Methodology, Theory) -->
+        <div class="lg:col-span-1 space-y-8">
+            
+            <!-- Motivation Section -->
+            <section id="motivation" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-purple-100 p-2 rounded-lg text-purple-800">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    The <strong>Malkus Waterwheel</strong> is a mechanical analog of the Lorenz equations, originally derived to model atmospheric convection. It serves as a tangible demonstration of how a deterministic system can exhibit <strong>chaotic behavior</strong>.
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    By adjusting the water inflow rate (analogous to the Rayleigh number), the system transitions from a steady state to a limit cycle, and finally to chaotic reversals, effectively modeling the unpredictability of weather systems.
+                </p>
+            </section>
+
+            <hr class="border-gray-200">
+
+            <!-- Theoretical Framework Section -->
+            <section id="theory" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-purple-100 p-2 rounded-lg text-purple-800">
+                        <i class="fa-solid fa-square-root-variable"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Theoretical Framework</h2>
+                </div>
+                
+                <!-- Formula: Lorenz Equations -->
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">The Lorenz Equations</h3>
+                    <div class="text-left py-2 overflow-x-auto text-xs md:text-sm">
+                        $$ \frac{dx}{dt} = \sigma(y - x) $$
+                        $$ \frac{dy}{dt} = x(\rho - z) - y $$
+                        $$ \frac{dz}{dt} = xy - \beta z $$
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-purple-500 pl-2">
+                        <strong>Variables:</strong> $x$ (angular velocity), $y, z$ (mass distribution moments).<br>
+                        <strong>Parameters:</strong> $\sigma$ (Prandtl), $\rho$ (Rayleigh/Inflow), $\beta$ (Geometry).
+                    </p>
+                </div>
+            </section>
+
+             <!-- Methodology Section -->
+             <section id="methodology" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-purple-100 p-2 rounded-lg text-purple-800">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Experimental Setup</h2>
+                </div>
+                <ul class="space-y-3 mt-4">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-circle-notch text-purple-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Apparatus:</strong> Plexiglass wheel with leaky cups, magnetic braking for damping.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-video text-purple-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Data Acquisition:</strong> High-speed video analysis tracked angular velocity ($\omega$) over time.</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- Right Column: Visuals & Interactive Elements -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Interactive 3D Plot Section -->
+            <section id="interactive-sim" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-gray-900">Interactive Phase Space</h3>
+                        <p class="text-sm text-gray-500">The "Butterfly Effect". Adjust parameters to see the path evolve.</p>
+                    </div>
+                    <button id="resetParams" class="mt-2 md:mt-0 px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-md text-gray-600 transition-colors">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    <!-- Controls -->
+                    <div class="md:col-span-1 space-y-5 bg-purple-50 p-4 rounded-xl border border-purple-100 h-fit">
+                        <div>
+                            <label class="flex justify-between text-xs font-bold text-purple-900 mb-1">
+                                <span>Inflow ($\rho$)</span>
+                                <span id="val-rho">28</span>
+                            </label>
+                            <input type="range" id="param-rho" min="0" max="60" step="0.5" value="28">
+                            <p class="text-[10px] text-purple-700 leading-tight mt-1">Controls chaos. Try dragging to 40+.</p>
+                        </div>
+                        <div>
+                            <label class="flex justify-between text-xs font-bold text-purple-900 mb-1">
+                                <span>Damping ($\sigma$)</span>
+                                <span id="val-sigma">10</span>
+                            </label>
+                            <input type="range" id="param-sigma" min="1" max="20" step="0.5" value="10">
+                        </div>
+                        <div>
+                            <label class="flex justify-between text-xs font-bold text-purple-900 mb-1">
+                                <span>Geometry ($\beta$)</span>
+                                <span id="val-beta">2.67</span>
+                            </label>
+                            <input type="range" id="param-beta" min="0.5" max="5" step="0.1" value="2.666">
+                        </div>
+                    </div>
+
+                    <!-- 3D Plot Container -->
+                    <div class="md:col-span-3 bg-gray-50 rounded-xl border border-gray-200 relative overflow-hidden" style="height: 400px;">
+                        <div id="butterfly3d" class="w-full h-full"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Video Card -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                     <h3 class="font-serif font-bold text-gray-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-play-circle mr-2 text-purple-700"></i> Experimental Run
+                    </h3>
+                    <div class="video-wrapper bg-black">
+                        <video controls>
+                            <source src="Animation_overlay_with_omega_graph.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3 italic">
+                        Real-time overlay of experimental data on the waterwheel video.
+                    </p>
+                </div>
+
+                <!-- Analysis Card -->
+                <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                    <h3 class="font-serif font-bold text-purple-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-chart-line mr-2"></i> Implications
+                    </h3>
+                    <p class="text-sm text-purple-800 leading-relaxed mb-4">
+                        The experiment successfully demonstrated the route to chaos. The chaotic reversal of the wheel (from clockwise to counter-clockwise) mirrors the aperiodic solutions of the Lorenz attractor.
+                    </p>
+                    <div class="bg-white/60 p-3 rounded-lg border border-purple-200">
+                         <h4 class="font-bold text-purple-900 text-xs mb-1">Applications</h4>
+                         <ul class="text-xs text-purple-800 list-disc list-inside space-y-1">
+                             <li><strong>Geomagnetism:</strong> Models field reversals (Rikitake dynamo).</li>
+                             <li><strong>Meteorology:</strong> Limits of weather prediction.</li>
+                             <li><strong>Laser Physics:</strong> Mode instability.</li>
+                         </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <section class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Full Presentation Slides</h2>
+            <p class="text-gray-600 mb-8">
+                Explore the detailed solution of the system and bifurcation analysis in the slides attached below.
+            </p>
+            <a href="Malkus Waterwheel.pdf" class="inline-flex items-center px-8 py-3 bg-purple-900 text-white font-medium rounded-lg hover:bg-purple-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
+                <i class="fa-regular fa-file-pdf mr-2"></i> Presentation slides
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer with Joke -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
+            
+            <!-- The Joke -->
+            <div class="max-w-md text-center bg-[#FDFBF7] px-4 py-4 rounded-full border border-gray-100">
+                <p class="text-gray-600 text-sm italic font-serif">
+                    <i class="fa-solid fa-quote-left text-purple-200 mr-2"></i>
+                    I tried to tell a joke about chaos theory... <br>
+                    <span class="text-purple-700 font-medium"><b>But the delivery was unpredictably sensitive to initial conditions!</b></span>
+                    <i class="fa-solid fa-quote-right text-purple-200 ml-2"></i>
+                </p>
+            </div>
+            
+            <div class="flex space-x-4 mt-6 text-gray-400">
+                <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-purple-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://github.com/yugeshbhoge" class="hover:text-purple-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-purple-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-purple-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const plotDiv = document.getElementById('butterfly3d');
+            
+            // --- Global State ---
+            let sigma = 10.0;
+            let rho = 28.0;
+            let beta = 2.666;
+            const dt = 0.01;
+            const steps = 3000;
+            
+            // --- Runge-Kutta 4th Order Integrator (Stable) ---
+            // Much better than Euler for interactive simulations where params change
+            function rk4_step(x, y, z, s, r, b, h) {
+                // k1
+                let k1x = s * (y - x);
+                let k1y = x * (r - z) - y;
+                let k1z = x * y - b * z;
+
+                // k2
+                let x2 = x + 0.5 * h * k1x;
+                let y2 = y + 0.5 * h * k1y;
+                let z2 = z + 0.5 * h * k1z;
+                let k2x = s * (y2 - x2);
+                let k2y = x2 * (r - z2) - y2;
+                let k2z = x2 * y2 - b * z2;
+
+                // k3
+                let x3 = x + 0.5 * h * k2x;
+                let y3 = y + 0.5 * h * k2y;
+                let z3 = z + 0.5 * h * k2z;
+                let k3x = s * (y3 - x3);
+                let k3y = x3 * (r - z3) - y3;
+                let k3z = x3 * y3 - b * z3;
+
+                // k4
+                let x4 = x + h * k3x;
+                let y4 = y + h * k3y;
+                let z4 = z + h * k3z;
+                let k4x = s * (y4 - x4);
+                let k4y = x4 * (r - z4) - y4;
+                let k4z = x4 * y4 - b * z4;
+
+                return {
+                    x: x + (h/6.0) * (k1x + 2*k2x + 2*k3x + k4x),
+                    y: y + (h/6.0) * (k1y + 2*k2y + 2*k3y + k4y),
+                    z: z + (h/6.0) * (k1z + 2*k2z + 2*k3z + k4z)
+                };
+            }
+
+            function generateLorenzData() {
+                let x = 0.1, y = 0.0, z = 0.0;
+                const xs = new Float32Array(steps);
+                const ys = new Float32Array(steps);
+                const zs = new Float32Array(steps);
+                
+                for(let i = 0; i < steps; i++) {
+                    const nextState = rk4_step(x, y, z, sigma, rho, beta, dt);
+                    x = nextState.x;
+                    y = nextState.y;
+                    z = nextState.z;
+                    
+                    xs[i] = x;
+                    ys[i] = y;
+                    zs[i] = z;
+                }
+                return {x: xs, y: ys, z: zs};
+            }
+
+            // --- Plot Initialization ---
+            const initData = generateLorenzData();
+
+            const layout = {
+                autosize: true,
+                margin: {l:0, r:0, b:0, t:0},
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                scene: {
+                    xaxis: {title: '', showgrid: true, gridcolor: '#e5e7eb', zeroline: false, showticklabels: false},
+                    yaxis: {title: '', showgrid: true, gridcolor: '#e5e7eb', zeroline: false, showticklabels: false},
+                    zaxis: {title: '', showgrid: true, gridcolor: '#e5e7eb', zeroline: false, showticklabels: false},
+                    camera: { eye: {x: 1.5, y: 1.5, z: 1.2} },
+                    aspectmode: 'cube'
+                },
+                showlegend: false
+            };
+
+            const config = {
+                responsive: true,
+                displayModeBar: false,
+                staticPlot: false
+            };
+
+            Plotly.newPlot(plotDiv, [{
+                type: 'scatter3d',
+                mode: 'lines',
+                x: initData.x,
+                y: initData.y,
+                z: initData.z,
+                opacity: 0.8,
+                line: { width: 3, color: initData.z, colorscale: 'Viridis' }
+            }], layout, config);
+
+
+            // --- Optimized Interaction Loop ---
+            let isUpdatePending = false;
+
+            function updatePlot() {
+                const data = generateLorenzData();
+                
+                // Plotly.react is more efficient for full data replacement
+                Plotly.react(plotDiv, [{
+                    type: 'scatter3d',
+                    mode: 'lines',
+                    x: data.x, 
+                    y: data.y, 
+                    z: data.z,
+                    opacity: 0.8,
+                    line: { width: 3, color: data.z, colorscale: 'Viridis' }
+                }], layout, config);
+                
+                isUpdatePending = false;
+            }
+
+            // Event Listeners with RequestAnimationFrame Throttling
+            const inputs = [
+                { id: 'param-rho', var: 'rho' },
+                { id: 'param-sigma', var: 'sigma' },
+                { id: 'param-beta', var: 'beta' }
+            ];
+
+            inputs.forEach(input => {
+                const el = document.getElementById(input.id);
+                el.addEventListener('input', (e) => {
+                    const val = parseFloat(e.target.value);
+                    
+                    // Update Text Display
+                    const displayId = input.id.replace('param-', 'val-');
+                    document.getElementById(displayId).innerText = val;
+                    
+                    // Update Variable
+                    if(input.var === 'rho') rho = val;
+                    if(input.var === 'sigma') sigma = val;
+                    if(input.var === 'beta') beta = val;
+
+                    // Schedule Render
+                    if (!isUpdatePending) {
+                        isUpdatePending = true;
+                        requestAnimationFrame(updatePlot);
+                    }
+                });
+            });
+
+            // Reset Button
+            document.getElementById('resetParams').addEventListener('click', () => {
+                // Reset State
+                rho = 28.0; sigma = 10.0; beta = 2.666;
+                
+                // Reset Inputs
+                document.getElementById('param-rho').value = 28;
+                document.getElementById('param-sigma').value = 10;
+                document.getElementById('param-beta').value = 2.666;
+                
+                // Reset Text
+                document.getElementById('val-rho').innerText = 28;
+                document.getElementById('val-sigma').innerText = 10;
+                document.getElementById('val-beta').innerText = 2.67;
+                
+                updatePlot();
+            });
+            
+            // Handle Window Resize explicitly for Plotly responsiveness
+            window.addEventListener('resize', () => {
+                Plotly.Plots.resize(plotDiv);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GW Blindspots | Yugesh Bhoge</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Plotly.js for Interactive Sky Map -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #92400e; /* amber-800 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #78350f; /* amber-900 */
+        }
+        /* Custom MathJax font adjustments */
+        mjx-container {
+            font-size: 110% !important;
+            color: #1f2937; /* gray-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 500px; 
+            max-height: 600px;
+        }
+    </style>
+
+</head>
+<body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-serif font-bold text-xl hover:text-amber-600 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+            <div class="text-sm text-gray-500 hidden sm:block">M.Sc. Physics '25, IIT Bombay</div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-amber-900 text-white py-20 relative overflow-hidden">
+        <!-- Abstract decorative element -->
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="fa-solid fa-satellite-dish text-[300px]"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block px-3 py-1 bg-amber-800 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-amber-200">
+                Course Project PH 821
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Blindspots in GW Detectors</h1>
+            <p class="text-xl text-amber-100 max-w-2xl mx-auto font-light">
+                Investigating the geometric limitations of interferometers using Mollweide projections to visualize global sky sensitivity.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
+        
+        <!-- Left Column: Narrative (Motivation, Theory, Method) -->
+        <div class="lg:col-span-1 space-y-8">
+            
+            <!-- Motivation Section -->
+            <section id="motivation" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-amber-100 p-2 rounded-lg text-amber-800">
+                        <i class="fa-solid fa-satellite-dish"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    Gravitational wave detectors like LIGO are not truly omni-directional. Due to their L-shaped geometry, they possess inherent <strong>blindspots</strong> regions in the sky where they are deaf to incoming signals.
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    This project mathematically models these sensitivity patterns to demonstrate why a single detector is insufficient for continuous all-sky coverage and how the addition of Virgo and KAGRA mitigates this issue.
+                </p>
+            </section>
+
+            <hr class="border-gray-200">
+
+            <!-- Theoretical Framework -->
+            <section id="theory" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-amber-100 p-2 rounded-lg text-amber-800">
+                        <i class="fa-solid fa-square-root-variable"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Theoretical Framework</h2>
+                </div>
+                
+                <!-- Formula: Antenna Pattern -->
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">Antenna Pattern Functions</h3>
+                    <div class="text-center py-2 overflow-x-auto text-sm">
+                        $$ F_+ = \frac{1}{2}(1 + \cos^2\theta)\cos(2\phi) $$
+                        $$ F_\times = \cos\theta \sin(2\phi) $$
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-amber-500 pl-2">
+                        <strong>Note:</strong> Defined in the detector's frame, where $\theta$ is the angle from the zenith and $\phi$ is the azimuth relative to the X-arm.
+                    </p>
+                </div>
+
+                <!-- Formula: Total Sensitivity -->
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">Network Sensitivity</h3>
+                    <div class="text-center py-2 overflow-x-auto">
+                        $$ S_{net} = \sqrt{\sum_{det} (F_{+, det}^2 + F_{\times, det}^2)} $$
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-amber-500 pl-2">
+                        The combined sensitivity is the quadrature sum of individual detector responses.
+                    </p>
+                </div>
+            </section>
+
+             <!-- Methodology Section -->
+             <section id="methodology" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-amber-100 p-2 rounded-lg text-amber-800">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Methodology</h2>
+                </div>
+                <ul class="space-y-3 mt-4">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-amber-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Tensor Projection:</strong> Mapped Sky coordinates (RA/Dec) to Detector Frame (Zenith/Azimuth) using coordinate rotation matrices.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-amber-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Real Geometry:</strong> Incorporated exact coordinates and arm orientation angles for Hanford, Livingston, Virgo, and KAGRA.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-amber-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Visualization:</strong> Projected results using the <strong>Mollweide Projection</strong> to accurately represent the celestial sphere.</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- Right Column: Visuals & Synthesis -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Interactive Chart Section -->
+            <section id="results" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-gray-900">Sky Sensitivity Map (Mollweide)</h3>
+                        <p class="text-sm text-gray-500">Projected view of the entire celestial sphere (Earth-fixed snapshot).</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <!-- Custom Checkboxes -->
+                        <label class="cursor-pointer inline-flex items-center bg-amber-50 border border-amber-200 px-3 py-1.5 rounded hover:bg-amber-100 transition select-none">
+                            <input type="checkbox" id="check-h1" class="accent-amber-600 mr-2" checked> H1
+                        </label>
+                        <label class="cursor-pointer inline-flex items-center bg-amber-50 border border-amber-200 px-3 py-1.5 rounded hover:bg-amber-100 transition select-none">
+                            <input type="checkbox" id="check-l1" class="accent-amber-600 mr-2"> L1
+                        </label>
+                        <label class="cursor-pointer inline-flex items-center bg-amber-50 border border-amber-200 px-3 py-1.5 rounded hover:bg-amber-100 transition select-none">
+                            <input type="checkbox" id="check-v1" class="accent-amber-600 mr-2"> V1
+                        </label>
+                        <label class="cursor-pointer inline-flex items-center bg-amber-50 border border-amber-200 px-3 py-1.5 rounded hover:bg-amber-100 transition select-none">
+                            <input type="checkbox" id="check-k1" class="accent-amber-600 mr-2"> K1
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Chart Container -->
+                <div class="chart-container bg-white flex justify-center items-center overflow-hidden">
+                    <div id="skyMap" class="w-full h-full"></div>
+                </div>
+
+                <div class="mt-2 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1"><i class="fa-solid fa-magnifying-glass-chart mr-2 text-amber-700"></i>Simulation Analysis</h4>
+                    <p class="text-sm text-gray-600" id="analysis-text">
+                        Initializing simulation...
+                    </p>
+                </div>
+            </section>
+
+            <!-- Applications & Implications Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Applications -->
+                <div class="bg-amber-50 p-6 rounded-xl border border-amber-100">
+                    <h3 class="font-serif font-bold text-amber-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-rocket mr-2"></i> Multi-messenger Astronomy
+                    </h3>
+                    <p class="text-sm text-amber-900 leading-relaxed">
+                        Detecting electromagnetic counterparts (e.g., Kilonovae) requires precise source localization. Blindspots are catastrophic for this. A 3+ detector network provides the triangulation needed for telescopes.
+                    </p>
+                </div>
+
+                <!-- Implications -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="font-serif font-bold text-gray-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-earth-americas mr-2 text-amber-700"></i> Next-Gen Detectors
+                    </h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        The Einstein Telescope (ET) will use a triangular topology (60° arms). This geometry intrinsically cancels out the zero-sensitivity nodes of the 90° design, ensuring continuous all-sky coverage.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+            <!-- Documentation Section (Report) -->
+    <section class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Report</h2>
+            <p class="text-gray-600 mb-8">
+                 Access the full documentation including derivation of antenna patterns and sensitivity maps of all LIGO detectors.
+            </p>
+            <a href="Blindspots_in_GW_detectors_report.pdf" class="inline-flex items-center px-8 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
+                <i class="fa-regular fa-file-pdf mr-2"></i> View Project Report (PDF)
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer with Joke -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
+            
+            <!-- The Joke -->
+            <div class="max-w-md text-center bg-[#FDFBF7] px-4 py-4 rounded-full border border-amber-100 shadow-sm">
+                <p class="text-gray-600 text-sm italic font-serif">
+                    <i class="fa-solid fa-quote-left text-amber-300 mr-2"></i>
+                    Why was the gravitational wave detector bad at baseball? <br>
+                    <span class="text-amber-700 font-medium"><b>Because it had too many blind spots!</b></span>
+                    <i class="fa-solid fa-quote-right text-amber-300 ml-2"></i>
+                </p>
+            </div>
+            
+            <div class="flex space-x-4 mt-6 text-gray-400">
+                <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-amber-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://github.com/yugeshbhoge" class="hover:text-amber-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-amber-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-amber-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Plotly & Projection Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('skyMap');
+            const analysisText = document.getElementById('analysis-text');
+
+            // --- 1. Define Detectors (Real Coordinates) ---
+            // Angles are approximate X-arm azimuths measured clockwise from North.
+            const detectors = {
+                h1: { enabled: true,  lat: 46.45, lon: -119.41, angle: 126, name: "Hanford" },
+                l1: { enabled: false, lat: 30.56, lon: -90.77,  angle: 197, name: "Livingston" },
+                v1: { enabled: false, lat: 43.63, lon: 10.50,   angle: 19,  name: "Virgo" }, // 19 deg is approx N arm? V1 arms are NNE and WNW
+                k1: { enabled: false, lat: 36.41, lon: 137.31,  angle: 30,  name: "KAGRA" }
+            };
+
+            // --- 2. Math Helpers ---
+            const d2r = Math.PI / 180;
+            
+            // Mollweide Projection
+            function projectMollweide(latDeg, lonDeg) {
+                const lat = latDeg * d2r;
+                const lon = lonDeg * d2r; 
+                let theta = lat;
+                const pi = Math.PI;
+                const target = pi * Math.sin(lat);
+                const epsilon = 1e-6;
+
+                for(let i=0; i<50; i++) {
+                    const f = 2*theta + Math.sin(2*theta) - target;
+                    const f_prime = 2 + 2*Math.cos(2*theta);
+                    const delta = f / f_prime;
+                    theta = theta - delta;
+                    if (Math.abs(delta) < epsilon) break;
+                }
+                const x = (2 * Math.sqrt(2) / pi) * lon * Math.cos(theta);
+                const y = Math.sqrt(2) * Math.sin(theta);
+                return { x, y };
+            }
+
+            // Vector Dot Product
+            function dot(v1, v2) { return v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2]; }
+            
+            // Vector Cross Product
+            function cross(v1, v2) {
+                return [
+                    v1[1]*v2[2] - v1[2]*v2[1],
+                    v1[2]*v2[0] - v1[0]*v2[2],
+                    v1[0]*v2[1] - v1[1]*v2[0]
+                ];
+            }
+
+            // --- 3. Antenna Pattern Logic ---
+            function getAntennaResponse(raRad, decRad, det) {
+                // 1. Source Vector (n) in Earth-Fixed Coordinates
+                // Assumes GMST=0 for snapshot (Source at RA=0 is at Lon=0)
+                const n = [
+                    Math.cos(decRad) * Math.cos(raRad),
+                    Math.cos(decRad) * Math.sin(raRad),
+                    Math.sin(decRad)
+                ];
+
+                // 2. Detector Zenith (Z)
+                const lat = det.lat * d2r;
+                const lon = det.lon * d2r;
+                const Z = [
+                    Math.cos(lat) * Math.cos(lon),
+                    Math.cos(lat) * Math.sin(lon),
+                    Math.sin(lat)
+                ];
+
+                // 3. Detector X-Arm Construction
+                // North Vector N at detector
+                const N_vec = [
+                    -Math.sin(lat) * Math.cos(lon),
+                    -Math.sin(lat) * Math.sin(lon),
+                    Math.cos(lat)
+                ];
+                // East Vector E at detector
+                const E_vec = [
+                    -Math.sin(lon),
+                    Math.cos(lon),
+                    0
+                ];
+                
+                // X arm orientation (gamma)
+                const gam = det.angle * d2r;
+                const X = [
+                    N_vec[0]*Math.cos(gam) + E_vec[0]*Math.sin(gam),
+                    N_vec[1]*Math.cos(gam) + E_vec[1]*Math.sin(gam),
+                    N_vec[2]*Math.cos(gam) + E_vec[2]*Math.sin(gam)
+                ];
+
+                // Y arm = Z cross X (Standard L-shape)
+                const Y = cross(Z, X);
+
+                // 4. Calculate angles in Detector Frame
+                // Theta: Angle between Source (n) and Zenith (Z)
+                const cosTheta = dot(n, Z);
+                
+                // Phi: Azimuth relative to X-arm
+                // Project n onto tangent plane: n_proj = n - (n.Z)Z
+                const n_dot_Z = cosTheta;
+                const proj = [
+                    n[0] - n_dot_Z*Z[0],
+                    n[1] - n_dot_Z*Z[1],
+                    n[2] - n_dot_Z*Z[2]
+                ];
+                
+                // Normalize projection
+                const mag = Math.sqrt(dot(proj, proj));
+                let cosPhi = 0; 
+                let sinPhi = 0;
+                
+                if (mag > 1e-9) {
+                    const px = proj[0]/mag; const py = proj[1]/mag; const pz = proj[2]/mag;
+                    // CosPhi = Proj . X
+                    cosPhi = px*X[0] + px*X[1] + px*X[2]; // Wait, dot product manual
+                    cosPhi = dot([px,py,pz], X);
+                    // SinPhi = Proj . Y
+                    sinPhi = dot([px,py,pz], Y);
+                }
+
+                // 5. Antenna Functions
+                // F+ = 0.5 * (1 + cos^2 theta) * cos(2phi)
+                // Fx = cos(theta) * sin(2phi)
+                
+                const cos2Phi = cosPhi*cosPhi - sinPhi*sinPhi;
+                const sin2Phi = 2*sinPhi*cosPhi;
+                
+                const Fp = 0.5 * (1 + cosTheta*cosTheta) * cos2Phi;
+                const Fc = cosTheta * sin2Phi;
+
+                return Fp*Fp + Fc*Fc; // Return squared response
+            }
+
+            // --- 4. Grid Generation ---
+            function generateData() {
+                const latSteps = 60; // Resolution
+                const lonSteps = 120;
+                
+                const xVals = [];
+                const yVals = [];
+                const colors = [];
+                const text = [];
+
+                let activeDetectors = Object.values(detectors).filter(d => d.enabled);
+
+                for (let i = 0; i <= latSteps; i++) {
+                    const latDeg = -90 + (180 * i / latSteps);
+                    
+                    for (let j = 0; j <= lonSteps; j++) {
+                        const lonDeg = -180 + (360 * j / lonSteps); // RA -180 to 180
+                        
+                        let totalSensSq = 0;
+                        
+                        activeDetectors.forEach(det => {
+                            totalSensSq += getAntennaResponse(lonDeg*d2r, latDeg*d2r, det);
+                        });
+
+                        const finalSens = Math.sqrt(totalSensSq);
+
+                        // Project
+                        const proj = projectMollweide(latDeg, lonDeg);
+                        
+                        xVals.push(proj.x);
+                        yVals.push(proj.y);
+                        colors.push(finalSens);
+                        text.push(`Lat: ${latDeg.toFixed(1)}°, Lon: ${lonDeg.toFixed(1)}°<br>Sens: ${finalSens.toFixed(2)}`);
+                    }
+                }
+                return { x: xVals, y: yVals, c: colors, t: text };
+            }
+
+            // --- 5. Plot Update ---
+            function updatePlot() {
+                const data = generateData();
+                const activeDets = Object.values(detectors).filter(d => d.enabled).map(d => d.name);
+
+                // Update text analysis
+                if (activeDets.length === 0) {
+                    analysisText.innerHTML = "No detectors active. Select a detector above to begin simulation.";
+                } else if (activeDets.length === 1) {
+                    analysisText.innerHTML = `With <strong>${activeDets[0]}</strong> active, the map reveals distinct quadrupolar patterns. The dark blue regions are <strong>blindspots</strong> where the detector response is minimal.`;
+                } else {
+                    analysisText.innerHTML = `With <strong>${activeDets.length} detectors</strong> active, the overlapping patterns fill in the blindspots, creating a more uniform sensitivity map (fewer dark blue areas).`;
+                }
+
+                // Boundary Ellipse
+                const boundaryX = [];
+                const boundaryY = [];
+                const steps = 100;
+                for(let i=0; i<=steps; i++) {
+                    const t = 2 * Math.PI * i / steps;
+                    boundaryX.push(2 * Math.sqrt(2) * Math.cos(t)); 
+                    boundaryY.push(Math.sqrt(2) * Math.sin(t));     
+                }
+
+                const traceScatter = {
+                    x: data.x,
+                    y: data.y,
+                    text: data.t,
+                    mode: 'markers',
+                    type: 'scattergl', 
+                    marker: {
+                        color: data.c,
+                        colorscale: [
+                            [0, 'rgb(30, 58, 138)'],      // Dark Blue (Blindspot)
+                            [0.3, 'rgb(37, 99, 235)'],    // Blue
+                            [0.6, 'rgb(245, 158, 11)'],   // Amber
+                            [1, 'rgb(254, 243, 199)']     // Light Yellow
+                        ],
+                        size: 6, 
+                        opacity: 1,
+                        symbol: 'square'
+                    },
+                    hoverinfo: 'text'
+                };
+
+                const traceBoundary = {
+                    x: boundaryX,
+                    y: boundaryY,
+                    mode: 'lines',
+                    type: 'scattergl',
+                    line: { color: '#333', width: 2 },
+                    hoverinfo: 'skip'
+                };
+
+                const layout = {
+                    margin: { t: 20, b: 20, l: 20, r: 20 },
+                    xaxis: { showgrid: false, zeroline: false, showticklabels: false, range: [-3, 3] },
+                    yaxis: { showgrid: false, zeroline: false, showticklabels: false, range: [-1.5, 1.5] },
+                    showlegend: false,
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    dragmode: false
+                };
+
+                const config = { responsive: true, displayModeBar: false };
+                Plotly.react(container, [traceScatter, traceBoundary], layout, config);
+            }
+
+            // Event Binding
+            document.getElementById('check-h1').addEventListener('change', (e) => { detectors.h1.enabled = e.target.checked; updatePlot(); });
+            document.getElementById('check-l1').addEventListener('change', (e) => { detectors.l1.enabled = e.target.checked; updatePlot(); });
+            document.getElementById('check-v1').addEventListener('change', (e) => { detectors.v1.enabled = e.target.checked; updatePlot(); });
+            document.getElementById('check-k1').addEventListener('change', (e) => { detectors.k1.enabled = e.target.checked; updatePlot(); });
+
+            // Initial Draw
+            updatePlot();
+            
+            window.addEventListener('resize', () => Plotly.Plots.resize(container));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braille to Touch | Yugesh Bhoge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #65a30d; /* lime-600 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4d7c0f; /* lime-700 */
+        }
+        /* Custom MathJax font adjustments if needed */
+        mjx-container {
+            font-size: 110% !important;
+            color: #1f2937; /* gray-800 */
+        }
+        
+        .braille-dot {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .braille-dot.active {
+            transform: scale(1.15);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+
+</head>
+<body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
+    
+    <!-- Navigation -->
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-serif font-bold text-xl hover:text-lime-600 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+            <div class="text-sm text-gray-500">M.Sc. Physics '25, IIT Bombay</div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-lime-600 text-white py-20 relative overflow-hidden">
+        <!-- Abstract decorative element -->
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="fa-solid fa-hand-holding-heart text-[300px]"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block px-3 py-1 bg-lime-500 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-white border border-lime-400">
+                Embedded Systems & Accessibility
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Transforming Alphabets into Touch</h1>
+            <p class="text-xl text-lime-50 max-w-2xl mx-auto font-light">
+                Bridging the visual-tactile gap using microcontroller-based servo actuation and Bayesian-like logic for character mapping.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
+        
+        <!-- Left Column: Narrative (Motivation, Methodology, Theory) -->
+        <div class="lg:col-span-1 space-y-8">
+            
+            <!-- Motivation Section -->
+            <section id="motivation" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-lime-100 p-2 rounded-lg text-lime-800">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    In a world dominated by visual information, the "digital divide" is profoundly felt by the visually impaired. While screen readers offer auditory solutions, they lack the spatial and literacy-building benefits of tactile reading.
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    This project aims to democratize access to written text by creating a <strong>Refreshable Braille Display</strong>. By converting digital ASCII characters into physical servo movements, we translate the "unseen" into a tangible experience, empowering users with independent access to information.
+                </p>
+            </section>
+
+            <hr class="border-lime-200">
+
+            <!-- Technical Methodology -->
+            <section id="methodology" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-lime-100 p-2 rounded-lg text-lime-800">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Methodology</h2>
+                </div>
+                
+                <div class="bg-white p-5 rounded-xl border border-lime-100 shadow-sm space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm border-b border-gray-100 pb-2">1. The Mapping Algorithm</h3>
+                    <p class="text-xs text-gray-600">
+                        The core logic involves a lookup table mapping ASCII inputs ($a \dots z$) to a 6-bit binary array representing the standard Braille cell configuration.
+                    </p>
+                    <div class="bg-gray-50 p-2 rounded text-xs font-mono text-gray-700">
+                        $$ C_{map} : \text{char} \rightarrow \{b_1, b_2, \dots, b_6\} $$
+                        where $b_i \in \{0, 1\}$
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-lime-100 shadow-sm space-y-4">
+                    <h3 class="font-bold text-gray-800 text-sm border-b border-gray-100 pb-2">2. Actuation Physics</h3>
+                    <p class="text-xs text-gray-600">
+                        We utilize <strong>SG90 Micro Servos</strong>. The logic state $b_i$ determines the angular position $\theta$ of the servo arm.
+                    </p>
+                    <ul class="text-xs space-y-2 mt-2">
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-circle-check text-lime-500 mr-2"></i>
+                            If $b_i = 1 \Rightarrow \theta = 90^\circ$ (Pin Raised)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-regular fa-circle text-gray-400 mr-2"></i>
+                            If $b_i = 0 \Rightarrow \theta = 0^\circ$ (Pin Flat)
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Tools Used -->
+            <section class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-lime-100 p-2 rounded-lg text-lime-800">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Tools</h2>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-600">Arduino Uno</span>
+                    <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-600">C++</span>
+                    <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-600">Wokwi Sim</span>
+                    <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-600">SG90 Servos</span>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Right Column: Visuals & Synthesis -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Interactive Simulator (Main Feature) -->
+            <section id="simulation" class="bg-white rounded-2xl shadow-lg border border-lime-200 overflow-hidden">
+                <div class="bg-lime-50 px-6 py-4 border-b border-lime-100 flex justify-between items-center">
+                    <h3 class="text-xl font-serif font-bold text-gray-900">
+                        <i class="fa-solid fa-fingerprint mr-2 text-lime-600"></i> Interactive Simulation
+                    </h3>
+                    <span class="text-xs font-mono text-lime-700 bg-lime-200 px-2 py-1 rounded">Live Logic</span>
+                </div>
+                
+                <div class="p-8 grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Input Area -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Input Character (a-z)</label>
+                            <input type="text" id="brailleInput" maxlength="1" placeholder="a" 
+                                class="w-full text-center text-5xl font-mono font-bold border-b-2 border-lime-300 focus:border-lime-600 outline-none py-2 bg-transparent text-gray-800 transition placeholder:text-gray-200">
+                        </div>
+                        
+                        <div class="bg-[#FDFBF7] p-4 rounded-lg border border-gray-200">
+                            <h4 class="text-xs font-bold text-gray-500 mb-2 uppercase">Binary Map State</h4>
+                            <div id="binaryOutput" class="font-mono text-sm text-center text-lime-700 tracking-widest font-bold">[ 1, 0, 0, 0, 0, 0 ]</div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Output Area -->
+                    <div class="flex flex-col items-center">
+                        <div class="relative bg-lime-50 p-8 rounded-xl border border-lime-200 w-40 h-56 flex flex-wrap content-center justify-center gap-4 shadow-inner">
+                            <!-- Braille Dots (1-6) -->
+                            <div id="dot1" class="braille-dot w-8 h-8 rounded-full border-2 border-lime-600 bg-lime-500 shadow-sm"></div>
+                            <div id="dot4" class="braille-dot w-8 h-8 rounded-full border-2 border-lime-600 bg-white"></div>
+                            <div id="dot2" class="braille-dot w-8 h-8 rounded-full border-2 border-lime-600 bg-white"></div>
+                            <div id="dot5" class="braille-dot w-8 h-8 rounded-full border-2 border-lime-600 bg-white"></div>
+                            <div id="dot3" class="braille-dot w-8 h-8 rounded-full border-2 border-lime-600 bg-white"></div>
+                            <div id="dot6" class="braille-dot w-8 h-8 rounded-full border-2 border-lime-600 bg-white"></div>
+                        </div>
+                        <div class="mt-4 flex gap-4 text-[10px] text-gray-400 font-medium uppercase tracking-wider">
+                            <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-lime-500 mr-2"></span> Raised (1)</span>
+                            <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-white border border-gray-300 mr-2"></span> Flat (0)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart Section (Mechanical Load) -->
+            <section id="results" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-serif font-bold text-gray-900">Mechanical Load Analysis</h3>
+                    <span class="bg-lime-100 text-lime-800 text-xs px-3 py-1 rounded-full font-medium">Metric: Duty Cycle</span>
+                </div>
+                
+                <p class="text-sm text-gray-500 mb-6">
+                    Based on standard English letter frequency, we analyzed the activation probability of each servo. This data is critical for estimating power consumption and component wear.
+                </p>
+
+                <div class="relative w-full h-[300px]">
+                    <div class="chart-container relative h-full w-full">
+                        <canvas id="servoChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-100 flex items-start">
+                    <i class="fa-solid fa-chart-pie mr-3 text-lime-600 mt-1"></i>
+                    <div class="text-sm text-gray-600">
+                        <strong>Result:</strong> Servo 1 (Top Left) experiences the highest load (~85% activation), while Servo 6 (Bottom Right) is rarely used (~15%). 
+                        <br>
+                        <em>Implication:</em> Future iterations can optimize costs by using high-durability servos only for positions 1, 2, and 4.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- App 1 -->
+                <div class="bg-lime-50 p-6 rounded-xl border border-lime-100">
+                    <h3 class="font-serif font-bold text-lime-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-school mr-2"></i> Inclusive Education
+                    </h3>
+                    <p class="text-sm text-lime-800 leading-relaxed">
+                        Low-cost Braille displays can be deployed in rural schools, providing visually impaired students with dynamic learning tools for reading and math without bulky books.
+                    </p>
+                </div>
+
+                <!-- App 2 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="font-serif font-bold text-gray-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-mobile-screen mr-2 text-lime-600"></i> Digital Access
+                    </h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Integration with smartphones via Bluetooth could allow users to "read" text messages and emails tactually, bypassing synthetic speech engines in noisy environments.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Publication Link Section -->
+    <section class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Report</h2>
+            <p class="text-gray-600 mb-8">
+                Explore the complete C++ implementation, circuit diagrams, and cost analysis in the project documentation.
+            </p>
+            <a href="Transforming_Alphabets_into_Touch_final.pdf" class="inline-flex items-center px-8 py-3 bg-lime-600 text-white font-medium rounded-lg hover:bg-lime-700 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
+                <i class="fa-regular fa-file-pdf mr-2"></i> View Project Report (PDF)
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer with Quote -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
+            
+            <!-- The Original Quote -->
+            <div class="max-w-xl text-center bg-[#FDFBF7] px-8 py-6 rounded-full border border-gray-100 shadow-sm">
+                <p class="text-gray-600 text-sm italic font-serif leading-relaxed">
+                    <i class="fa-solid fa-quote-left text-lime-200 mr-2"></i>
+                    In a universe defined by light, we engineer for the darkness—proving that knowledge doesn't need to be seen to be understood, <span class="text-lime-700 font-medium">only felt.</span>
+                    <i class="fa-solid fa-quote-right text-lime-200 ml-2"></i>
+                </p>
+            </div>
+            
+            <div class="flex space-x-4 mt-6 text-gray-400">
+                <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-lime-600 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://github.com/yugeshbhoge" class="hover:text-lime-600 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-lime-600 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-lime-600 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // --- Braille Logic ---
+        const brailleMap = {
+            'a': [1,0,0,0,0,0], 'b': [1,1,0,0,0,0], 'c': [1,0,0,1,0,0], 'd': [1,0,0,1,1,0],
+            'e': [1,0,0,0,1,0], 'f': [1,1,0,1,0,0], 'g': [1,1,0,1,1,0], 'h': [1,1,0,0,1,0],
+            'i': [0,1,0,1,0,0], 'j': [0,1,0,1,1,0], 'k': [1,0,1,0,0,0], 'l': [1,1,1,0,0,0],
+            'm': [1,0,1,1,0,0], 'n': [1,0,1,1,1,0], 'o': [1,0,1,0,1,0], 'p': [1,1,1,1,0,0],
+            'q': [1,1,1,1,1,0], 'r': [1,1,1,0,1,0], 's': [0,1,1,1,0,0], 't': [0,1,1,1,1,0],
+            'u': [1,0,1,0,0,1], 'v': [1,1,1,0,0,1], 'w': [0,1,0,1,1,1], 'x': [1,0,1,1,0,1],
+            'y': [1,0,1,1,1,1], 'z': [1,0,1,0,1,1], ' ': [0,0,0,0,0,0]
+        };
+
+        const inputField = document.getElementById('brailleInput');
+        const binaryOutput = document.getElementById('binaryOutput');
+        
+        function updateBrailleDisplay(char) {
+            const lowerChar = char.toLowerCase();
+            const pattern = brailleMap[lowerChar] || [0,0,0,0,0,0];
+            
+            binaryOutput.innerText = `[ ${pattern.join(', ')} ]`;
+            
+            for(let i=0; i<6; i++) {
+                const dotEl = document.getElementById(`dot${i+1}`);
+                if(pattern[i] === 1) {
+                    dotEl.classList.add('bg-lime-500', 'border-lime-600', 'active');
+                    dotEl.classList.remove('bg-white', 'border-gray-300');
+                } else {
+                    dotEl.classList.remove('bg-lime-500', 'border-lime-600', 'active');
+                    dotEl.classList.add('bg-white', 'border-gray-300'); // Note: added explicit gray border for flat state
+                }
+            }
+        }
+
+        inputField.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if(val.length > 0) {
+                updateBrailleDisplay(val[val.length - 1]);
+            } else {
+                updateBrailleDisplay(' ');
+            }
+        });
+
+        // Initialize with 'a'
+        updateBrailleDisplay('a');
+
+        // --- Chart Script ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('servoChart').getContext('2d');
+            
+            const labels = ['Servo 1 (TL)', 'Servo 2 (ML)', 'Servo 3 (BL)', 'Servo 4 (TR)', 'Servo 5 (MR)', 'Servo 6 (BR)'];
+            const dataValues = [85, 62, 35, 55, 42, 15];
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Activation Frequency (%)',
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(132, 204, 22, 0.8)', // lime-500
+                            'rgba(132, 204, 22, 0.6)',
+                            'rgba(132, 204, 22, 0.4)',
+                            'rgba(132, 204, 22, 0.7)',
+                            'rgba(132, 204, 22, 0.5)',
+                            'rgba(132, 204, 22, 0.3)'
+                        ],
+                        borderColor: 'rgba(101, 163, 13, 1)', // lime-600
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) { return context.raw + '% Frequency'; }
+                            },
+                            backgroundColor: 'rgba(63, 98, 18, 0.9)', // lime-900
+                            titleFont: { family: 'serif' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: 'serif', size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies & Gallery | Yugesh Bhoge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .photo-frame:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    
+    <!-- Navigation -->
+    <nav class="bg-gray-900/90 backdrop-blur border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-serif font-bold text-xl text-white hover:text-indigo-400 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px;"></div>
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6">Beyond Physics</h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+               "From the Sahyadri’s misty peaks to the gravity of the deep,<br>
+                I am a wanderer of the heights with cosmic vows to keep.<br>
+                A scholar of the starlit void, a photographer of the day,<br>
+                I seek the math within the stars and the beauty on my way"
+            </p>
+        </div>
+    </header>
+
+    <!-- Gallery Grid -->
+    <main class="max-w-7xl mx-auto px-4 py-16">
+        
+        <!-- Astrophotography Section -->
+        <div class="mb-20">
+            <h2 class="text-2xl font-bold mb-8 border-b border-gray-800 pb-4"><i class="fa-solid fa-star text-yellow-400 mr-2"></i> Astrophotography</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="aspect-video bg-black rounded-xl border border-gray-800 flex items-center justify-center relative overflow-hidden group">
+                    <!-- Placeholder for Astro Image 1 -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black opacity-80 group-hover:opacity-100 transition duration-700"></div>
+                    <img src="Star_trails.jpg" alt="Moon" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute bottom-4 left-4 z-10">
+                        <i class="fa-solid fa-mobile text-4xl text-gray-400 mb-2"></i>
+                        <p class="text-sm text-gray-300">Star Trails</p>
+                    </div>
+                </div>
+                  <div class="aspect-video bg-black rounded-xl border border-gray-800 flex items-center justify-center relative overflow-hidden group">
+                    <img src="moon.jpeg" alt="Moon" class="absolute inset-0 w-full h-full object-cover">
+                      <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-0 transition duration-700"></div>
+                      <div class="absolute bottom-4 left-4 z-10">
+                      
+                    <p class="text-sm text-gray-300">Planetary Imaging</p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <!-- Life & Outdoors Section -->
+        <div>
+            <h2 class="text-2xl font-bold mb-8 border-b border-gray-800 pb-4"><i class="fa-solid fa-person-hiking text-green-400 mr-2"></i> Life & Outdoors</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                
+                <!-- Trekking -->
+                <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group col-span-2 row-span-2">
+                    <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100"></div>
+                     <img src="Trek1.jpg" alt="Trek" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 z-10">
+                        <h3 class="font-bold text-white-500">Mountain Trekking</h3>
+                        <p class="text-xs text-white-300">Finding clarity at altitude.</p>
+                    </div>
+                </div>
+
+                <!-- Travel -->
+                <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group">
+                     <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100" style="background-color: #2d3748;"></div>
+                     <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fa-solid fa-plane text-3xl text-gray-400"></i>
+                     </div>
+                     <span class="absolute bottom-2 left-2 text-xs font-bold text-white z-10">Travel</span>
+                </div>
+
+                <!-- Sports -->
+                <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group">
+                     <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100" style="background-color: #1a202c;"></div>
+                     <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fa-solid fa-volleyball text-3xl text-gray-400"></i>
+                     </div>
+                     <span class="absolute bottom-2 left-2 text-xs font-bold text-white z-10">Sports</span>
+                </div>
+
+                 <!-- Nature -->
+                 <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group col-span-2">
+                    <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1000&auto=format&fit=crop');"></div>
+                    <span class="absolute bottom-2 left-4 text-sm font-bold text-white z-10">Nature Photography</span>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-gray-800 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <span class="font-serif font-bold text-xl text-white">Yugesh Bhoge</span>
+        </div>
+    </footer>
+</body>
+</html>

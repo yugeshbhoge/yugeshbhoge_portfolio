@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neutron Star EoS | Yugesh Bhoge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #14532d; /* green-900 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #166534; /* green-800 */
+        }
+        /* Custom MathJax font adjustments if needed */
+        mjx-container {
+            font-size: 110% !important;
+            color: #1f2937; /* gray-800 */
+        }
+    </style>
+
+</head>
+<body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-serif font-bold text-xl hover:text-green-600 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+            <div class="text-sm text-gray-500">M.Sc. Physics '25, IIT Bombay</div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-green-900 text-white py-20 relative overflow-hidden">
+        <!-- Abstract decorative element -->
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="fa-solid fa-atom text-[300px]"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block px-3 py-1 bg-green-800 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-green-200">
+                Computational Astrophysics
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Constraining Neutron Star Equation of State</h1>
+            <p class="text-xl text-green-100 max-w-2xl mx-auto font-light">
+                Recovering tidal deformability from Neutron Star-Black Hole (NSBH) mergers using Bayesian Inference.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
+        
+        <!-- Left Column: Narrative (Motivation, Methodology, Theory) -->
+        <div class="lg:col-span-1 space-y-8">
+            
+            <!-- Motivation Section -->
+            <section id="motivation" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-green-100 p-2 rounded-lg text-green-800">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    The internal structure of Neutron Stars (NS) remains one of the most enigmatic puzzles in modern astrophysics. While Binary Neutron Star (BNS) mergers like GW170817 have provided initial constraints, <strong>Neutron Star-Black Hole (NSBH)</strong> mergers offer a unique laboratory. 
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    Specifically, if the NS is tidally disrupted before plunging into the BH ISCO (Innermost Stable Circular Orbit), matter remains outside the horizon, creating a cutoff frequency in the gravitational waveform. This cutoff is directly dependent on the NS radius and, consequently, the Equation of State (EoS).
+                </p>
+            </section>
+
+            <hr class="border-gray-200">
+
+            <!-- Theoretical Framework Section (New) -->
+            <section id="theory" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-green-100 p-2 rounded-lg text-green-800">
+                        <i class="fa-solid fa-square-root-variable"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Theoretical Framework</h2>
+                </div>
+                
+                <!-- Formula 1: Tidal Deformability -->
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">1. Dimensionless Tidal Deformability</h3>
+                    <div class="text-center py-2 overflow-x-auto">
+                        $$ \Lambda = \frac{2}{3} \frac{c^2}{G} \left( \frac{R}{M} \right)^5 $$
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-green-500 pl-2">
+                        <strong>Significance:</strong> $\Lambda$ quantifies the "stiffness" of the star. A stiffer EoS yields a larger radius $R$ and a significantly larger $\Lambda$. This parameter is imprinted on the phase of the gravitational wave signal during the inspiral.
+                    </p>
+                </div>
+
+                <!-- Formula 2: Bayes Factor -->
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">2. Bayesian Model Selection</h3>
+                    <div class="text-center py-2 overflow-x-auto">
+                        $$ \mathcal{B}_{AB} = \frac{P(d|\mathcal{M}_A)}{P(d|\mathcal{M}_B)} = \frac{\int \mathcal{L}(d|\theta_A) \pi(\theta_A) d\theta_A}{\int \mathcal{L}(d|\theta_B) \pi(\theta_B) d\theta_B} $$
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-green-500 pl-2">
+                        <strong>Significance:</strong> The Bayes Factor $\mathcal{B}_{AB}$ compares how well two competing EoS models ($\mathcal{M}_A$, $\mathcal{M}_B$) fit the data ($d$). A value $\ln \mathcal{B} < 0$ for a model relative to the true injection indicates it is statistically disfavored.
+                    </p>
+                </div>
+            </section>
+
+             <!-- Methodology Section -->
+             <section id="methodology" class="space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="bg-green-100 p-2 rounded-lg text-green-800">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Methodology</h2>
+                </div>
+                <ul class="space-y-3 mt-4">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-green-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Injection:</strong> Synthetic signals generated using <strong>IMRPhenomNSBH</strong> with specific EoS properties (e.g., SLy, H4).</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-green-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Sampler:</strong> Utilized the <em class="text-green-800">Bilby</em> library with the <code>dynesty</code> sampler to explore the high-dimensional parameter space (chirp mass $\mathcal{M}$, mass ratio $q$, spins $\chi$, etc.).</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- Right Column: Visuals & Synthesis -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Chart Section (Main Result) -->
+            <section id="results" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-serif font-bold text-gray-900">Results: Recovering the EoS</h3>
+                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Injection: SLy EoS</span>
+                </div>
+                
+                <p class="text-sm text-gray-500 mb-6">
+                    We evaluated the preference for various Equation of State models against an injected signal governed by the <strong>SLy</strong> EoS. The plot shows the natural log Bayes Factor ($\ln \mathcal{B}$) relative to the true model.
+                </p>
+
+                <div class="relative w-full h-[350px]">
+                    <div class="chart-container relative h-full w-full">
+                        <canvas id="eosChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1"><i class="fa-solid fa-magnifying-glass-chart mr-2 text-green-700"></i>Analysis</h4>
+                    <p class="text-sm text-gray-600">
+                        The analysis successfully recovers the injected <strong>SLy</strong> EoS ($\ln \mathcal{B} = 0$). Notably, stiffer equations of state like <strong>H4</strong> are strongly ruled out ($\ln \mathcal{B} \approx -8.1$).
+                        <br><br>
+                        This effectively places an upper bound on the tidal deformability, $\tilde{\Lambda}$, constraining the possible radii of neutron stars. Models predicting very large radii (stiff EoS) are inconsistent with the observed compactness required for tidal disruption effects in this regime.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Applications & Implications Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Applications -->
+                <div class="bg-green-50 p-6 rounded-xl border border-green-100">
+                    <h3 class="font-serif font-bold text-green-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-rocket mr-2"></i> Applications
+                    </h3>
+                    <p class="text-sm text-green-800 leading-relaxed">
+                        This Bayesian framework is directly applicable to data from the LIGO-Virgo-KAGRA <strong>O4 and O5 observing runs</strong>. It enables robust distinction between BNS and NSBH populations based on the tidal imprint found in the high-frequency merger part of the waveform.
+                    </p>
+                </div>
+
+                <!-- Implications -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="font-serif font-bold text-gray-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-earth-americas mr-2 text-green-700"></i> Implications
+                    </h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Constraints on $\Lambda$ map directly to the <strong>QCD phase diagram</strong> at low temperatures and supranuclear densities. Our results help rule out extreme exotic matter states that would require EoS stiffer than those observed, tightening the bounds on the nuclear symmetry energy.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Publication Link Section -->
+    <section class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Research</h2>
+            <p class="text-gray-600 mb-8">
+                Explore the detailed derivation of the Bayesian formalism, corner plots for posterior distributions, and discussion on systematic errors in the full thesis.
+            </p>
+            <!-- Placeholder for Publication Link -->
+            <a href="#" class="inline-flex items-center px-8 py-3 bg-green-900 text-white font-medium rounded-lg hover:bg-green-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
+                <i class="fa-regular fa-file-pdf mr-2"></i> View Publication (PDF)
+            </a>
+            <p class="text-xs text-gray-400 mt-4 italic">
+                *Link will be updated upon final publication acceptance.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer with Joke -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
+            
+            <!-- The Joke -->
+            <div class="max-w-md text-center bg-[#FDFBF7] px-2 py-4 rounded-full border border-gray-100">
+                <p class="text-gray-600 text-sm italic font-serif">
+                    <i class="fa-solid fa-quote-left text-green-200 mr-2"></i>
+                    Why don't neutron stars ever win arguments? <br>
+                    <span class="text-green-700 font-medium"><b>Because they're too dense to understand the gravity of the situation!</b></span>
+                    <i class="fa-solid fa-quote-right text-green-200 ml-2"></i>
+                </p>
+            </div>
+            
+            <div class="flex space-x-4 mt-6 text-gray-400">
+                <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-green-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://github.com/yugeshbhoge" class="hover:text-green-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-green-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-green-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+                
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chart Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('eosChart').getContext('2d');
+            
+            // Data derived from the research context provided
+            const labels = ['SLy (True)', 'APR4', 'DD2', 'ALF2', 'H4'];
+            const dataValues = [0, -2.5, -5.2, -4.8, -8.1];
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Log Bayes Factor (ln B)',
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(34, 197, 94, 0.8)',   // SLy - Green (highlight)
+                            'rgba(156, 163, 175, 0.4)', // APR4 - Gray
+                            'rgba(156, 163, 175, 0.4)', // DD2
+                            'rgba(156, 163, 175, 0.4)', // ALF2
+                            'rgba(239, 68, 68, 0.4)'    // H4 - Red tint (strongly disfavored)
+                        ],
+                        borderColor: [
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(156, 163, 175, 1)',
+                            'rgba(156, 163, 175, 1)',
+                            'rgba(156, 163, 175, 1)',
+                            'rgba(239, 68, 68, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar chart for better label readability
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend as the title explains it
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ln B: ${context.raw}`;
+                                },
+                                afterLabel: function(context) {
+                                    if (context.raw === 0) return "Preferred Model (Injected)";
+                                    if (context.raw < -5) return "Strongly Disfavored";
+                                    return "Disfavored";
+                                }
+                            },
+                            backgroundColor: 'rgba(20, 83, 45, 0.9)',
+                            titleFont: { family: 'serif' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Log Bayes Factor (ln B)',
+                                color: '#374151',
+                                font: { weight: 'bold' }
+                            },
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    family: 'serif',
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
