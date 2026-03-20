@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.2/chartjs-plugin-annotation.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="google-site-verification" content="M4d0vFFMKf4imPXZAU_1xNitnaiZoVcINlxO9Ej2IVE" />
     <!-- SEO Meta Tags -->
@@ -401,43 +402,49 @@
                             </div>
                             
                             <p class="text-gray-600 text-sm leading-relaxed">
-                                <strong>The Challenge:</strong> Gravitational wave signals from Binary Neutron Star (BNS) and Neutron Star-Black Hole (NSBH) mergers can look dangerously similar when the companion mass is low.
+                                <strong>The Challenge:</strong> Gravitational wave signals from Binary Neutron Star (BNS) and Neutron Star-Black Hole (NSBH) mergers can look dangerously similar. We established distance-independent EM classification metrics to break this degeneracy.
                             </p>
                             
-                            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-cosmic-primary">
-                                <h4 class="font-semibold text-gray-900 text-sm mb-1">Methodology</h4>
-                                <p class="text-xs text-gray-600">
-                                    Implemented a Bayesian pipeline utilizing the <em>Arnett-Chatzoupoulos-Villar (ACV)</em> semi-analytical model. By analyzing the "blue" ejecta component, we can break the degeneracy.
+                            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-cosmic-primary relative min-h-[110px]">
+                                <h4 class="font-semibold text-gray-900 text-sm mb-1">Photometric Decline</h4>
+                                <p id="index-desc-u" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-100 pr-6">
+                                    <strong>u-band:</strong> Rapid collapse in NSBH flux (Δm &approx; 2.43 at day 2) due to absence of high-Y<sub>e</sub> polar ejecta. BNS sustains emission.
+                                </p>
+                                <p id="index-desc-i" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-0 pointer-events-none pr-6">
+                                    <strong>i-band:</strong> Trend reverses. Massive, high-opacity tidal tails in NSBH increase diffusion timescales, sustaining emission longer than BNS.
                                 </p>
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold text-gray-500 uppercase">Interactive Controls</label>
-                                <div class="flex gap-2">
-                                    <button onclick="toggleDataset(0)" class="flex-1 px-3 py-2 text-xs font-bold rounded bg-orange-100 text-orange-800 hover:bg-orange-200 border border-orange-200 transition">
-                                        Toggle BNS (Fast Fade)
+                            <div class="space-y-2 pt-2">
+                                <label class="block text-xs font-bold text-gray-500 uppercase">Select Filter Band</label>
+                                <div class="flex gap-2 bg-gray-100 p-1 rounded-lg border border-gray-200">
+                                    <button id="index-btn-u" onclick="switchKilonovaBand('u')" class="flex-1 px-3 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all">
+                                        u-band (Blue)
                                     </button>
-                                    <button onclick="toggleDataset(1)" class="flex-1 px-3 py-2 text-xs font-bold rounded bg-blue-100 text-blue-800 hover:bg-blue-200 border border-blue-200 transition">
-                                        Toggle NSBH (Sustained)
+                                    <button id="index-btn-i" onclick="switchKilonovaBand('i')" class="flex-1 px-3 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all">
+                                        i-band (Red)
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="lg:col-span-2 bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col">
                             <div class="flex justify-between items-center mb-4 px-2">
-                                <h4 class="text-sm font-bold text-slate-700">Simulated Light Curves (g-band)</h4>
-                                <span class="text-xs text-slate-500 bg-white px-2 py-1 rounded border">Magnitude vs Time</span>
+                                <h4 class="text-sm font-bold text-slate-700">Simulated Light Curves</h4>
+                                <div class="flex items-center gap-3">
+                                    <span class="flex items-center gap-1 text-xs text-slate-600 font-semibold cursor-pointer hover:text-[#C2410C] transition-colors" onclick="toggleKilonovaDataset(0)"><span class="w-2 h-2 rounded-full bg-[#C2410C]"></span> BNS</span>
+                                    <span class="flex items-center gap-1 text-xs text-slate-600 font-semibold cursor-pointer hover:text-[#2563EB] transition-colors" onclick="toggleKilonovaDataset(1)"><span class="w-2 h-2 rounded-full bg-[#2563EB]"></span> NSBH</span>
+                                </div>
                             </div>
                             <div class="chart-container flex-grow">
                                 <canvas id="kilonovaChart"></canvas>
                             </div><br>  
-                            <p class="text-xs text-center text-slate-400 mt-2 italic">Lower magnitude value = Brighter object</p>
+                            <p class="text-xs text-center text-slate-400 mt-2 italic">Absolute Magnitude (AB) vs Time since peak (Days)</p>
                         </div>
                     </div>
                 </div>
-            <a href="research_kilonova.html">
-            <span class="text-cosmic-primary mt-5 font-semibold text-sm group-hover:underline">View Analysis & Light Curves &rarr;</span>
-            </a>
+                <a href="research_kilonova.html">
+                <span class="text-cosmic-primary mt-5 font-semibold text-sm group-hover:underline inline-block">View Full Analysis & Interactive Physics Explorer &rarr;</span>
+                </a>
             </div>
 
             <!-- Tab Content: EoS -->
@@ -517,9 +524,6 @@
         </div>
 
     </section>
-
-
-
 
 
     <!-- Bachelor's & Innovation Projects -->
@@ -935,111 +939,111 @@
                 }
             }
         });
-
         // --- 3. Chart.js: Kilonova Light Curve ---
-        const ctxKilonova = document.getElementById('kilonovaChart').getContext('2d');
-        const days = [0.5, 1, 2, 4, 6, 8, 10, 12, 14];
-        const bnsMag = [22.2, 23.0, 23.4, 24.0, 24.8, 25.5, 26.2, 26.8, 27.2];
-        const nsbhMag = [24.5, 24.0 , 24.3, 24.5, 24.8, 25.2, 25.6, 26.0, 26.4];
+        const knChartData = {
+            labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
+            u: {
+                bns: [27.8, 27.0, 27.51, 28.2, 28.8, 29.4, 30.1, 30.5, 30.9], 
+                nsbh: [27.67, 29.5, 30.1, 29.9, 29.9, 30.1, 30.3, 30.6, 30.8]  
+            },
+            i: {
+                bns: [23.2, 21.75, 22.2, 22.8, 23.2, 23.8, 24.6, 25.1, 25.6],
+                nsbh: [25.8, 25.2, 24.9, 24.64, 24.6, 24.8, 25.0, 25.3, 25.5]  
+            }
+        };
 
+        const uAnnots = {
+            vline: { type: 'line', scaleID: 'x', value: 2, borderColor: '#1f2937', borderDash: [5, 5], borderWidth: 1 },
+            bnsArrow: { type: 'line', scaleID: 'y', xMin: 2.2, xMax: 2.2, yMin: 27.0, yMax: 27.51, borderColor: '#C2410C', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
+            bnsLabel: { type: 'label', xValue: 2.7, yValue: 27.25, content: 'Δm = 0.51', color: '#C2410C', font: { size: 10, weight: 'bold' } },
+            nsbhArrow: { type: 'line', scaleID: 'y', xMin: 1.8, xMax: 1.8, yMin: 27.67, yMax: 30.1, borderColor: '#2563EB', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
+            nsbhLabel: { type: 'label', xValue: 1.2, yValue: 28.9, content: 'Δm = 2.43', color: '#2563EB', font: { size: 10, weight: 'bold' } }
+        };
+
+        const iAnnots = {
+            vline: { type: 'line', scaleID: 'x', value: 6, borderColor: '#1f2937', borderDash: [5, 5], borderWidth: 1 },
+            bnsArrow: { type: 'line', scaleID: 'y', xMin: 5.8, xMax: 5.8, yMin: 21.75, yMax: 24.6, borderColor: '#C2410C', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
+            bnsLabel: { type: 'label', xValue: 5.3, yValue: 23.2, content: 'Δm = 2.85', color: '#C2410C', font: { size: 10, weight: 'bold' } },
+            nsbhArrow: { type: 'line', scaleID: 'y', xMin: 6.2, xMax: 6.2, yMin: 24.64, yMax: 25.0, borderColor: '#2563EB', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
+            nsbhLabel: { type: 'label', xValue: 6.8, yValue: 24.8, content: 'Δm = 0.36', color: '#2563EB', font: { size: 10, weight: 'bold' } }
+        };
+
+        const ctxKilonova = document.getElementById('kilonovaChart').getContext('2d');
         const kilonovaChart = new Chart(ctxKilonova, {
             type: 'line',
             data: {
-                labels: days,
+                labels: knChartData.labels,
                 datasets: [
                     {
-                        label: 'BNS (Binary Neutron Star)',
-                        data: bnsMag,
-                        borderColor: '#C2410C',
-                        backgroundColor: '#C2410C',
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 4,
-                        hidden: false
+                        label: 'BNS Progenitor',
+                        data: knChartData['u'].bns,
+                        borderColor: '#C2410C', backgroundColor: 'rgba(194, 65, 12, 0.08)',
+                        tension: 0.4, borderWidth: 2, pointRadius: 3, fill: true
                     },
                     {
-                        label: 'NSBH (NS-Black Hole)',
-                        data: nsbhMag,
-                        borderColor: '#2563EB',
-                        backgroundColor: '#2563EB',
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 4,
-                        hidden: false
+                        label: 'NSBH Progenitor',
+                        data: knChartData['u'].nsbh,
+                        borderColor: '#2563EB', backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                        tension: 0.4, borderWidth: 2, pointRadius: 3, fill: true
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                scales: {
-                    y: {
-                        reverse: true,
-                        title: { display: true, text: 'Absolute Magnitude (AB)' },
-                        grid: { color: '#f1f5f9' }
-                    },
-                    x: {
-                        title: { display: true, text: 'Time since merger (days)' },
-                        grid: { color: '#f1f5f9' }
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    annotation: { annotations: uAnnots },
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)', titleColor: '#1f2937', bodyColor: '#4b5563',
+                        borderColor: '#e5e7eb', borderWidth: 1, padding: 8
                     }
                 },
-                plugins: {
-                    legend: { position: 'top', labels: { usePointStyle: true } }
+                scales: {
+                    y: { 
+                        reverse: true, 
+                        grid: { color: '#f3f4f6', drawBorder: false },
+                        min: 26.5, max: 31.5
+                    },
+                    x: { 
+                        grid: { display: false, drawBorder: false }
+                    }
                 }
             }
         });
 
-        function toggleDataset(index) {
-            const meta = kilonovaChart.getDatasetMeta(index);
-            meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[index].hidden : null;
+        function switchKilonovaBand(band) {
+            const uBtn = document.getElementById('index-btn-u');
+            const iBtn = document.getElementById('index-btn-i');
+            const descU = document.getElementById('index-desc-u');
+            const descI = document.getElementById('index-desc-i');
+
+            if (band === 'u') {
+                uBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all";
+                iBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all";
+                descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
+                descI.style.opacity = 0; descI.style.pointerEvents = 'none';
+                kilonovaChart.options.scales.y.min = 26.5; kilonovaChart.options.scales.y.max = 31.5;
+            } else {
+                iBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all";
+                uBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all";
+                descU.style.opacity = 0; descU.style.pointerEvents = 'none';
+                descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
+                kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 26.5;
+            }
+
+            kilonovaChart.data.datasets[0].data = knChartData[band].bns;
+            kilonovaChart.data.datasets[1].data = knChartData[band].nsbh;        
+            kilonovaChart.options.plugins.annotation.annotations = (band === 'u') ? uAnnots : iAnnots;
             kilonovaChart.update();
         }
 
-        // --- 4. Chart.js: EoS Bayes Factors ---
-        const ctxEoS = document.getElementById('eosChart').getContext('2d');
-        const eosChart = new Chart(ctxEoS, {
-            type: 'bar',
-            data: {
-                labels: ['SLy (True Model)', 'APR4', 'DD2', 'ALF2', 'H4'],
-                datasets: [{
-                    label: 'Log Bayes Factor (ln B)',
-                    data: [0, -2.5, -5.2, -4.8, -8.1],
-                    backgroundColor: [
-                        'rgba(34, 197, 94, 0.7)',
-                        'rgba(148, 163, 184, 0.5)',
-                        'rgba(148, 163, 184, 0.5)',
-                        'rgba(148, 163, 184, 0.5)',
-                        'rgba(148, 163, 184, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(34, 197, 94, 1)',
-                        'rgba(148, 163, 184, 1)',
-                        'rgba(148, 163, 184, 1)',
-                        'rgba(148, 163, 184, 1)',
-                        'rgba(148, 163, 184, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        title: { display: true, text: 'Log Bayes Factor (relative to SLy)' },
-                        grid: { color: '#f1f5f9' }
-                    }
-                },
-                plugins: {
-                    legend: { display: false }
-                }
-            }
-        });
+        function toggleKilonovaDataset(i) {
+            const meta = kilonovaChart.getDatasetMeta(i);
+            meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
+            kilonovaChart.update();
+        }
 
         // --- 5. Plotly: Lorenz Attractor ---
         function initChaos() {
