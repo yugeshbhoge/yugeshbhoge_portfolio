@@ -123,6 +123,41 @@
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); /* Violet glow */
         }
+        .spark-text {
+          display: inline-block;
+          position: relative;
+          font-style: italic;
+          font-weight: 900;
+          background: linear-gradient(135deg, #4338ca 0%, #7c3aed 40%, #a855f7 70%, #c2410c 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          background-size: 200% 200%;
+          animation: gradientShift 6s ease-in-out infinite;
+        }
+        .spark-text::after {
+          content: '';
+          position: absolute;
+          bottom: -3px; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, #4338ca, #7c3aed, #a855f7, #c2410c);
+          background-size: 200% 100%;
+          border-radius: 2px;
+          animation: gradientShift 4s ease-in-out infinite, expandWidth 1.2s 0.8s ease both;
+          transform-origin: center;
+        }
+        @keyframes gradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50%       { background-position: 100% 50%; }
+        }
+        @keyframes expandWidth {
+          0%   { transform: scaleX(0); opacity: 0; }
+          100% { transform: scaleX(1); opacity: 1; }
+        }
+        @keyframes fadeSlideUp {
+          0%   { opacity: 0; transform: translateY(16px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
     </style>
         <script type="application/ld+json">
     {
@@ -204,19 +239,30 @@
                 <div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-cosmic-primary text-sm font-semibold mb-6 border border-indigo-100">
                     <i class="fa-solid fa-rocket mr-2"></i> Computational Astrophysicist
                 </div>
-                <h1 class="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6 leading-tight">
-                    Decoding the Universe through <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Computation</span>
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4 leading-tight">
+                  <span style="display:block; animation: fadeSlideUp 0.9s ease both;">
+                    We are not standing apart, searching the universe.
+                  </span>
+                  <span style="display:block; animation: fadeSlideUp 0.9s 0.15s ease both;">
+                    We are the universe aching to know its own name,
+                  </span>
+                  <span style="display:block; animation: fadeSlideUp 0.9s 0.3s ease both;">
+                    driven to hunt for all of its secrets hidden within a
+                    <span class="spark-text">single, brilliant spark.</span>
+                  </span>
                 </h1>
-                <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                <span style ="display:block; animation: fadeSlideUp 0.9s 0.60s ease both;"><p class="text-xl text-gray-600 mb-10 leading-relaxed">
                     Bridging the gap between <b>Mechanical Engineering</b> fundamentals and <b>Astrophysical</b> frontiers. Specializing in Gravitational Wave Physics, Multimessenger Astronomy, and Bayesian Inference.
-                </p>
+                </p></span>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <span style="display:block; animation: fadeSlideUp 0.9s 0.3s ease both;">
                     <a href="#research" class="px-8 py-3 bg-cosmic-primary text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                        <span>View Research</span> <i class="fa-solid fa-arrow-down"></i>
-                    </a>
+                        View Research <i class="fa-solid fa-arrow-down"></i>
+                    </a></span>
+                    <span style="display:block; animation: fadeSlideUp 0.9s 0.3s ease both;">
                     <a href="mailto:yugeshbhoge.edu@gmail.com" class="px-8 py-3 bg-white text-gray-700 border border-gray-300 font-medium rounded-lg hover:bg-gray-50 transition flex items-center justify-center gap-2">
-                        <span>Contact Me</span> <i class="fa-solid fa-envelope"></i>
-                    </a>
+                        Contact Me <i class="fa-solid fa-envelope"></i>
+                    </a></span>
                 </div>
                 
                 <div class="mt-16 flex justify-center gap-6 text-gray-400">
@@ -235,8 +281,10 @@
 
 
     <!-- Poetic Vision Section -->
+    <span style="display:block; animation: fadeSlideUp 0.9s 1.5s ease both;">
     <section class="relative py-24 bg-black bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2000&auto=format&fit=crop');">
         <!-- Overlay for readability -->
+        
         <div class="absolute inset-0 bg-black/70"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Title and AI Note -->
@@ -293,8 +341,9 @@
 
             </div>
         </div>
+        
     </section>
-
+</span>
     <!-- About & Vision Section -->
     <section id="about" class="py-16 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
