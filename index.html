@@ -10,156 +10,291 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.2/chartjs-plugin-annotation.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="google-site-verification" content="M4d0vFFMKf4imPXZAU_1xNitnaiZoVcINlxO9Ej2IVE" />
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Yugesh Bhoge - Computational Astrophysicist. Explore my portfolio showcasing research, projects, and expertise in astrophysics and computational science.">
     <meta name="keywords" content="Yugesh Bhoge, yugesh bhoge, Computational Astrophysicist, Astrophysics, Research, Portfolio, Multi-messenger astrophysics, Gravitational Waves, Computational Astrophysics, IIT Bombay, Indian Institute of Technology Bombay">
     <meta name="author" content="Yugesh Bhoge">
     <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph for Social Media -->
     <meta property="og:title" content="Yugesh Bhoge | Computational Astrophysicist">
     <meta property="og:description" content="Portfolio and research of Yugesh Bhoge, Computational Astrophysicist">
     <meta property="og:url" content="https://yugeshbhoge.github.io/yugeshbhoge_portfolio/">
     <meta property="og:type" content="website">
-    
     <link rel="canonical" href="https://yugeshbhoge.github.io/yugeshbhoge_portfolio/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'cosmic-bg': '#FDFBF7',
-                        'cosmic-text': '#1F2937',
-                        'cosmic-primary': '#4F46E5', // Indigo
-                        'cosmic-secondary': '#C2410C', // Orange
-                        'cosmic-card': '#FFFFFF',
+                        'cosmic-bg':        '#F8F7F4',
+                        'cosmic-text':      '#18181B',
+                        'cosmic-primary':   '#4338CA',
+                        'cosmic-secondary': '#C2410C',
+                        'cosmic-card':      '#FFFFFF',
+                        'cosmic-muted':     '#6B7280',
+                        'cosmic-border':    '#E5E7EB',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Merriweather', 'serif'],
+                        sans:  ['"DM Sans"', 'sans-serif'],
+                        serif: ['"DM Serif Display"', 'serif'],
                     },
                     animation: {
-                        'fade-in-up': 'fadeInUp 0.5s ease-out',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in-up':  'fadeInUp 0.55s ease-out both',
+                        'pulse-slow':  'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+                        'glow-pulse':  'glowPulse 3s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '0%':   { opacity: '0', transform: 'translateY(14px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glowPulse: {
+                            '0%,100%': { opacity: '0.4' },
+                            '50%':     { opacity: '0.7' },
                         }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700;300i&display=swap');
-        
+        /* ─── Base ──────────────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: #FDFBF7;
-            color: #1F2937;
-            scroll-behavior: smooth;
+            background-color: #F8F7F4;
+            color: #18181B;
+            font-family: 'DM Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.7;
         }
 
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            height: 400px;
-            max-height: 500px;
-        }
+        /* ─── Scrollbar ─────────────────────────────────────────── */
+        ::-webkit-scrollbar       { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F8F7F4; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-        .photo-frame {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .photo-frame:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
+        /* ─── Headings use serif ────────────────────────────────── */
+        h1, h2, h3 { font-family: 'DM Serif Display', serif; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FDFBF7;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
-        }
-
-        .nav-link {
-            position: relative;
-        }
+        /* ─── Nav link underline animation ─────────────────────── */
+        .nav-link { position: relative; }
         .nav-link::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #4F46E5;
-            transition: width 0.3s;
+            width: 0; height: 2px;
+            bottom: -3px; left: 0;
+            background-color: #4338CA;
+            transition: width 0.25s ease;
+            border-radius: 2px;
         }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        /* Square Profile Pic in Nav */
-        .profile-pic-container {
-            overflow: hidden;
-            border-radius: 0.375rem; 
+        .nav-link:hover::after { width: 100%; }
+
+        /* ─── Section label (overline text) ────────────────────── */
+        .section-label {
+            display: inline-block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #4338CA;
+            margin-bottom: 0.5rem;
         }
 
-        /* Center Circular Photo in Poem */
+        /* ─── Section divider line ──────────────────────────────── */
+        .section-rule {
+            width: 36px; height: 3px;
+            background: linear-gradient(90deg, #4338CA, #C2410C);
+            border-radius: 2px;
+            margin: 0.75rem auto 0;
+        }
+        .section-rule.left { margin-left: 0; }
+
+        /* ─── Chart containers ──────────────────────────────────── */
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+            height: 360px;
+        }
+
+        /* ─── Spark gradient text (hero) ────────────────────────── */
+        .spark-text {
+            display: inline-block;
+            position: relative;
+            font-style: italic;
+            background: linear-gradient(135deg, #4338ca 0%, #7c3aed 40%, #a855f7 70%, #c2410c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease-in-out infinite;
+        }
+        .spark-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4338ca, #7c3aed, #a855f7, #c2410c);
+            border-radius: 2px;
+            animation: gradientShift 4s ease-in-out infinite, expandWidth 1s 0.9s ease both;
+            transform-origin: center;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50%       { background-position: 100% 50%; }
+        }
+        @keyframes expandWidth {
+            0%   { transform: scaleX(0); opacity: 0; }
+            100% { transform: scaleX(1); opacity: 1; }
+        }
+
+        /* ─── Hero poem fade-up ─────────────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        /* ─── Card base ─────────────────────────────────────────── */
+        .card {
+            background: #fff;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .card:hover {
+            box-shadow: 0 12px 32px -8px rgba(67,56,202,0.12), 0 2px 8px -2px rgba(0,0,0,0.06);
+            transform: translateY(-3px);
+            border-color: #c7d2fe;
+        }
+
+        /* ─── Project card image area ───────────────────────────── */
+        .proj-img {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        /* ─── Tab buttons ───────────────────────────────────────── */
+        .tab-btn {
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.625rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .tab-btn.active-tab {
+            background: #4338CA;
+            color: #fff;
+            border-color: #4338CA;
+            box-shadow: 0 4px 12px rgba(67,56,202,0.25);
+        }
+        .tab-btn:not(.active-tab) {
+            background: #fff;
+            color: #6B7280;
+        }
+        .tab-btn:not(.active-tab):hover {
+            background: #F3F4F6;
+            color: #374151;
+            border-color: #D1D5DB;
+        }
+
+        /* ─── Badge / pill ──────────────────────────────────────── */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.65rem;
+            border-radius: 0.375rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ─── Skill tag ─────────────────────────────────────────── */
+        .skill-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        /* ─── Social icon ───────────────────────────────────────── */
+        .social-icon {
+            font-size: 1.25rem;
+            color: #9CA3AF;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .social-icon:hover { transform: translateY(-3px); }
+
+        /* ─── Photo card (hobbies) ──────────────────────────────── */
+        .photo-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 0.875rem;
+            overflow: hidden;
+        }
+        .photo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0,0,0,0.4);
+        }
+
+        /* ─── Poem photo circular glow ──────────────────────────── */
         .poem-photo-container {
             overflow: hidden;
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); /* Violet glow */
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.35), 0 0 80px rgba(67,56,202,0.15);
         }
-        .spark-text {
-          display: inline-block;
-          position: relative;
-          font-style: italic;
-          font-weight: 900;
-          background: linear-gradient(135deg, #4338ca 0%, #7c3aed 40%, #a855f7 70%, #c2410c 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          background-size: 200% 200%;
-          animation: gradientShift 6s ease-in-out infinite;
+
+        /* ─── Outreach gallery ──────────────────────────────────── */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.875rem;
+            border: 1px solid rgba(255,255,255,0.08);
         }
-        .spark-text::after {
-          content: '';
-          position: absolute;
-          bottom: -3px; left: 0; right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #4338ca, #7c3aed, #a855f7, #c2410c);
-          background-size: 200% 100%;
-          border-radius: 2px;
-          animation: gradientShift 4s ease-in-out infinite, expandWidth 1.2s 0.8s ease both;
-          transform-origin: center;
+        .gallery-item img,
+        .gallery-item iframe {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50%       { background-position: 100% 50%; }
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+            padding: 1.25rem 1rem 0.75rem;
+            pointer-events: none;
         }
-        @keyframes expandWidth {
-          0%   { transform: scaleX(0); opacity: 0; }
-          100% { transform: scaleX(1); opacity: 1; }
+
+        /* ─── Dot-grid background pattern ──────────────────────── */
+        .dot-bg {
+            background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+            background-size: 44px 44px;
         }
-        @keyframes fadeSlideUp {
-          0%   { opacity: 0; transform: translateY(16px); }
-          100% { opacity: 1; transform: translateY(0); }
+
+        /* ─── Smooth section transitions ────────────────────────── */
+        section { position: relative; }
+
+        /* ─── Keyframe re-export for inline use ─────────────────── */
+        @keyframes fadeInUp {
+            0%   { opacity: 0; transform: translateY(14px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
-        <script type="application/ld+json">
+
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -170,1011 +305,1031 @@
     }
     </script>
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0KCTM3XW77"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-0KCTM3XW77');
     </script>
-
 </head>
-<body class="antialiased leading-relaxed font-sans">
+<body>
 
-<!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Profile Pic & Name -->
-                <div class="flex-shrink-0 flex items-center gap-4 cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <!-- Profile Picture (Square) -->
-                    <div class="h-12 w-12 border-2 border-cosmic-primary profile-pic-container shadow-sm group-hover:scale-105 transition-transform duration-300">
-                        <img src="IMG_20200814_222008_217-01.jpeg" alt="Yugesh Bhoge" class="h-full w-full object-cover"> 
-                    </div>
-                    <div>
-                        <span class="font-serif font-bold text-xl tracking-tight text-gray-900 block leading-none">Yugesh Bhoge</span>
-                        <span class="text-xs text-cosmic-primary font-medium tracking-wide">M.Sc. Physics, IIT Bombay</span>
-                    </div>
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════ -->
+<nav class="sticky top-0 z-50 bg-white/92 backdrop-blur-lg border-b border-cosmic-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+        <div class="flex justify-between items-center h-16">
+
+            <!-- Brand -->
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                <div class="w-10 h-10 rounded-lg overflow-hidden border-2 border-cosmic-primary/30 group-hover:border-cosmic-primary transition-colors duration-300 shadow-sm">
+                    <img src="IMG_20200814_222008_217-01.jpeg" alt="Yugesh Bhoge" class="w-full h-full object-cover">
                 </div>
-                
-                <!-- Desktop Links -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="nav-link text-gray-600 hover:text-cosmic-primary font-medium transition">About & Vision</a>
-                    <a href="#research" class="nav-link text-gray-600 hover:text-cosmic-primary font-medium transition">Research</a>
-                    <a href="#projects" class="nav-link text-gray-600 hover:text-cosmic-primary font-medium transition">Projects</a>
-                    <a href="#CV" class="nav-link text-gray-600 hover:text-cosmic-primary font-medium transition">CV & Publications</a>
-                    <a href="#outreach" class="nav-link text-gray-600 hover:text-cosmic-primary font-medium transition">Outreach</a>
-                    <a href="hobbies.html" class="nav-link text-gray-600 hover:text-cosmic-primary font-medium transition">Hobbies</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-cosmic-primary p-2">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
+                <div class="leading-none">
+                    <span class="block font-serif font-bold text-lg text-gray-900 leading-tight">Yugesh Bhoge</span>
+                    <span class="block text-[0.67rem] text-cosmic-primary font-semibold tracking-widest uppercase">M.Sc. Physics · IIT Bombay</span>
                 </div>
             </div>
+
+            <!-- Desktop links -->
+            <div class="hidden md:flex items-center gap-7">
+                <a href="#about"    class="nav-link text-sm font-medium text-gray-600 hover:text-cosmic-primary transition-colors">About &amp; Vision</a>
+                <a href="#research" class="nav-link text-sm font-medium text-gray-600 hover:text-cosmic-primary transition-colors">Research</a>
+                <a href="#projects" class="nav-link text-sm font-medium text-gray-600 hover:text-cosmic-primary transition-colors">Projects</a>
+                <a href="#CV"       class="nav-link text-sm font-medium text-gray-600 hover:text-cosmic-primary transition-colors">CV &amp; Publications</a>
+                <a href="#outreach" class="nav-link text-sm font-medium text-gray-600 hover:text-cosmic-primary transition-colors">Outreach</a>
+                <a href="hobbies.html" class="nav-link text-sm font-medium text-gray-600 hover:text-cosmic-primary transition-colors">Hobbies</a>
+            </div>
+
+            <!-- Mobile toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-cosmic-primary p-2 rounded-lg hover:bg-gray-100 transition">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg">
-            <div class="flex flex-col p-4 space-y-4">
-                <a href="#about" class="text-gray-600 hover:text-cosmic-primary font-medium transition py-2">About & Vision</a>
-                <a href="#research" class="text-gray-600 hover:text-cosmic-primary font-medium transition py-2">Research</a>
-                <a href="#projects" class="text-gray-600 hover:text-cosmic-primary font-medium transition py-2">Projects</a>
-                <a href="hobbies.html" class="text-gray-600 hover:text-cosmic-primary font-medium transition py-2">Hobbies</a>
-            </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-cosmic-border">
+        <div class="flex flex-col px-5 py-4 gap-1">
+            <a href="#about"    class="text-sm font-medium text-gray-700 hover:text-cosmic-primary py-2.5 border-b border-gray-100 transition-colors">About &amp; Vision</a>
+            <a href="#research" class="text-sm font-medium text-gray-700 hover:text-cosmic-primary py-2.5 border-b border-gray-100 transition-colors">Research</a>
+            <a href="#projects" class="text-sm font-medium text-gray-700 hover:text-cosmic-primary py-2.5 border-b border-gray-100 transition-colors">Projects</a>
+            <a href="#CV"       class="text-sm font-medium text-gray-700 hover:text-cosmic-primary py-2.5 border-b border-gray-100 transition-colors">CV &amp; Publications</a>
+            <a href="#outreach" class="text-sm font-medium text-gray-700 hover:text-cosmic-primary py-2.5 border-b border-gray-100 transition-colors">Outreach</a>
+            <a href="hobbies.html" class="text-sm font-medium text-gray-700 hover:text-cosmic-primary py-2.5 transition-colors">Hobbies</a>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative bg-cosmic-bg py-20 lg:py-32 overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-50 animate-pulse" style="animation-duration: 4s;"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-orange-100 rounded-full blur-3xl opacity-50 animate-pulse" style="animation-duration: 6s;"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-cosmic-primary text-sm font-semibold mb-6 border border-indigo-100">
-                    <i class="fa-solid fa-rocket mr-2"></i> Computational Astrophysicist
-                </div>
-                <h1 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4 leading-tight">
-                  <span style="display:block; animation: fadeSlideUp 0.9s ease both;">
-                    We are not standing apart, searching the universe.
-                  </span>
-                  <span style="display:block; animation: fadeSlideUp 0.9s 0.15s ease both;">
-                    We are the universe aching to know its own name,
-                  </span>
-                  <span style="display:block; animation: fadeSlideUp 0.9s 0.3s ease both;">
-                    driven to hunt for all of its secrets hidden within a
-                    <span class="spark-text">single, brilliant spark.</span>
-                  </span>
-                </h1>
-                <span style ="display:block; animation: fadeSlideUp 0.9s 0.60s ease both;"><p class="text-xl text-gray-600 mb-10 leading-relaxed">
-                    Bridging the gap between <b>Mechanical Engineering</b> fundamentals and <b>Astrophysical</b> frontiers. Specializing in Gravitational Wave Physics, Multimessenger Astronomy, and Bayesian Inference.
-                </p></span>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <span style="display:block; animation: fadeSlideUp 0.9s 0.3s ease both;">
-                    <a href="#research" class="px-8 py-3 bg-cosmic-primary text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                        View Research <i class="fa-solid fa-arrow-down"></i>
-                    </a></span>
-                    <span style="display:block; animation: fadeSlideUp 0.9s 0.3s ease both;">
-                    <a href="mailto:yugeshbhoge.edu@gmail.com" class="px-8 py-3 bg-white text-gray-700 border border-gray-300 font-medium rounded-lg hover:bg-gray-50 transition flex items-center justify-center gap-2">
-                        Contact Me <i class="fa-solid fa-envelope"></i>
-                    </a></span>
-                </div>
-                
-                <div class="mt-16 flex justify-center gap-6 text-gray-400">
-                    <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-gray-950 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="Email"><i class="fa-solid fa-envelope"></i></a>
-                    <a href="https://orcid.org/0009-0000-8556-8671" class="hover:text-lime-400 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="ORCID"><i class="fa-brands fa-orcid"></i></a>
-                    <a href="https://scholar.google.com/citations?user=sEUpZecAAAAJ&hl=en&authuser=1" target="_blank" class="hover:text-blue-500 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
-                    <a href="https://inspirehep.net/authors/3097369?ui-citation-summary=true" target="_blank" class="hover:text-blue-400 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="INSPIRE HEP"><i class="fa-solid fa-atom"></i></a>
-                    <a href="https://scixplorer.org/search?d=general&fq=%7B%21type%3Daqp+v%3D%24fq_author%7D&fq_author=(author_facet_hier%3A%221%5C%2FBhoge%2C+Y%5C%2FBhoge%2C+Yugesh%22)&p=1&q=author%3A%22Bhoge%2C+Yugesh%22&sort=score+desc&sort=date+desc" target="_blank" class="hover:text-indigo-400 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="NASA ADS"><i class="fa-solid fa-satellite"></i></a>
-                    <a href="https://github.com/yugeshbhoge" class="hover:text-gray-900 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-blue-700 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-orange-600 transition-all transform hover:-translate-y-1 hover:shadow-lime-400 text-2xl" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+</nav>
 
 
-    <!-- Poetic Vision Section -->
-    <span style="display:block; animation: fadeSlideUp 0.9s 1.5s ease both;">
-    <section class="relative py-24 bg-black bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2000&auto=format&fit=crop');">
-        <!-- Overlay for readability -->
-        
-        <div class="absolute inset-0 bg-black/70"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Title and AI Note -->
-            <div class="text-center mb-16">
-                <h2 class="text-5xl md:text-6xl font-serif font-bold text-white mb-6 tracking-tight">Lifeverse</h2>
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                    <i class="fa-solid fa-robot text-purple-300 text-sm"></i>
-                    <span class="text-white/90 text-xs md:text-sm font-medium">No AI was harmed in making of these verses</span>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-20 items-center">
-                
-                <!-- Left Poem Stanza -->
-                <div class="text-center md:text-left font-serif text-lg md:text-xl text-gray-100 italic leading-relaxed space-y-6">
-                    <p>"If life were but a poem, what would my verse be?<br>
-                    A bridge of structured steel toward a cosmic mystery.</p>
-                    
-                    <p>I began with turning wheels and the strength of a machine,<br>
-                    Designing suspension systems for the paths yet to be seen.</p>
-                    
-                    <p>From CAD and CFD to the aerospike’s bright light,<br>
-                    In mechanical engineering, I found my first flight.</p>
-                    
-                    <p>But the gears of earth gave way to the mechanics of the sky,<br>
-                    Where neutron stars and black holes make the heavy elements fly.</p>
-                    <p>With Bayesian formalism, I thinned the signal’s noise,</p>
-                    
-                </div>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="relative bg-cosmic-bg py-24 lg:py-36 overflow-hidden">
+    <!-- Background blobs -->
+    <div class="absolute top-0 right-0 w-[480px] h-[480px] bg-indigo-100 rounded-full blur-3xl opacity-40 -translate-y-1/4 translate-x-1/4 animate-pulse-slow"></div>
+    <div class="absolute bottom-0 left-0 w-[380px] h-[380px] bg-orange-100 rounded-full blur-3xl opacity-35 translate-y-1/4 -translate-x-1/4" style="animation: glowPulse 6s ease-in-out infinite;"></div>
 
-                <!-- Center Circular Photo -->
-                <div class="flex justify-center my-8 md:my-0">
-                    <div class="w-84 h-84 md:w-84 md:h-84 poem-photo-container border-4 border-white/20 p-1">
-                         <img src="IMG_20230730_072549~2.jpg" alt="Yugesh Bhoge Vision" class="w-full h-full object-cover rounded-full">
-                    </div>
-                </div>
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 relative text-center">
 
-                <!-- Right Poem Stanza -->
-                <div class="text-center md:text-right font-serif text-lg md:text-xl text-gray-100 italic leading-relaxed space-y-6">
-                    <p>Finding truth in kilonovae with a researcher's poise.</p>
-                    
-                    <p>From the mass gap to the chirp, I map the merger's light,<br>
-                    Guiding multimessenger dreams through the silence of the night.</p>
-                    
-                    <p>When the Spacetime cluster rests and the code is finally run,<br>
-                    I trade the screen for mountain air and the rising of the sun.</p>
-
-                    <p>With hiking boots and a camera lens, I travel far and wide,<br>
-                    From trekking peaks to valleys deep, with nature as my guide.</p>
-                    
-                    <p>I capture every shadow, every trail that I have trod,<br>
-                    Finding math within the stars and the beauty of the sod."</p>
-                </div>
-
-            </div>
-        </div>
-        
-    </section>
-</span>
-    <!-- About & Vision Section -->
-    <section id="about" class="py-16 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <!-- Vision & Journey -->
-                <div class="space-y-8">
-                    <div>
-                        <h2 class="text-3xl font-serif font-bold text-gray-900 mb-4">Background & Motivation</h2>
-                        <div class="h-1 w-20 bg-cosmic-primary rounded mb-6"></div>
-                        <p class="text-gray-600 mb-4 leading-relaxed">
-                            My academic journey has been a transformation from understanding the nuts and bolts of terrestrial machines to exploring the supreme mechanics of the cosmos. Starting in <b>Mechanical Engineering</b>, I developed a rigorous foundation in fluid dynamics, simulation, and design optimization. However, I realized that the universe itself is the ultimate laboratory for these principles.
-                        </p>
-                        <p class="text-gray-600 mb-4 leading-relaxed font-medium">
-                            My vision is to bridge these worlds.
-                        </p>
-                        <p class="text-gray-600 leading-relaxed">
-                            I aim to apply robust computational techniques from finite volume methods to Bayesian inference pipelines, to decode the transient universe. Specifically, I am driven to solve the mysteries of <b>compact binary mergers</b>, using Gravitational Waves as the key to unlock the physics of extreme matter densities found in Neutron Stars.
-                        </p>
-                    </div>
-
-                    <!-- Education Mini-Cards -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-indigo-200 transition">
-                            <div class="text-cosmic-primary text-xl mb-2"><i class="fa-solid fa-graduation-cap"></i></div>
-                            <h4 class="font-bold text-gray-900">M.Sc. Physics</h4>
-                            <p class="text-sm text-gray-500">IIT Bombay, 2025</p>
-                            <p class="text-xs text-indigo-600 mt-1">Focus: Computational and Gravitational Astrophysics</p>
-                        </div>
-                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-indigo-200 transition">
-                            <div class="text-cosmic-secondary text-xl mb-2"><i class="fa-solid fa-gears"></i></div>
-                            <h4 class="font-bold text-gray-900">B.E. Mechanical</h4>
-                            <p class="text-sm text-gray-500">SPPU, 2020</p>
-                            <p class="text-xs text-orange-600 mt-1">Focus: Automobile and Rocketry</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Skills & Technical Arsenal -->
-                <div class="flex flex-col">
-                    <div class="bg-cosmic-bg p-6 rounded-2xl shadow-sm border border-gray-100 h-full">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-6 flex items-center">
-                            <i class="fa-solid fa-code-branch mr-2 text-cosmic-primary"></i> Technical Competency
-                        </h3>
-                        <div class="chart-container" style="height: 350px;">
-                            <canvas id="skillsChart"></canvas>
-                        </div>
-                        <div class="mt-6 flex flex-wrap justify-center gap-2">
-                            <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">ANSYS Fluent</span>
-                            <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">SolidWorks</span>
-                            <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">Arduino IDE</span>
-                            <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">MATLAB</span>
-                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">HPC-CUDA</span>
-                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">HPC-HTCondor</span>
-                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">HPC-Cray</span>
-                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">Data Analysis</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-
-    <!-- Research Experience Hub (Astrophysics Core) -->
-    <section id="research" class="py-20 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-cosmic-primary font-bold tracking-wider uppercase text-sm">Graduate Research</span>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4 mt-2">Astrophysics Research Hub</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Interactive exploration of my research and key astrophysical projects.
-                </p>
-            </div>
-
-            <!-- Tabs -->
-            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                <button onclick="switchTab('kilonova')" id="tab-kilonova" class="tab-btn active px-6 py-3 rounded-xl font-medium transition-all bg-cosmic-primary text-white shadow-lg ring-2 ring-indigo-200 ring-offset-2">
-                    <i class="fa-solid fa-explosion mr-2"></i>Kilonova (Thesis)
-                </button>
-                <button onclick="switchTab('eos')" id="tab-eos" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all bg-white text-gray-600 hover:bg-gray-100 shadow-sm border border-gray-200">
-                    <i class="fa-solid fa-magnet mr-2"></i>Neutron Star EoS
-                </button>
-                <button onclick="switchTab('rti')" id="tab-rti" class="tab-btn px-6 py-3 rounded-xl font-medium transition-all bg-white text-gray-600 hover:bg-gray-100 shadow-sm border border-gray-200">
-                    <i class="fa-solid fa-wind mr-2"></i>Stellar Instability
-                </button>
-            </div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="text-center mb-16">
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                  <span class="block text-sm text-gray-400 mt-2 font-medium"><i class="fa-solid fa-hand-pointer animate-bounce mr-1"></i> Select a tab to view data</span>
-                </p>
-              </div>
-            </div>
-            <!-- Tab Content: Kilonova -->
-            <div id="content-kilonova" class="tab-content block animate-fade-in-up">
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-1 space-y-5">
-                            <div>
-                                <a href="research_kilonova.html">
-                                <h3 class="text-2xl font-bold text-gray-900 leading-tight">Distinguishing BNS vs NSBH Mergers</h3>
-                                </a>
-                                <div class="inline-block px-2 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold uppercase rounded mt-2">Master's Thesis</div> <br>
-                                <div class="inline-block px-2 py-1 bg-orange-50 text-orange-700 text-xs font-bold uppercase rounded mt-5">Collaborators:</div> 
-                                <div class="inline-block px-2 py-1 bg-orange-50 text-orange-700 text-xs font-bold uppercase rounded mt-0">Ish Gupta, Mukul Bhattacharya, Rahul Kashyap</div> 
-                            </div>
-                            
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                <strong>The Challenge:</strong> Gravitational wave signals from Binary Neutron Star (BNS) and Neutron Star-Black Hole (NSBH) mergers can look dangerously similar. We established distance-independent EM classification metrics to break this degeneracy.
-                            </p>
-                            
-                            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-cosmic-primary relative min-h-[110px]">
-                                <h4 class="font-semibold text-gray-900 text-sm mb-1">Photometric Decline</h4>
-                                <p id="index-desc-u" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-100 pr-6">
-                                    <strong>u-band:</strong> Rapid collapse in NSBH flux (Δm &approx; 2.43 at day 2) due to absence of high-Y<sub>e</sub> polar ejecta. BNS sustains emission.
-                                </p>
-                                <p id="index-desc-i" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-0 pointer-events-none pr-6">
-                                    <strong>i-band:</strong> Trend reverses. Massive, high-opacity tidal tails in NSBH increase diffusion timescales, sustaining emission longer than BNS.
-                                </p>
-                            </div>
-
-                            <div class="space-y-2 pt-2">
-                                <label class="block text-xs font-bold text-gray-500 uppercase">Select Filter Band</label>
-                                <div class="flex gap-2 bg-gray-100 p-1 rounded-lg border border-gray-200">
-                                    <button id="index-btn-u" onclick="switchKilonovaBand('u')" class="flex-1 px-3 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all">
-                                        u-band (Blue)
-                                    </button>
-                                    <button id="index-btn-i" onclick="switchKilonovaBand('i')" class="flex-1 px-3 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all">
-                                        i-band (Red)
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lg:col-span-2 bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col">
-                            <div class="flex justify-between items-center mb-4 px-2">
-                                <h4 class="text-sm font-bold text-slate-700">Simulated Light Curves</h4>
-                                <div class="flex items-center gap-3">
-                                    <span class="flex items-center gap-1 text-xs text-slate-600 font-semibold cursor-pointer hover:text-[#C2410C] transition-colors" onclick="toggleKilonovaDataset(0)"><span class="w-2 h-2 rounded-full bg-[#C2410C]"></span> BNS</span>
-                                    <span class="flex items-center gap-1 text-xs text-slate-600 font-semibold cursor-pointer hover:text-[#2563EB] transition-colors" onclick="toggleKilonovaDataset(1)"><span class="w-2 h-2 rounded-full bg-[#2563EB]"></span> NSBH</span>
-                                </div>
-                            </div>
-                            <div class="chart-container flex-grow">
-                                <canvas id="kilonovaChart"></canvas>
-                            </div><br>  
-                            <p class="text-xs text-center text-slate-400 mt-2 italic">Absolute Magnitude (AB) vs Time since peak (Days)</p>
-                        </div>
-                    </div>
-                </div>
-                <a href="research_kilonova.html">
-                <span class="text-cosmic-primary mt-5 font-semibold text-sm group-hover:underline inline-block">View Full Analysis & Interactive Physics Explorer &rarr;</span>
-                </a>
-            </div>
-
-            <!-- Tab Content: EoS -->
-            <div id="content-eos" class="tab-content hidden animate-fade-in-up">
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-1 space-y-5">
-                            <div>
-                                <a href="research_eos.html">
-                                <h3 class="text-2xl font-bold text-gray-900">Constraining Equation of State</h3>
-                                </a>
-                                <div class="inline-block px-2 py-1 bg-green-50 text-green-700 text-xs font-bold uppercase rounded mt-2">Bayesian Inference Project</div><br>
-                                <div class="inline-block px-2 py-1 bg-gray-50 text-gray-700 text-xs font-bold uppercase rounded mt-5">Collaborators:</div>
-                             <div class="inline-block px-2 py-1 bg-gray-50 text-gray-700 text-xs font-bold uppercase rounded mt-0">Vasudev Dubey, Ish Gupta, Rahul Kashyap</div>
-                            </div>
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                Neutron stars contain the densest matter in the universe. Their internal structure is described by the Equation of State (EoS). I used <strong>Bilby</strong> to recover tidal deformability from simulated NSBH signals.
-                            </p>
-                            <div class="bg-green-50 p-4 rounded-lg border border-green-100">
-                                <h4 class="font-semibold text-green-900 text-sm mb-2"><i class="fa-solid fa-check-circle mr-2"></i>Key Result</h4>
-                                <p class="text-xs text-green-800">
-                                    By calculating Bayes Factors for various models (SLy, APR4, DD2) against an injected signal (SLy), we successfully ruled out stiffer EoS models (like H4) with high confidence.
-                                </p>
-                            </div>
-                      
-                        </div>
-                        <div class="lg:col-span-2 bg-slate-50 rounded-xl p-4 border border-slate-200">
-                            <h4 class="text-center text-sm font-medium text-gray-500 mb-2">Model Selection: Log Bayes Factors</h4>
-                            <div class="chart-container">
-                                <canvas id="eosChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="research_eos.html">
-                <span class="text-green-600 font-semibold text-sm group-hover:underline">View Model Comparison &rarr;</span>
-                </a>
-            </div>
-
-            <!-- Tab Content: RTI -->
-            <div id="content-rti" class="tab-content hidden animate-fade-in-up">
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-1 space-y-5">
-                            <div>
-                                <a href="research_rti.html">
-                                <h3 class="text-2xl font-bold text-gray-900">Rayleigh-Taylor Instability in stellar interiors</h3>
-                                </a>
-                                <div class="inline-block px-2 py-1 bg-teal-50 text-teal-700 text-xs font-bold uppercase rounded mt-2">Fluid Dynamics (MHD)</div><br>
-                                <div class="inline-block px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase rounded mt-5">Collaborators:</div>
-                             <div class="inline-block px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase rounded mt-0">Vasudev Dubey, Lucky Chaudhary</div>
-                            </div>
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                Investigated the instability that occurs when a dense fluid sits atop a lighter fluid in stellar interiors.
-                            </p>
-                            <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
-                                <li>Implemented 2D finite-volume simulation of compressible Euler equations.</li>
-                                <li>Analyzed the stabilizing effect of magnetic fields (MHD) on short-wavelength perturbations.</li>
-                            </ul>
-                            
-                        </div>
-
-                        <div class="lg:col-span-2 bg-gray-900 rounded-xl p-4 border border-gray-800 flex flex-col items-center justify-center relative overflow-hidden">
-                            <div class="absolute top-2 right-2 z-10">
-                                <span class="bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur">Density Heatmap</span>
-                            </div>
-                            <div id="rtiPlot" style="width: 100%; height: 400px;"></div>
-                        </div>
-                    </div>
-                </div>
-                <a href="research_rti.html">
-                <span class="text-teal-600 mt-5 font-semibold text-sm group-hover:underline">View Density Heatmaps &rarr;</span>
-                </a>
-
-            </div>
-
+        <!-- Pill label -->
+        <div class="fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-cosmic-primary text-xs font-bold tracking-widest uppercase border border-indigo-100 mb-8" style="animation-delay:0.05s">
+            <i class="fa-solid fa-rocket text-xs"></i> Computational Astrophysicist
         </div>
 
-    </section>
+        <!-- Headline poem -->
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-900 leading-snug mb-6">
+            <span class="block fade-up" style="animation-delay:0.1s">We are not standing apart, searching the universe.</span>
+            <span class="block fade-up" style="animation-delay:0.22s">We are the universe aching to know its own name,</span>
+            <span class="block fade-up" style="animation-delay:0.34s">driven to hunt for all of its secrets hidden within a
+                <span class="spark-text">single, brilliant spark.</span>
+            </span>
+        </h1>
 
+        <!-- Subtle separator -->
+        <div class="fade-up mx-auto w-10 h-px bg-gray-300 mb-6" style="animation-delay:0.5s"></div>
 
-    <!-- Bachelor's & Innovation Projects -->
-    <section id="projects" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-10 flex items-end justify-between border-b border-gray-200 pb-4">
-                <div>
-                    <span class="text-orange-600 font-bold tracking-wider uppercase text-xs">Undergraduate & Engineering</span>
-                    <h2 class="text-3xl font-serif font-bold text-gray-900">Bachelor's & Master's Projects</h2>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <!-- Project 1: ATV Suspension (New) -->
-                <a href="project_atv.html" class="group block">
-                <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden flex flex-col">
-                    <div class="h-48 bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center relative">
-                        <i class="fa-solid fa-truck-monster text-6xl text-red-400 group-hover:scale-110 transition duration-500"></i>
-                        <div class="absolute bottom-2 right-2 bg-white/90 px-2 py-1 rounded text-xs font-bold text-red-600">SolidWorks + Lotus Shark</div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition">Design of Suspension System for ATV</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-1">
-                            Designed and optimized a double-wishbone suspension system for an SAE BAJA All-Terrain Vehicle. 
-                            Focused on analyzing camber and toe curves to maximize traction and stability over rough terrain.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">Automotive Dynamics</span>
-                            <span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">FEA</span>
-                        </div>
-                    </div>
-                </div>
-                </a>
-
-                <!-- Project 2: Aerospike (New) -->
-                <a href="project_aerospike.html" class="group block">
-                <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden flex flex-col">
-                    <div class="h-48 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center relative">
-                        <i class="fa-solid fa-shuttle-space text-6xl text-orange-400 group-hover:scale-110 transition duration-500"></i>
-                        <div class="absolute bottom-2 left-2 bg-white/90 px-2 py-1 rounded text-xs font-bold text-orange-600">ANSYS Fluent</div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600  transition">Study on Aerospike Engine</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-1">
-                            Conducted a Computational Fluid Dynamics (CFD) analysis comparing Aerospike nozzles against traditional Bell nozzles. 
-                            Investigated flow separation characteristics and altitude compensation efficiency.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded">Aerodynamics</span>
-                            <span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded">CFD</span>
-                        </div>
-                    </div>
-                </div>
-                </a>
-                <!-- Project 3: Malkus Waterwheel -->
-                <a href="project_waterwheel.html" class="group block">
-                <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden flex flex-col">
-                    <div class="h-48 bg-gray-900 relative">
-                        <div id="chaosPlot" style="width: 100%; height: 100%;"></div>
-                        <div class="absolute top-2 right-2 bg-white/20 backdrop-blur px-2 py-1 rounded text-xs font-bold text-purple-400">Interactive 3D</div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">Malkus Waterwheel (Chaos)</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-1">
-                            A study of non-linear dynamics and the Lorenz attractor. Modeled the chaotic motion of a waterwheel using Lorenz equations to demonstrate sensitivity to initial conditions.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Non-linear Dynamics</span>
-                            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Image Analysis</span>
-                        </div>
-                    </div>
-                </div>
-                </a>
-                <!-- Project 4: Braille Language project -->
-                <a href="project_braille.html" class="group block">
-                <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden flex flex-col">
-                    <div class="h-48 bg-green-50 flex items-center justify-center relative">
-                        <div class="text-center">
-                            <i class="fa-solid fa-keyboard text-5xl text-green-500 mb-2 block group-hover:scale-110 transition"></i>
-                            <div class="absolute top-2 left-2 bg-white/90 px-2 py-1 rounded text-xs font-bold text-green-600">Arduino</div>
-                            <div class="text-green-800 font-bold">Transforming alphabet into touch</div>
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition">Transforming alphabet into touch</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-1">
-                           A device which converts sentences and words from Braille language to a haptic feedback display for visually and auditory impaired people, mapping all 26 alphabets of Braille language into 6 segment display (operated by 6 independent servo motors)
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">IoT</span>
-                            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Arduino</span>
-                        </div>
-                    </div>
-                </div>
-                </a>
-                
-                <!-- Project 5: Blindspots in GW detector project -->
-                <a href="project_gw.html" class="group block">
-                <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden flex flex-col">
-                    <div class="h-48 bg-green-50 flex items-center justify-center relative">
-                        <div class="text-center">
-                            <i class="fa-solid fa-earth text-5xl text-yellow-500 mb-2 block group-hover:scale-110 transition"></i>
-                            <div class="text-yellow-800 font-bold">Blindspots in Omnidirectional GW detectors</div>
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition">Blindspots in Omnidirectional GW detectors</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-1">
-                            Investigated the directional sensitivity and blind spots of gravitational wave detectors (LIGO, Virgo and KAGRA) using PyCBC, developing mathematical models for antenna patterns and exploring mitigation strategies through multi-detector networks to improve detection sensitivity.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">PyCBC</span>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">GTR</span>
-                        </div>
-                    </div>
-                </div>
-                </a>
-            </div>
-        </div>
-    </section>
- <!-- CV & Publication links -->
-     <section id="CV" class="bg-gray-50 border-t border-gray-200 py-12">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">CV and Publication link</h2>
-            <p class="text-gray-600 mb-8">
-                PFA the links to my CV and Publications.
+        <!-- Sub-caption -->
+        <div class="fade-up mb-10" style="animation-delay:0.6s">
+            <p class="text-sm text-gray-400 font-normal tracking-wide mb-3">
+                Bridging the gap between
+                <span class="text-cosmic-secondary font-semibold">Mechanical Engineering</span>
+                fundamentals and
+                <span class="text-cosmic-primary font-semibold">Astrophysical</span>
+                frontiers.
             </p>
-            <!-- Placeholder for Publication Link -->
-            <a href="Yugesh_academic_CV.pdf" class="inline-flex items-center px-8 py-3 bg-indigo-900 text-white font-medium rounded-lg hover:bg-indigo-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
-                <i class="fa-solid fa-file-pdf mr-2"></i> Curriculum Vitae
-            </a>
-            <a href="https://inspirehep.net/authors/3097369?ui-citation-summary=true" class="inline-flex items-center px-8 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-500 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
-                <i class="fa-solid fa-external-link-alt mr-2"></i> Publication link
-            </a>
-        </div>
-    </section>
-
-  <!-- Outreach section -->
-      <section id="outreach" class="py-20 bg-gray-900 text-white relative overflow-hidden border-b border-gray-800">
-        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px;"></div>
-        
-       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div class="text-center mb-16">
-              <span class="text-cosmic-primary font-bold tracking-wider uppercase text-sm">Public Engagement</span>
-              <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4 mt-2">Outreach Activities</h2>
-              <div class="inline-flex items-center gap-2 px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                  <img src="./public-relation.png" alt="Outreach Icon" class="w-6 h-6 object-contain invert opacity-90">
-                  <span class="text-white/90 text-xl md:text-sm uppercase font-bold">Making the “INVISIBLE” heard</span>
-              </div>
-              
-              <p class="text-gray-400 max-w-2xl mx-auto mt-3">
-                  The first rule of Astrophysics is, "You do talk about Astrophysics".
-              </p>
-                
-            </div>
-
-            <div class="mb-16">
-                <div class="flex items-center gap-4 mb-8">
-                    <h3 class="text-2xl font-bold text-white">LIGO-India TechConnect 2025</h3>
-                    <span class="px-3 py-1 bg-indigo-900 text-indigo-200 text-xs font-bold rounded-full border border-indigo-700">IIT Bombay</span>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-800 border border-gray-700">
-                        <img src="2025_1.jpg" 
-                             alt="LIGO-India TechConnect 2025" 
-                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                            <p class="text-sm font-medium text-white">Planting nerd seeds, harvesting lifelong wonders....</p>
-                        </div>
-                    </div>
-                    
-                    <div class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-800 border border-gray-700">
-                        <img src="2025_team.jpg" 
-                             alt="The Team 2025" 
-                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                            <p class="text-sm font-medium text-white">Team meeting or covert nerd summit???</p>
-                        </div>
-                    </div>
-
-                    <div class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-800 border border-gray-700">
-                        <img src="2025_2.jpg" 
-                             alt="Sparking Interest" 
-                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                            <p class="text-sm font-medium text-white">Posters doing more heavy lifting than muscles...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex items-center gap-4 mb-8">
-                    <h3 class="text-2xl font-bold text-white">LIGO-India TechConnect 2024</h3>
-                    <span class="px-3 py-1 bg-indigo-900 text-indigo-200 text-xs font-bold rounded-full border border-indigo-700">IIT Bombay</span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="aspect-video rounded-xl overflow-hidden border border-gray-700 bg-black relative group">
-                        <iframe src="https://drive.google.com/file/d/1-gSruC2w1vonNpGkZWrUUcfGx-Ws0kVY/preview" width="100%" height="100%" allow="autoplay"></iframe>
-                        <div class="absolute top-2 left-2 pointer-events-none">
-                            <span class="bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">Video</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                            <p class="text-sm font-medium text-white">Proof that science does attract mass...</p>
-                        </div>
-                    </div>
-
-                    <div class="aspect-video rounded-xl overflow-hidden border border-gray-700 bg-black relative group">
-                        <iframe src="https://drive.google.com/file/d/1zxJz9_N7FczBvYs11l23-1r4W7OU5S58/preview" width="100%" height="100%" allow="autoplay"></iframe>
-                        <div class="absolute top-2 left-2 pointer-events-none">
-                            <span class="bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">Video</span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                             <p class="text-sm font-medium text-white"> Q&A session with an enthusiastic kid and her parent. Yes, that <i>was</i> a good question...</p>
-                        </div>
-                    </div>
-
-                    <div class="group relative aspect-video overflow-hidden rounded-xl bg-gray-800 border border-gray-700">
-                        <img src="2024_Team1.jpg" 
-                             alt="Team 2024" 
-                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                             <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                              <p class="text-sm font-medium text-white">Red shirts? Ofcourse cause we love "RED"-"SHIFTs"...</p>
-                             </div>
-                    </div>
-
-                    <div class="group relative aspect-video overflow-hidden rounded-xl bg-gray-800 border border-gray-700">
-                        <img src="2024_team2.jpg" 
-                             alt="Team 2024 Group" 
-                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                              <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                              <p class="text-sm font-medium text-white">Smiles powered by coffee and gravitational waves...</p>
-                             </div>
-                    </div>
-
-                    <div class="group relative aspect-video overflow-hidden rounded-xl bg-gray-800 border border-gray-700 md:col-span-2 lg:col-span-1">
-                        <img src="2024_3.jpg" 
-                             alt="Catering Professionals" 
-                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-3 pointer-events-none">
-                            <p class="text-sm font-medium text-white">Engaging professionals from other fields. Different fields, same universe...</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex flex-wrap justify-center items-center gap-2 text-[0.68rem] font-semibold tracking-widest uppercase">
+                <span class="text-indigo-500">Gravitational Wave Physics</span>
+                <span class="text-gray-300">·</span>
+                <span class="text-blue-500">Multimessenger Astronomy</span>
+                <span class="text-gray-300">·</span>
+                <span class="text-orange-500">Bayesian Inference</span>
             </div>
         </div>
-    </section>
 
-    <!-- Hobbies & Gallery -->
-    <section id="hobbies" class="py-20 bg-gray-900 text-white relative overflow-hidden">
-        <!-- Stars Background -->
-        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px;"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">Beyond Physics</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    Exploration is not just a calculation.
-                </p>
+        <!-- CTA buttons -->
+        <div class="fade-up flex flex-col sm:flex-row justify-center gap-3 mb-14" style="animation-delay:0.7s">
+            <a href="#research"
+               class="inline-flex items-center justify-center gap-2 px-7 py-3 bg-cosmic-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all hover:-translate-y-0.5">
+                View Research <i class="fa-solid fa-arrow-down text-xs"></i>
+            </a>
+            <a href="mailto:yugeshbhoge.edu@gmail.com"
+               class="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-gray-700 text-sm font-semibold border border-cosmic-border rounded-lg hover:bg-gray-50 transition-all hover:-translate-y-0.5">
+                Contact Me <i class="fa-solid fa-envelope text-xs"></i>
+            </a>
+        </div>
+
+        <!-- Social icons -->
+        <div class="fade-up flex justify-center flex-wrap gap-5" style="animation-delay:0.82s">
+            <a href="mailto:yugeshbhoge.edu@gmail.com"                   class="social-icon hover:text-gray-900"    title="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://orcid.org/0009-0000-8556-8671"              class="social-icon hover:text-lime-500"    title="ORCID"><i class="fa-brands fa-orcid"></i></a>
+            <a href="https://scholar.google.com/citations?user=sEUpZecAAAAJ&hl=en&authuser=1" target="_blank" class="social-icon hover:text-blue-500" title="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
+            <a href="https://inspirehep.net/authors/3097369?ui-citation-summary=true" target="_blank" class="social-icon hover:text-blue-400" title="INSPIRE HEP"><i class="fa-solid fa-atom"></i></a>
+            <a href="https://scixplorer.org/search?d=general&fq=%7B%21type%3Daqp+v%3D%24fq_author%7D&fq_author=(author_facet_hier%3A%221%5C%2FBhoge%2C+Y%5C%2FBhoge%2C+Yugesh%22)&p=1&q=author%3A%22Bhoge%2C+Yugesh%22&sort=score+desc&sort=date+desc" target="_blank" class="social-icon hover:text-indigo-400" title="NASA ADS"><i class="fa-solid fa-satellite"></i></a>
+            <a href="https://github.com/yugeshbhoge"                     class="social-icon hover:text-gray-900"    title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="social-icon hover:text-blue-700"  title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/yugesh_bhoge/"            class="social-icon hover:text-orange-600"  title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     LIFEVERSE — Poetic Vision
+═══════════════════════════════════════════════════════════ -->
+<section class="relative py-28 bg-black bg-fixed bg-cover bg-center"
+         style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2000&auto=format&fit=crop');">
+    <div class="absolute inset-0 bg-black/72"></div>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+
+        <!-- Section title -->
+        <div class="text-center mb-16">
+            <h2 class="text-5xl md:text-6xl font-serif text-white mb-5 tracking-tight">Lifeverse</h2>
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/15 rounded-full">
+                <i class="fa-solid fa-robot text-purple-300 text-xs"></i>
+                <span class="text-white/80 text-xs font-medium tracking-wide">No AI was harmed in making of these verses</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 items-center">
+
+            <!-- Left stanza -->
+            <div class="text-center md:text-left font-serif text-base md:text-lg text-gray-200 italic leading-loose space-y-5">
+                <p>"If life were but a poem, what would my verse be?<br>
+                A bridge of structured steel toward a cosmic mystery.</p>
+                <p>I began with turning wheels and the strength of a machine,<br>
+                Designing suspension systems for the paths yet to be seen.</p>
+                <p>From CAD and CFD to the aerospike's bright light,<br>
+                In mechanical engineering, I found my first flight.</p>
+                <p>But the gears of earth gave way to the mechanics of the sky,<br>
+                Where neutron stars and black holes make the heavy elements fly.</p>
+                <p>With Bayesian formalism, I thinned the signal's noise,</p>
             </div>
 
-            <!-- Astrophotography Highlight -->
-            <div class="mb-16 bg-gray-800 rounded-2xl p-1 shadow-2xl border border-gray-700">
-                <div class="bg-gray-900 rounded-xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-                    <div class="w-full md:w-1/2">
-                        <div class="aspect-video bg-black rounded-lg flex items-center justify-center border border-gray-800 relative overflow-hidden group">
-                            <!-- Simulated Astrophotography Placeholder -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black opacity-80"></div>
-                            <img src="Star_trails.jpg" alt="Stars trails" class="absolute inset-0 w-full h-full object-cover">
-                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-purple-500 rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition duration-1000"></div>
-                            
-                               <div class="absolute bottom-4 left-4 z-10">
-                              <i class="fa-solid fa-mobile text-4xl text-gray-400 mb-2"></i>
-                              <p class="text-sm text-gray-300">Star Trails</p>
+            <!-- Centre photo -->
+            <div class="flex justify-center">
+                <div class="w-64 h-64 md:w-72 md:h-72 poem-photo-container border-4 border-white/15 p-1">
+                    <img src="IMG_20230730_072549~2.jpg" alt="Yugesh Bhoge Vision" class="w-full h-full object-cover rounded-full">
+                </div>
+            </div>
+
+            <!-- Right stanza -->
+            <div class="text-center md:text-right font-serif text-base md:text-lg text-gray-200 italic leading-loose space-y-5">
+                <p>Finding truth in kilonovae with a researcher's poise.</p>
+                <p>From the mass gap to the chirp, I map the merger's light,<br>
+                Guiding multimessenger dreams through the silence of the night.</p>
+                <p>When the Spacetime cluster rests and the code is finally run,<br>
+                I trade the screen for mountain air and the rising of the sun.</p>
+                <p>With hiking boots and a camera lens, I travel far and wide,<br>
+                From trekking peaks to valleys deep, with nature as my guide.</p>
+                <p>I capture every shadow, every trail that I have trod,<br>
+                Finding math within the stars and the beauty of the sod."</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     ABOUT & VISION
+═══════════════════════════════════════════════════════════ -->
+<section id="about" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20">
+
+            <!-- Left: Background & Education -->
+            <div class="space-y-8">
+                <div>
+                    <span class="section-label">Who I Am</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mb-1">Background &amp; Motivation</h2>
+                    <div class="section-rule left"></div>
+                </div>
+
+                <div class="space-y-4 text-gray-600 text-[0.95rem] leading-relaxed">
+                    <p>My academic journey has been a transformation from understanding the nuts and bolts of terrestrial machines to exploring the supreme mechanics of the cosmos. Starting in <strong class="text-gray-900 font-semibold">Mechanical Engineering</strong>, I developed a rigorous foundation in fluid dynamics, simulation, and design optimization. However, I realized that the universe itself is the ultimate laboratory for these principles.</p>
+                    <p class="font-semibold text-gray-800">My vision is to bridge these worlds.</p>
+                    <p>I aim to apply robust computational techniques — from finite volume methods to Bayesian inference pipelines — to decode the transient universe. Specifically, I am driven to solve the mysteries of <strong class="text-gray-900 font-semibold">compact binary mergers</strong>, using Gravitational Waves as the key to unlock the physics of extreme matter densities found in Neutron Stars.</p>
+                </div>
+
+                <!-- Education cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div class="p-5 bg-gray-50 rounded-xl border border-cosmic-border hover:border-indigo-200 hover:bg-indigo-50/30 transition-all duration-200">
+                        <div class="text-cosmic-primary text-lg mb-2.5"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h4 class="font-bold text-gray-900 text-sm mb-0.5">M.Sc. Physics</h4>
+                        <p class="text-xs text-gray-500 mb-1.5">IIT Bombay, 2025</p>
+                        <p class="text-xs text-indigo-600 font-medium">Focus: Computational &amp; Gravitational Astrophysics</p>
+                    </div>
+                    <div class="p-5 bg-gray-50 rounded-xl border border-cosmic-border hover:border-orange-200 hover:bg-orange-50/30 transition-all duration-200">
+                        <div class="text-cosmic-secondary text-lg mb-2.5"><i class="fa-solid fa-gears"></i></div>
+                        <h4 class="font-bold text-gray-900 text-sm mb-0.5">B.E. Mechanical</h4>
+                        <p class="text-xs text-gray-500 mb-1.5">SPPU, 2020</p>
+                        <p class="text-xs text-orange-600 font-medium">Focus: Automobile and Rocketry</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Skills radar -->
+            <div class="bg-cosmic-bg rounded-2xl border border-cosmic-border p-6 flex flex-col gap-5 shadow-sm">
+                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-code-branch text-cosmic-primary text-xs"></i>
+                    Technical Competency
+                </h3>
+                <div class="chart-wrap">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-orange-100 text-orange-700">ANSYS Fluent</span>
+                    <span class="skill-tag bg-orange-100 text-orange-700">SolidWorks</span>
+                    <span class="skill-tag bg-orange-100 text-orange-700">Arduino IDE</span>
+                    <span class="skill-tag bg-orange-100 text-orange-700">MATLAB</span>
+                    <span class="skill-tag bg-indigo-100 text-indigo-700">HPC-CUDA</span>
+                    <span class="skill-tag bg-indigo-100 text-indigo-700">HPC-HTCondor</span>
+                    <span class="skill-tag bg-indigo-100 text-indigo-700">HPC-Cray</span>
+                    <span class="skill-tag bg-indigo-100 text-indigo-700">Data Analysis</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     RESEARCH HUB
+═══════════════════════════════════════════════════════════ -->
+<section id="research" class="py-20 bg-cosmic-bg border-t border-cosmic-border">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+        <!-- Section header -->
+        <div class="text-center mb-12">
+            <span class="section-label">Graduate Research</span>
+            <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mt-1 mb-3">Astrophysics Research Hub</h2>
+            <div class="section-rule mx-auto mb-5"></div>
+            <p class="text-[0.95rem] text-gray-500 max-w-xl mx-auto">Interactive exploration of my research and key astrophysical projects.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button onclick="switchTab('kilonova')" id="tab-kilonova"
+                    class="tab-btn active-tab">
+                <i class="fa-solid fa-explosion mr-1.5 text-xs"></i>Kilonova (Thesis)
+            </button>
+            <button onclick="switchTab('eos')" id="tab-eos"
+                    class="tab-btn">
+                <i class="fa-solid fa-magnet mr-1.5 text-xs"></i>Neutron Star EoS
+            </button>
+            <button onclick="switchTab('rti')" id="tab-rti"
+                    class="tab-btn">
+                <i class="fa-solid fa-wind mr-1.5 text-xs"></i>Stellar Instability
+            </button>
+        </div>
+
+        <p class="text-center text-xs text-gray-400 font-medium mb-8">
+            <i class="fa-solid fa-hand-pointer animate-bounce mr-1"></i> Select a tab to explore data
+        </p>
+
+        <!-- ── Tab: Kilonova ── -->
+        <div id="content-kilonova" class="tab-content">
+            <div class="bg-white rounded-2xl shadow-sm border border-cosmic-border overflow-hidden">
+                <div class="p-7 lg:p-9 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <!-- Info panel -->
+                    <div class="lg:col-span-1 space-y-5">
+                        <div>
+                            <a href="research_kilonova.html">
+                                <h3 class="text-xl font-serif font-bold text-gray-900 leading-snug hover:text-cosmic-primary transition-colors">Distinguishing BNS vs NSBH Mergers</h3>
+                            </a>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="badge bg-indigo-50 text-indigo-700">Master's Thesis</span>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge bg-orange-50 text-orange-700">Collaborators</span>
+                                <span class="text-xs text-gray-500 ml-1">Ish Gupta, Mukul Bhattacharya, Rahul Kashyap</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            <strong class="text-gray-900">The Challenge:</strong> Gravitational wave signals from Binary Neutron Star (BNS) and Neutron Star-Black Hole (NSBH) mergers can look dangerously similar. We established distance-independent EM classification metrics to break this degeneracy.
+                        </p>
+
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 relative min-h-[110px]">
+                            <h4 class="font-semibold text-gray-900 text-xs uppercase tracking-wider mb-2">Photometric Decline</h4>
+                            <p id="index-desc-u" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-100 pr-4">
+                                <strong>u-band:</strong> Rapid collapse in NSBH flux (Δm ≈ 2.43 at day 2) due to absence of high-Y<sub>e</sub> polar ejecta. BNS sustains emission.
+                            </p>
+                            <p id="index-desc-i" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-0 pointer-events-none pr-4">
+                                <strong>i-band:</strong> Trend reverses. Massive, high-opacity tidal tails in NSBH increase diffusion timescales, sustaining emission longer than BNS.
+                            </p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Filter Band</label>
+                            <div class="flex gap-2 p-1 bg-gray-100 rounded-lg border border-gray-200">
+                                <button id="index-btn-u" onclick="switchKilonovaBand('u')"
+                                        class="flex-1 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all">
+                                    u-band (Blue)
+                                </button>
+                                <button id="index-btn-i" onclick="switchKilonovaBand('i')"
+                                        class="flex-1 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all">
+                                    i-band (Red)
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="w-full md:w-1/2">
-                        <h3 class="text-2xl font-bold text-white mb-4"><i class="fa-solid fa-star text-yellow-400 mr-2"></i>Astrophotography</h3>
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            Capturing photons that have traveled for millions of years reminds me of the beauty behind the equations. I have captured multiple star trails and shades of moon through my mobile phone.
+
+                    <!-- Chart panel -->
+                    <div class="lg:col-span-2 bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Simulated Light Curves</h4>
+                            <div class="flex items-center gap-4">
+                                <button onclick="toggleKilonovaDataset(0)" class="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-cosmic-secondary transition-colors">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-cosmic-secondary inline-block"></span> BNS
+                                </button>
+                                <button onclick="toggleKilonovaDataset(1)" class="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 transition-colors">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600 inline-block"></span> NSBH
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-wrap flex-grow">
+                            <canvas id="kilonovaChart"></canvas>
+                        </div>
+                        <p class="text-[0.68rem] text-center text-slate-400 mt-3 italic">Absolute Magnitude (AB) vs Time since peak (Days)</p>
+                    </div>
+                </div>
+            </div>
+            <a href="research_kilonova.html" class="inline-flex items-center gap-1 text-cosmic-primary text-sm font-semibold mt-4 hover:underline">
+                View Full Analysis &amp; Interactive Physics Explorer →
+            </a>
+        </div>
+
+        <!-- ── Tab: EoS ── -->
+        <div id="content-eos" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-cosmic-border overflow-hidden">
+                <div class="p-7 lg:p-9 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <div class="lg:col-span-1 space-y-5">
+                        <div>
+                            <a href="research_eos.html">
+                                <h3 class="text-xl font-serif font-bold text-gray-900 leading-snug hover:text-emerald-700 transition-colors">Constraining Equation of State</h3>
+                            </a>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="badge bg-emerald-50 text-emerald-700">Bayesian Inference Project</span>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge bg-gray-100 text-gray-600">Collaborators</span>
+                                <span class="text-xs text-gray-500 ml-1">Vasudev Dubey, Ish Gupta, Rahul Kashyap</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Neutron stars contain the densest matter in the universe. Their internal structure is described by the Equation of State (EoS). I used <strong class="text-gray-900">Bilby</strong> to recover tidal deformability from simulated NSBH signals.
                         </p>
-                        <div class="flex gap-3">
-                            <span class="px-3 py-1 border border-gray-600 rounded-full text-xs text-gray-400">Long Exposure</span>
-                            <span class="px-3 py-1 border border-gray-600 rounded-full text-xs text-gray-400">Stacking</span>
+
+                        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 text-xs uppercase tracking-wider mb-2">
+                                <i class="fa-solid fa-circle-check mr-1.5"></i>Key Result
+                            </h4>
+                            <p class="text-xs text-emerald-800 leading-relaxed">
+                                By calculating Bayes Factors for various models (SLy, APR4, DD2) against an injected signal (SLy), we successfully ruled out stiffer EoS models (like H4) with high confidence.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-600 uppercase tracking-wider text-center mb-4">Model Selection: Log Bayes Factors</h4>
+                        <div class="chart-wrap">
+                            <canvas id="eosChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
+            <a href="research_eos.html" class="inline-flex items-center gap-1 text-emerald-600 text-sm font-semibold mt-4 hover:underline">
+                View Model Comparison →
+            </a>
+        </div>
 
-            <!-- Photo Masonry -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="space-y-4">
-                <div class="photo-frame h-64 bg-gray-800 rounded-lg flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80 z-0"></div>
-                    
-                    <img src="Trek1.jpg" alt="Team" class="absolute inset-0 w-full h-full object-cover">
-                    <div class="absolute bottom-3 right-3 z-50">
-                        <span class="text-sm font-bold text-white">Trekking</span>
+        <!-- ── Tab: RTI ── -->
+        <div id="content-rti" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-cosmic-border overflow-hidden">
+                <div class="p-7 lg:p-9 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <div class="lg:col-span-1 space-y-5">
+                        <div>
+                            <a href="research_rti.html">
+                                <h3 class="text-xl font-serif font-bold text-gray-900 leading-snug hover:text-teal-700 transition-colors">Rayleigh-Taylor Instability in Stellar Interiors</h3>
+                            </a>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="badge bg-teal-50 text-teal-700">Fluid Dynamics (MHD)</span>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge bg-blue-50 text-blue-700">Collaborators</span>
+                                <span class="text-xs text-gray-500 ml-1">Vasudev Dubey, Lucky Chaudhary</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Investigated the instability that occurs when a dense fluid sits atop a lighter fluid in stellar interiors.
+                        </p>
+
+                        <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+                            <li>Implemented 2D finite-volume simulation of compressible Euler equations.</li>
+                            <li>Analyzed the stabilizing effect of magnetic fields (MHD) on short-wavelength perturbations.</li>
+                        </ul>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-gray-900 rounded-xl p-1 border border-gray-800 flex flex-col items-center justify-center relative overflow-hidden">
+                        <div class="absolute top-3 right-3 z-10">
+                            <span class="bg-black/50 backdrop-blur text-white text-[0.65rem] px-2.5 py-1 rounded-full font-semibold">Density Heatmap</span>
+                        </div>
+                        <div id="rtiPlot" style="width:100%; height:400px;"></div>
                     </div>
                 </div>
             </div>
-            <div class="space-y-4">
-                <div class="photo-frame h-64 bg-gray-800 rounded-lg flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80 z-0"></div>
-                    <img src="Travel.jpg" alt="Team" class="absolute inset-0 w-full h-full object-cover">
-                    <div class="absolute bottom-3 left-3 z-50">
-                        <span class="text-sm font-bold text-white">Travel</span>
+            <a href="research_rti.html" class="inline-flex items-center gap-1 text-teal-600 text-sm font-semibold mt-4 hover:underline">
+                View Density Heatmaps →
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PROJECTS
+═══════════════════════════════════════════════════════════ -->
+<section id="projects" class="py-20 bg-white border-t border-cosmic-border">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+        <div class="mb-10">
+            <span class="section-label" style="color:#C2410C;">Undergraduate &amp; Engineering</span>
+            <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mt-1">Bachelor's &amp; Master's Projects</h2>
+            <div class="section-rule left mt-2"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+
+            <!-- ATV Suspension -->
+            <a href="project_atv.html" class="group">
+            <div class="card h-full flex flex-col overflow-hidden">
+                <div class="proj-img bg-gradient-to-br from-red-50 to-red-100">
+                    <i class="fa-solid fa-truck-monster text-5xl text-red-400 group-hover:scale-110 transition-transform duration-500"></i>
+                    <span class="absolute bottom-3 right-3 badge bg-white text-red-600 shadow-sm">SolidWorks + Lotus Shark</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-red-600 transition-colors">Design of Suspension System for ATV</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">
+                        Designed and optimized a double-wishbone suspension system for an SAE BAJA All-Terrain Vehicle.
+                        Focused on analyzing camber and toe curves to maximize traction and stability over rough terrain.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="skill-tag bg-red-50 text-red-600">Automotive Dynamics</span>
+                        <span class="skill-tag bg-red-50 text-red-600">FEA</span>
                     </div>
                 </div>
             </div>
+            </a>
 
-                <div class="space-y-4 md:col-span-2">
-                    <div class="photo-frame h-full bg-gray-800 rounded-lg flex items-center justify-center relative overflow-hidden min-h-[200px] p-6">
-                         <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-indigo-900 opacity-60 z-0"></div>
-                         <img src="Teamwork.jpg" alt="Team" class="absolute inset-0 w-750 h-750 object-cover">
+            <!-- Aerospike -->
+            <a href="project_aerospike.html" class="group">
+            <div class="card h-full flex flex-col overflow-hidden">
+                <div class="proj-img bg-gradient-to-br from-orange-50 to-orange-100">
+                    <i class="fa-solid fa-shuttle-space text-5xl text-orange-400 group-hover:scale-110 transition-transform duration-500"></i>
+                    <span class="absolute bottom-3 left-3 badge bg-white text-orange-600 shadow-sm">ANSYS Fluent</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-orange-600 transition-colors">Study on Aerospike Engine</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">
+                        Conducted a CFD analysis comparing Aerospike nozzles against traditional Bell nozzles.
+                        Investigated flow separation characteristics and altitude compensation efficiency.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="skill-tag bg-orange-50 text-orange-600">Aerodynamics</span>
+                        <span class="skill-tag bg-orange-50 text-orange-600">CFD</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <!-- Malkus Waterwheel -->
+            <a href="project_waterwheel.html" class="group">
+            <div class="card h-full flex flex-col overflow-hidden">
+                <div class="proj-img bg-gray-900">
+                    <div id="chaosPlot" style="width:100%; height:100%;"></div>
+                    <span class="absolute top-3 right-3 badge bg-white/20 backdrop-blur text-purple-300">Interactive 3D</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-purple-600 transition-colors">Malkus Waterwheel (Chaos)</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">
+                        A study of non-linear dynamics and the Lorenz attractor. Modeled the chaotic motion of a waterwheel
+                        using Lorenz equations to demonstrate sensitivity to initial conditions.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="skill-tag bg-purple-50 text-purple-700">Non-linear Dynamics</span>
+                        <span class="skill-tag bg-purple-50 text-purple-700">Image Analysis</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <!-- Braille -->
+            <a href="project_braille.html" class="group">
+            <div class="card h-full flex flex-col overflow-hidden">
+                <div class="proj-img bg-emerald-50">
+                    <i class="fa-solid fa-keyboard text-5xl text-emerald-500 group-hover:scale-110 transition-transform duration-500"></i>
+                    <span class="absolute top-3 left-3 badge bg-white text-emerald-700 shadow-sm">Arduino</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">Transforming Alphabet Into Touch</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">
+                        A device which converts sentences and words from Braille language to a haptic feedback display for visually and auditory impaired people, mapping all 26 alphabets into a 6-segment display operated by 6 independent servo motors.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="skill-tag bg-emerald-50 text-emerald-700">IoT</span>
+                        <span class="skill-tag bg-emerald-50 text-emerald-700">Arduino</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <!-- GW Blindspots -->
+            <a href="project_gw.html" class="group md:col-span-2">
+            <div class="card h-full flex flex-col md:flex-row overflow-hidden">
+                <div class="proj-img md:w-64 md:rounded-l-2xl md:rounded-r-none rounded-t-2xl rounded-b-none bg-amber-50 flex-shrink-0" style="height:180px;">
+                    <i class="fa-solid fa-earth-americas text-5xl text-amber-500 group-hover:scale-110 transition-transform duration-500"></i>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-amber-600 transition-colors">Blindspots in Omnidirectional GW Detectors</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed flex-1">
+                        Investigated the directional sensitivity and blind spots of gravitational wave detectors (LIGO, Virgo and KAGRA) using PyCBC, developing mathematical models for antenna patterns and exploring mitigation strategies through multi-detector networks to improve detection sensitivity.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="skill-tag bg-amber-50 text-amber-700">PyCBC</span>
+                        <span class="skill-tag bg-amber-50 text-amber-700">GTR</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     CV & PUBLICATIONS
+═══════════════════════════════════════════════════════════ -->
+<section id="CV" class="py-16 bg-cosmic-bg border-t border-cosmic-border">
+    <div class="max-w-2xl mx-auto px-5 text-center">
+        <span class="section-label">Documents</span>
+        <h2 class="text-3xl font-serif text-gray-900 mt-1 mb-2">CV &amp; Publications</h2>
+        <div class="section-rule mx-auto mb-6"></div>
+        <p class="text-gray-500 text-sm mb-8">PFA the links to my CV and Publications.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="Yugesh_academic_CV.pdf"
+               class="inline-flex items-center justify-center gap-2 px-7 py-3 bg-cosmic-primary text-white text-sm font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all hover:-translate-y-0.5">
+                <i class="fa-solid fa-file-pdf"></i> Curriculum Vitae
+            </a>
+            <a href="https://inspirehep.net/authors/3097369?ui-citation-summary=true" target="_blank"
+               class="inline-flex items-center justify-center gap-2 px-7 py-3 bg-gray-800 text-white text-sm font-semibold rounded-lg hover:bg-gray-700 transition-all hover:-translate-y-0.5">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Publication Link
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     OUTREACH
+═══════════════════════════════════════════════════════════ -->
+<section id="outreach" class="py-20 bg-gray-950 border-t border-gray-800 dot-bg overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span class="section-label text-indigo-400">Public Engagement</span>
+            <h2 class="text-3xl md:text-4xl font-serif text-white mt-1 mb-4">Outreach Activities</h2>
+            <div class="section-rule mx-auto mb-6"></div>
+            <div class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/8 backdrop-blur border border-white/12 rounded-full mb-4">
+                <img src="./public-relation.png" alt="Outreach Icon" class="w-5 h-5 object-contain invert opacity-80">
+                <span class="text-white/80 text-xs font-bold tracking-widest uppercase">Making the "Invisible" Heard</span>
+            </div>
+            <p class="text-gray-400 text-sm max-w-md mx-auto">The first rule of Astrophysics is, "You <em>do</em> talk about Astrophysics".</p>
+        </div>
+
+        <!-- 2025 -->
+        <div class="mb-14">
+            <div class="flex flex-wrap items-center gap-3 mb-7">
+                <h3 class="text-xl font-serif font-bold text-white">LIGO-India TechConnect 2025</h3>
+                <span class="badge bg-indigo-900 text-indigo-300 border border-indigo-700">IIT Bombay</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="gallery-item aspect-[4/3] bg-gray-800">
+                    <img src="2025_1.jpg" alt="LIGO-India TechConnect 2025" class="opacity-85 hover:opacity-100 transition-opacity duration-300">
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Planting nerd seeds, harvesting lifelong wonders....</p></div>
+                </div>
+                <div class="gallery-item aspect-[4/3] bg-gray-800">
+                    <img src="2025_team.jpg" alt="The Team 2025" class="opacity-85 hover:opacity-100 transition-opacity duration-300">
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Team meeting or covert nerd summit???</p></div>
+                </div>
+                <div class="gallery-item aspect-[4/3] bg-gray-800">
+                    <img src="2025_2.jpg" alt="Sparking Interest" class="opacity-85 hover:opacity-100 transition-opacity duration-300">
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Posters doing more heavy lifting than muscles...</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2024 -->
+        <div>
+            <div class="flex flex-wrap items-center gap-3 mb-7">
+                <h3 class="text-xl font-serif font-bold text-white">LIGO-India TechConnect 2024</h3>
+                <span class="badge bg-indigo-900 text-indigo-300 border border-indigo-700">IIT Bombay</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="gallery-item aspect-video bg-black">
+                    <iframe src="https://drive.google.com/file/d/1-gSruC2w1vonNpGkZWrUUcfGx-Ws0kVY/preview" width="100%" height="100%" allow="autoplay"></iframe>
+                    <span class="absolute top-2.5 left-2.5 badge bg-red-600 text-white">Video</span>
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Proof that science does attract mass...</p></div>
+                </div>
+                <div class="gallery-item aspect-video bg-black">
+                    <iframe src="https://drive.google.com/file/d/1zxJz9_N7FczBvYs11l23-1r4W7OU5S58/preview" width="100%" height="100%" allow="autoplay"></iframe>
+                    <span class="absolute top-2.5 left-2.5 badge bg-red-600 text-white">Video</span>
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Q&amp;A session with an enthusiastic kid and her parent. Yes, that <em>was</em> a good question...</p></div>
+                </div>
+                <div class="gallery-item aspect-video bg-gray-800">
+                    <img src="2024_Team1.jpg" alt="Team 2024" class="opacity-85 hover:opacity-100 transition-opacity duration-300">
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Red shirts? Of course cause we love "RED"-"SHIFTs"...</p></div>
+                </div>
+                <div class="gallery-item aspect-video bg-gray-800">
+                    <img src="2024_team2.jpg" alt="Team 2024 Group" class="opacity-85 hover:opacity-100 transition-opacity duration-300">
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Smiles powered by coffee and gravitational waves...</p></div>
+                </div>
+                <div class="gallery-item aspect-video bg-gray-800 md:col-span-2 lg:col-span-1">
+                    <img src="2024_3.jpg" alt="Catering Professionals" class="opacity-85 hover:opacity-100 transition-opacity duration-300">
+                    <div class="gallery-caption"><p class="text-xs font-medium text-white">Engaging professionals from other fields. Different fields, same universe...</p></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     BEYOND PHYSICS (Hobbies)
+═══════════════════════════════════════════════════════════ -->
+<section id="hobbies" class="py-20 bg-gray-900 dot-bg overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+
+        <div class="text-center mb-12">
+            <span class="section-label text-indigo-400">Personal</span>
+            <h2 class="text-3xl md:text-4xl font-serif text-white mt-1 mb-2">Beyond Physics</h2>
+            <div class="section-rule mx-auto mb-4"></div>
+            <p class="text-gray-400 text-sm">Exploration is not just a calculation.</p>
+        </div>
+
+        <!-- Astrophotography feature -->
+        <div class="mb-12 bg-gray-800 rounded-2xl border border-gray-700 p-1 shadow-2xl">
+            <div class="bg-gray-900 rounded-xl p-7 md:p-10 flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-1/2">
+                    <div class="aspect-video bg-black rounded-xl overflow-hidden relative group border border-gray-800">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black opacity-80"></div>
+                        <img src="Star_trails.jpg" alt="Star trails" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-purple-500 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-1000"></div>
                         <div class="absolute bottom-4 left-4 z-10">
-                            <i class="fa-solid fa-users text-3xl text-white mb-2"></i>
-                            <h4 class="font-bold text-lg">Teamwork & Sports</h4>
-                            <p class="text-xs text-gray-300">Active participation in sports teaches strategy and resilience.</p>
+                            <i class="fa-solid fa-mobile text-3xl text-gray-300 mb-1 block"></i>
+                            <p class="text-xs text-gray-300 font-medium">Star Trails</p>
                         </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-2xl font-serif text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-star text-yellow-400 text-lg"></i>Astrophotography
+                    </h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-5">
+                        Capturing photons that have traveled for millions of years reminds me of the beauty behind the equations. I have captured multiple star trails and shades of moon through my mobile phone.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge bg-white/8 text-gray-400 border border-gray-700">Long Exposure</span>
+                        <span class="badge bg-white/8 text-gray-400 border border-gray-700">Stacking</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <span class="font-serif font-bold text-xl text-gray-900">Yugesh Bhoge</span>
-                <p class="text-sm text-gray-500 mt-1">Aspiring Computational Astrophysicist</p>
+        <!-- Photo grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="photo-card h-60 bg-gray-800 relative">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+                <img src="Trek1.jpg" alt="Trekking" class="absolute inset-0 w-full h-full object-cover">
+                <span class="absolute bottom-3 right-3 z-20 text-xs font-bold text-white">Trekking</span>
             </div>
-            <div class="flex flex-col items-center md:items-end">
-                <div class="flex space-x-6 mb-4">
-                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-cosmic-primary transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
-                <a href="https://orcid.org/0009-0000-8556-8671" class="hover:text-cosmic-primary transition-colors" title="ORCID"><i class="fa-brands fa-orcid"></i></a>
-                <a href="https://scholar.google.com/citations?user=sEUpZecAAAAJ&hl=en&authuser=1" target="_blank" class="hover:text-cosmic-primary transition-colors" title="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
-                <a href="https://inspirehep.net/authors/3097369?ui-citation-summary=true" target="_blank" class="hover:text-cosmic-primary transition-colors" title="INSPIRE HEP"><i class="fa-solid fa-atom"></i></a>
-                <a href="https://scixplorer.org/search?d=general&fq=%7B%21type%3Daqp+v%3D%24fq_author%7D&fq_author=(author_facet_hier%3A%221%5C%2FBhoge%2C+Y%5C%2FBhoge%2C+Yugesh%22)&p=1&q=author%3A%22Bhoge%2C+Yugesh%22&sort=score+desc&sort=date+desc" target="_blank" class="hover:text-cosmic-primary transition-colors" title="NASA ADS"><i class="fa-solid fa-satellite"></i></a>
-                <a href="https://github.com/yugeshbhoge" class="hover:text-cosmic-primary transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
-                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-cosmic-primary transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-cosmic-primary transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+            <div class="photo-card h-60 bg-gray-800 relative">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+                <img src="Travel.jpg" alt="Travel" class="absolute inset-0 w-full h-full object-cover">
+                <span class="absolute bottom-3 left-3 z-20 text-xs font-bold text-white">Travel</span>
+            </div>
+            <div class="photo-card h-60 bg-gray-800 relative md:col-span-2">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-indigo-900/60 z-10"></div>
+                <img src="Teamwork.jpg" alt="Teamwork" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute bottom-4 left-4 z-20">
+                    <i class="fa-solid fa-users text-2xl text-white mb-1 block"></i>
+                    <h4 class="font-bold text-base text-white leading-tight">Teamwork &amp; Sports</h4>
+                    <p class="text-xs text-gray-300 mt-0.5">Active participation in sports teaches strategy and resilience.</p>
                 </div>
-                <p class="text-xs text-gray-400">© 2025 Yugesh Bhoge. All rights reserved.</p>
             </div>
         </div>
-    </footer>
 
-    <!-- JavaScript for Interactivity -->
-    <script>
-        // --- 1. Tab Switching Logic ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.add('hidden');
-            });
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-cosmic-primary', 'text-white', 'shadow-lg', 'ring-2');
-                el.classList.add('bg-white', 'text-gray-600', 'hover:bg-gray-100');
-            });
-            document.getElementById('content-' + tabId).classList.remove('hidden');
-            const activeBtn = document.getElementById('tab-' + tabId);
-            activeBtn.classList.remove('bg-white', 'text-gray-600', 'hover:bg-gray-100');
-            activeBtn.classList.add('bg-cosmic-primary', 'text-white', 'shadow-lg', 'ring-2');
-            
-            // Re-render Plotly if needed when tab becomes visible
-            if (tabId === 'rti') {
-               Plotly.relayout('rtiPlot', {autosize: true});
-            }
-             // Re-render Plotly chaos if needed
-            if (tabId === 'projects') {
-               Plotly.relayout('chaosPlot', {autosize: true});
-            }
-        }
+    </div>
+</section>
 
-        // --- 2. Chart.js: Skills Radar ---
-        const ctxSkills = document.getElementById('skillsChart').getContext('2d');
-        const skillsChart = new Chart(ctxSkills, {
-            type: 'radar',
-            data: {
-                labels: ['HPC', 'LATEX', 'Bayesian Inference', 'Fluid Dynamics (CFD)', 'Gravitational Waves', 'Data Analysis'],
-                datasets: [{
-                    label: 'Skill Proficiency',
-                    data: [80, 90, 75, 80, 75, 90],
-                    fill: true,
-                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
-                    borderColor: 'rgb(79, 70, 229)',
-                    pointBackgroundColor: 'rgb(79, 70, 229)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(79, 70, 229)'
-                }]
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer class="bg-white border-t border-cosmic-border py-12">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+            <span class="font-serif font-bold text-xl text-gray-900 block">Yugesh Bhoge</span>
+            <p class="text-xs text-gray-400 mt-1">Aspiring Computational Astrophysicist</p>
+        </div>
+        <div class="flex flex-col items-center md:items-end gap-4">
+            <div class="flex flex-wrap gap-5">
+                <a href="mailto:yugeshbhoge.edu@gmail.com"                    class="social-icon hover:text-gray-900"   title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://orcid.org/0009-0000-8556-8671"               class="social-icon hover:text-lime-500"   title="ORCID"><i class="fa-brands fa-orcid"></i></a>
+                <a href="https://scholar.google.com/citations?user=sEUpZecAAAAJ" target="_blank" class="social-icon hover:text-blue-500" title="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
+                <a href="https://inspirehep.net/authors/3097369"               target="_blank" class="social-icon hover:text-blue-400" title="INSPIRE HEP"><i class="fa-solid fa-atom"></i></a>
+                <a href="https://github.com/yugeshbhoge"                       class="social-icon hover:text-gray-900"  title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="social-icon hover:text-blue-700"  title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/yugesh_bhoge/"             class="social-icon hover:text-orange-600" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p class="text-xs text-gray-400">© 2025 Yugesh Bhoge. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+/* ── Tab switching ──────────────────────────────────────── */
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+
+    document.getElementById('content-' + tabId).classList.remove('hidden');
+    document.getElementById('tab-' + tabId).classList.add('active-tab');
+
+    if (tabId === 'rti')      Plotly.relayout('rtiPlot',  { autosize: true });
+    if (tabId === 'projects') Plotly.relayout('chaosPlot',{ autosize: true });
+}
+
+/* ── Chart.js shared defaults ───────────────────────────── */
+const CHART_DEFAULTS = {
+    responsive: true,
+    maintainAspectRatio: false,
+};
+
+/* ── Skills Radar ───────────────────────────────────────── */
+const ctxSkills = document.getElementById('skillsChart').getContext('2d');
+new Chart(ctxSkills, {
+    type: 'radar',
+    data: {
+        labels: ['HPC', 'LaTeX', 'Bayesian Inference', 'Fluid Dynamics (CFD)', 'Gravitational Waves', 'Data Analysis'],
+        datasets: [{
+            label: 'Proficiency',
+            data: [80, 90, 75, 80, 75, 90],
+            fill: true,
+            backgroundColor: 'rgba(67,56,202,0.15)',
+            borderColor: 'rgba(67,56,202,0.8)',
+            pointBackgroundColor: '#4338CA',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#4338CA',
+            borderWidth: 2,
+        }]
+    },
+    options: {
+        ...CHART_DEFAULTS,
+        scales: {
+            r: {
+                angleLines: { color: '#e5e7eb' },
+                grid:        { color: '#e5e7eb' },
+                pointLabels: { font: { size: 10.5, family: 'DM Sans' }, color: '#374151' },
+                min: 0, max: 100,
+                ticks: { display: false, stepSize: 20 }
+            }
+        },
+        plugins: { legend: { display: false } }
+    }
+});
+
+/* ── Kilonova Light Curve ────────────────────────────────── */
+const knData = {
+    labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
+    u: {
+        bns:  [27.8, 27.0, 27.51, 28.2, 28.8, 29.4, 30.1, 30.5, 30.9],
+        nsbh: [27.67, 29.5, 30.1, 29.9, 29.9, 30.1, 30.3, 30.6, 30.8]
+    },
+    i: {
+        bns:  [23.2, 21.75, 22.2, 22.8, 23.2, 23.8, 24.6, 25.1, 25.6],
+        nsbh: [25.8, 25.2, 24.9, 24.64, 24.6, 24.8, 25.0, 25.3, 25.5]
+    }
+};
+
+const uAnnots = {
+    vline:      { type:'line', scaleID:'x', value:2, borderColor:'#1f2937', borderDash:[5,5], borderWidth:1 },
+    bnsArrow:   { type:'line', scaleID:'y', xMin:2.2, xMax:2.2, yMin:27.0, yMax:27.51, borderColor:'#C2410C', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
+    bnsLabel:   { type:'label', xValue:2.7, yValue:27.25, content:'Δm = 0.51', color:'#C2410C', font:{size:10,weight:'bold'} },
+    nsbhArrow:  { type:'line', scaleID:'y', xMin:1.8, xMax:1.8, yMin:27.67, yMax:30.1, borderColor:'#2563EB', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
+    nsbhLabel:  { type:'label', xValue:1.2, yValue:28.9, content:'Δm = 2.43', color:'#2563EB', font:{size:10,weight:'bold'} }
+};
+const iAnnots = {
+    vline:      { type:'line', scaleID:'x', value:6, borderColor:'#1f2937', borderDash:[5,5], borderWidth:1 },
+    bnsArrow:   { type:'line', scaleID:'y', xMin:5.8, xMax:5.8, yMin:21.75, yMax:24.6, borderColor:'#C2410C', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
+    bnsLabel:   { type:'label', xValue:5.3, yValue:23.2, content:'Δm = 2.85', color:'#C2410C', font:{size:10,weight:'bold'} },
+    nsbhArrow:  { type:'line', scaleID:'y', xMin:6.2, xMax:6.2, yMin:24.64, yMax:25.0, borderColor:'#2563EB', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
+    nsbhLabel:  { type:'label', xValue:6.8, yValue:24.8, content:'Δm = 0.36', color:'#2563EB', font:{size:10,weight:'bold'} }
+};
+
+const ctxKilonova = document.getElementById('kilonovaChart').getContext('2d');
+const kilonovaChart = new Chart(ctxKilonova, {
+    type: 'line',
+    data: {
+        labels: knData.labels,
+        datasets: [
+            {
+                label: 'BNS Progenitor',
+                data: knData.u.bns,
+                borderColor: '#C2410C', backgroundColor: 'rgba(194,65,12,0.07)',
+                tension: 0.4, borderWidth: 2, pointRadius: 3, fill: true
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        angleLines: { color: '#e5e7eb' },
-                        grid: { color: '#e5e7eb' },
-                        pointLabels: {
-                            font: { size: 11, family: 'Inter' },
-                            color: '#374151'
-                        },
-                        min: 0,
-                        max: 100,
-                        ticks: { display: false, stepSize: 20 }
-                    }
-                },
-                plugins: {
-                    legend: { display: false }
-                }
+            {
+                label: 'NSBH Progenitor',
+                data: knData.u.nsbh,
+                borderColor: '#2563EB', backgroundColor: 'rgba(37,99,235,0.07)',
+                tension: 0.4, borderWidth: 2, pointRadius: 3, fill: true
             }
-        });
-        // --- 3. Chart.js: Kilonova Light Curve ---
-        const knChartData = {
-            labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
-            u: {
-                bns: [27.8, 27.0, 27.51, 28.2, 28.8, 29.4, 30.1, 30.5, 30.9], 
-                nsbh: [27.67, 29.5, 30.1, 29.9, 29.9, 30.1, 30.3, 30.6, 30.8]  
+        ]
+    },
+    options: {
+        ...CHART_DEFAULTS,
+        interaction: { mode:'index', intersect:false },
+        plugins: {
+            legend: { display:false },
+            annotation: { annotations: uAnnots },
+            tooltip: {
+                backgroundColor:'rgba(255,255,255,0.96)', titleColor:'#1f2937', bodyColor:'#4b5563',
+                borderColor:'#e5e7eb', borderWidth:1, padding:9
+            }
+        },
+        scales: {
+            y: { reverse:true, grid:{ color:'#f3f4f6', drawBorder:false }, min:26.5, max:31.5 },
+            x: { grid:{ display:false, drawBorder:false } }
+        }
+    }
+});
+
+function switchKilonovaBand(band) {
+    const btnU = document.getElementById('index-btn-u');
+    const btnI = document.getElementById('index-btn-i');
+    const descU = document.getElementById('index-desc-u');
+    const descI = document.getElementById('index-desc-i');
+    const active   = 'flex-1 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all';
+    const inactive = 'flex-1 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all';
+
+    if (band === 'u') {
+        btnU.className = active; btnI.className = inactive;
+        descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
+        descI.style.opacity = 0; descI.style.pointerEvents = 'none';
+        kilonovaChart.options.scales.y.min = 26.5; kilonovaChart.options.scales.y.max = 31.5;
+        kilonovaChart.options.plugins.annotation.annotations = uAnnots;
+    } else {
+        btnI.className = active; btnU.className = inactive;
+        descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
+        descU.style.opacity = 0; descU.style.pointerEvents = 'none';
+        kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 26.5;
+        kilonovaChart.options.plugins.annotation.annotations = iAnnots;
+    }
+    kilonovaChart.data.datasets[0].data = knData[band].bns;
+    kilonovaChart.data.datasets[1].data = knData[band].nsbh;
+    kilonovaChart.update();
+}
+
+function toggleKilonovaDataset(i) {
+    const meta = kilonovaChart.getDatasetMeta(i);
+    meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
+    kilonovaChart.update();
+}
+
+/* ── EoS Bayes Factor Chart ─────────────────────────────── */
+const ctxEos = document.getElementById('eosChart').getContext('2d');
+new Chart(ctxEos, {
+    type: 'bar',
+    data: {
+        labels: ['APR4', 'SLy (injected)', 'DD2', 'H4', 'MPA1'],
+        datasets: [{
+            label: 'Log Bayes Factor (vs SLy)',
+            data: [-0.8, 0, -2.1, -5.4, -1.6],
+            backgroundColor: [
+                'rgba(67,56,202,0.7)',
+                'rgba(16,185,129,0.85)',
+                'rgba(67,56,202,0.7)',
+                'rgba(239,68,68,0.75)',
+                'rgba(67,56,202,0.7)',
+            ],
+            borderColor: [
+                '#4338CA','#059669','#4338CA','#DC2626','#4338CA'
+            ],
+            borderWidth: 1.5,
+            borderRadius: 6,
+        }]
+    },
+    options: {
+        ...CHART_DEFAULTS,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: 'rgba(255,255,255,0.96)', titleColor:'#1f2937', bodyColor:'#4b5563',
+                borderColor:'#e5e7eb', borderWidth:1, padding:9
+            }
+        },
+        scales: {
+            y: {
+                grid: { color:'#f1f5f9' },
+                ticks: { font:{ size:11, family:'DM Sans' } },
+                title: { display:true, text:'ln B (model vs SLy)', font:{size:11}, color:'#6B7280' }
             },
-            i: {
-                bns: [23.2, 21.75, 22.2, 22.8, 23.2, 23.8, 24.6, 25.1, 25.6],
-                nsbh: [25.8, 25.2, 24.9, 24.64, 24.6, 24.8, 25.0, 25.3, 25.5]  
+            x: {
+                grid: { display:false },
+                ticks: { font:{ size:11, family:'DM Sans' } }
             }
-        };
-
-        const uAnnots = {
-            vline: { type: 'line', scaleID: 'x', value: 2, borderColor: '#1f2937', borderDash: [5, 5], borderWidth: 1 },
-            bnsArrow: { type: 'line', scaleID: 'y', xMin: 2.2, xMax: 2.2, yMin: 27.0, yMax: 27.51, borderColor: '#C2410C', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
-            bnsLabel: { type: 'label', xValue: 2.7, yValue: 27.25, content: 'Δm = 0.51', color: '#C2410C', font: { size: 10, weight: 'bold' } },
-            nsbhArrow: { type: 'line', scaleID: 'y', xMin: 1.8, xMax: 1.8, yMin: 27.67, yMax: 30.1, borderColor: '#2563EB', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
-            nsbhLabel: { type: 'label', xValue: 1.2, yValue: 28.9, content: 'Δm = 2.43', color: '#2563EB', font: { size: 10, weight: 'bold' } }
-        };
-
-        const iAnnots = {
-            vline: { type: 'line', scaleID: 'x', value: 6, borderColor: '#1f2937', borderDash: [5, 5], borderWidth: 1 },
-            bnsArrow: { type: 'line', scaleID: 'y', xMin: 5.8, xMax: 5.8, yMin: 21.75, yMax: 24.6, borderColor: '#C2410C', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
-            bnsLabel: { type: 'label', xValue: 5.3, yValue: 23.2, content: 'Δm = 2.85', color: '#C2410C', font: { size: 10, weight: 'bold' } },
-            nsbhArrow: { type: 'line', scaleID: 'y', xMin: 6.2, xMax: 6.2, yMin: 24.64, yMax: 25.0, borderColor: '#2563EB', borderWidth: 1.5, arrowHeads: { start: { display: true, length: 5, width: 3 }, end: { display: true, length: 5, width: 3 } } },
-            nsbhLabel: { type: 'label', xValue: 6.8, yValue: 24.8, content: 'Δm = 0.36', color: '#2563EB', font: { size: 10, weight: 'bold' } }
-        };
-
-        const ctxKilonova = document.getElementById('kilonovaChart').getContext('2d');
-        const kilonovaChart = new Chart(ctxKilonova, {
-            type: 'line',
-            data: {
-                labels: knChartData.labels,
-                datasets: [
-                    {
-                        label: 'BNS Progenitor',
-                        data: knChartData['u'].bns,
-                        borderColor: '#C2410C', backgroundColor: 'rgba(194, 65, 12, 0.08)',
-                        tension: 0.4, borderWidth: 2, pointRadius: 3, fill: true
-                    },
-                    {
-                        label: 'NSBH Progenitor',
-                        data: knChartData['u'].nsbh,
-                        borderColor: '#2563EB', backgroundColor: 'rgba(37, 99, 235, 0.08)',
-                        tension: 0.4, borderWidth: 2, pointRadius: 3, fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: { display: false },
-                    annotation: { annotations: uAnnots },
-                    tooltip: {
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)', titleColor: '#1f2937', bodyColor: '#4b5563',
-                        borderColor: '#e5e7eb', borderWidth: 1, padding: 8
-                    }
-                },
-                scales: {
-                    y: { 
-                        reverse: true, 
-                        grid: { color: '#f3f4f6', drawBorder: false },
-                        min: 26.5, max: 31.5
-                    },
-                    x: { 
-                        grid: { display: false, drawBorder: false }
-                    }
-                }
-            }
-        });
-
-        function switchKilonovaBand(band) {
-            const uBtn = document.getElementById('index-btn-u');
-            const iBtn = document.getElementById('index-btn-i');
-            const descU = document.getElementById('index-desc-u');
-            const descI = document.getElementById('index-desc-i');
-
-            if (band === 'u') {
-                uBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all";
-                iBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all";
-                descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
-                descI.style.opacity = 0; descI.style.pointerEvents = 'none';
-                kilonovaChart.options.scales.y.min = 26.5; kilonovaChart.options.scales.y.max = 31.5;
-            } else {
-                iBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm transition-all";
-                uBtn.className = "flex-1 px-3 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-800 transition-all";
-                descU.style.opacity = 0; descU.style.pointerEvents = 'none';
-                descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
-                kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 26.5;
-            }
-
-            kilonovaChart.data.datasets[0].data = knChartData[band].bns;
-            kilonovaChart.data.datasets[1].data = knChartData[band].nsbh;        
-            kilonovaChart.options.plugins.annotation.annotations = (band === 'u') ? uAnnots : iAnnots;
-            kilonovaChart.update();
         }
+    }
+});
 
-        function toggleKilonovaDataset(i) {
-            const meta = kilonovaChart.getDatasetMeta(i);
-            meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
-            kilonovaChart.update();
+/* ── Lorenz Attractor ────────────────────────────────────── */
+function initChaos() {
+    let x=0.1, y=0, z=0;
+    const dt=0.01, σ=10, ρ=28, β=8/3;
+    const xs=[], ys=[], zs=[];
+    for (let i=0; i<800; i++) {
+        const dx=σ*(y-x)*dt, dy=(x*(ρ-z)-y)*dt, dz=(x*y-β*z)*dt;
+        x+=dx; y+=dy; z+=dz;
+        xs.push(x); ys.push(y); zs.push(z);
+    }
+    Plotly.newPlot('chaosPlot', [{
+        x:xs, y:ys, z:zs,
+        mode:'lines', type:'scatter3d',
+        line:{ width:4, color:zs, colorscale:'Viridis' },
+        hoverinfo:'none'
+    }], {
+        margin:{l:0,r:0,b:0,t:0},
+        paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+        scene:{
+            xaxis:{visible:false}, yaxis:{visible:false}, zaxis:{visible:false},
+            camera:{ eye:{x:1.5,y:1.5,z:1.5} }
         }
+    }, { displayModeBar:false, responsive:true });
+}
+initChaos();
 
-        // --- 5. Plotly: Lorenz Attractor ---
-        function initChaos() {
-            let x = 0.1, y = 0, z = 0;
-            const dt = 0.01;
-            const sigma = 10, rho = 28, beta = 8/3;
-            const x_vals = [], y_vals = [], z_vals = [];
-            
-            for (let i = 0; i < 800; i++) {
-                let dx = sigma * (y - x) * dt;
-                let dy = (x * (rho - z) - y) * dt;
-                let dz = (x * y - beta * z) * dt;
-                x += dx; y += dy; z += dz;
-                x_vals.push(x); y_vals.push(y); z_vals.push(z);
-            }
-
-            const traceChaos = {
-                x: x_vals, y: y_vals, z: z_vals,
-                mode: 'lines',
-                type: 'scatter3d',
-                line: { width: 4, color: z_vals, colorscale: 'Viridis' },
-                hoverinfo: 'none'
-            };
-
-            const layoutChaos = {
-                margin: {l:0, r:0, b:0, t:0},
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                scene: {
-                    xaxis: {visible: false},
-                    yaxis: {visible: false},
-                    zaxis: {visible: false},
-                    camera: { eye: {x: 1.5, y: 1.5, z: 1.5} }
-                }
-            };
-            Plotly.newPlot('chaosPlot', [traceChaos], layoutChaos, {displayModeBar: false, responsive: true});
+/* ── RTI Heatmap ─────────────────────────────────────────── */
+function initRTI() {
+    const N=40, z=[];
+    for (let i=0; i<N; i++) {
+        const row=[];
+        for (let j=0; j<N; j++) {
+            let v = i > 20 ? 1 : 0;
+            if (Math.abs(i-20)<10 && Math.abs(j-20)<5) v = 0.5+Math.random()*0.2;
+            row.push(v + (Math.random()-0.5)*0.1);
         }
-        initChaos();
+        z.push(row);
+    }
+    Plotly.newPlot('rtiPlot', [{ z, type:'heatmap', colorscale:'RdBu', showscale:false }], {
+        margin:{l:10,r:10,b:10,t:10},
+        paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+        xaxis:{visible:false}, yaxis:{visible:false}
+    }, { displayModeBar:false, staticPlot:true, responsive:true });
+}
+initRTI();
 
-        // --- 6. Plotly: RTI Heatmap ---
-        function initRTI() {
-            const gridSize = 40;
-            const zData = [];
-            for (let i = 0; i < gridSize; i++) {
-                const row = [];
-                for (let j = 0; j < gridSize; j++) {
-                    let val = (i > 20) ? 1 : 0; 
-                    if (Math.abs(i - 20) < 10 && Math.abs(j - 20) < 5) val = 0.5 + Math.random()*0.2;
-                    row.push(val + (Math.random() - 0.5) * 0.1);
-                }
-                zData.push(row);
-            }
+/* ── Mobile menu ─────────────────────────────────────────── */
+document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+});
 
-            const traceRTI = {
-                z: zData,
-                type: 'heatmap',
-                colorscale: 'RdBu',
-                showscale: false
-            };
-
-            const layoutRTI = {
-                margin: {l:10, r:10, b:10, t:10},
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                xaxis: { visible: false },
-                yaxis: { visible: false }
-            };
-            Plotly.newPlot('rtiPlot', [traceRTI], layoutRTI, {displayModeBar: false, staticPlot: true, responsive: true});
-        }
-        initRTI();
-
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-
-    </script>
+/* ── Close mobile menu on link click ────────────────────── */
+document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.add('hidden');
+    });
+});
+</script>
 </body>
 </html>
