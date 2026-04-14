@@ -1,390 +1,686 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aerospike Engine CFD | Yugesh Bhoge</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- MathJax for LaTeX rendering -->
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Aerospike Engine CFD | Yugesh Bhoge</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      <script>
+          MathJax = {
+              tex: {
+                  inlineMath: [['$', '$'], ['\\(', '\\)']],
+                  displayMath: [['$$', '$$'], ['\\[', '\\]']]
+              }
+          };
+      </script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <style>
-        /* Custom scrollbar for a polished look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #14532d; /* orange-900 */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #166534; /* orange-800 */
-        }
-        /* Custom MathJax font adjustments */
-        mjx-container {
-            font-size: 110% !important;
-            color: #1f2937; /* gray-800 */
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            min-height: 350px;
-        }
-    </style>
+      <style>
+          :root {
+              --bg: #fbf8f3;
+              --surface: rgba(255, 255, 255, 0.82);
+              --surface-solid: #ffffff;
+              --border: rgba(120, 113, 108, 0.18);
+              --text: #1f2937;
+              --muted: #6b7280;
+              --accent: #c2410c;
+              --accent-soft: #ffedd5;
+              --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+          }
 
+          html { scroll-behavior: smooth; }
+          body {
+              background:
+                  radial-gradient(circle at top left, rgba(194,65,12,0.08), transparent 28%),
+                  radial-gradient(circle at top right, rgba(234,88,12,0.06), transparent 24%),
+                  linear-gradient(180deg, #fffaf5 0%, #fbf8f3 100%);
+          }
 
+          ::-webkit-scrollbar { width: 8px; }
+          ::-webkit-scrollbar-track { background: #f1f1f1; }
+          ::-webkit-scrollbar-thumb { background: #14532d; border-radius: 999px; }
+          ::-webkit-scrollbar-thumb:hover { background: #166534; }
+          mjx-container { font-size: 108% !important; color: #1f2937; }
 
+          .section-shell {
+              background: var(--surface);
+              backdrop-filter: blur(10px);
+              border: 1px solid var(--border);
+              box-shadow: var(--shadow);
+          }
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0KCTM3XW77"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+          .section-title {
+              display: flex;
+              align-items: center;
+              gap: 0.85rem;
+              margin-bottom: 1rem;
+          }
 
-  gtag('config', 'G-0KCTM3XW77');
-</script>
-</head>
+          .section-icon {
+              width: 2.65rem;
+              height: 2.65rem;
+              border-radius: 1rem;
+              display: grid;
+              place-items: center;
+              background: linear-gradient(180deg, #ffedd5 0%, #fed7aa 100%);
+              color: var(--accent);
+              flex: 0 0 auto;
+          }
 
-<body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
-    
-    <!-- Navigation -->
-    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="#" class="font-serif font-bold text-xl hover:text-orange-800 transition"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
-            <div class="text-sm text-gray-500">M.Sc. Physics '25, IIT Bombay</div>
-        </div>
-    </nav>
+          .soft-card {
+              background: var(--surface-solid);
+              border: 1px solid rgba(229, 231, 235, 0.95);
+              border-radius: 1.25rem;
+              box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+          }
 
-    <!-- Header -->
-    <header class="bg-orange-800 text-white py-20 relative overflow-hidden">
-        <!-- Abstract decorative element -->
-        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-            <i class="fa-solid fa-shuttle-space text-[300px]"></i>
-        </div>
-        
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <div class="inline-block px-3 py-1 bg-orange-900 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-orange-200">
-                Computational Fluid Dynamics
-            </div>
-            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Altitude Compensation in Aerospike Engines</h1>
-            <p class="text-xl text-orange-100 max-w-2xl mx-auto font-light">
-                A CFD analysis comparing isentropic expansion efficiency of truncated aerospike nozzles versus conventional bell nozzles.
-            </p>
-        </div>
-    </header>
+          .chart-container {
+              position: relative;
+              width: 100%;
+              height: 470px;
+          }
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
-        
-        <!-- Left Column: Narrative (Motivation, Methodology, Theory) -->
-        <div class="lg:col-span-1 space-y-8">
-            
-            <!-- Motivation Section -->
-            <section id="motivation" class="space-y-4">
-                <div class="flex items-center space-x-3 mb-2">
-                    <div class="bg-orange-100 p-2 rounded-lg text-orange-800">
-                        <i class="fa-solid fa-lightbulb"></i>
-                    </div>
-                    <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
-                </div>
-                <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    Conventional bell nozzles are geometrically fixed, designed for a single ambient pressure ($P_a$). This leads to efficiency losses due to <strong>over-expansion</strong> at sea level (flow separation) and <strong>under-expansion</strong> in vacuum.
-                </p>
-                <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    The <strong>Aerospike engine</strong> proposes a solution: an "inside-out" nozzle where the expansion surface is open to the atmosphere. This allows the exhaust plume to dynamically adjust to the changing $P_a$ during ascent, theoretically maintaining optimal $I_{sp}$ at all altitudes.
-                </p>
-            </section>
+          .video-wrapper {
+              position: relative;
+              width: 100%;
+              padding-bottom: 70%;
+              background: linear-gradient(180deg, #1c1917 0%, #292524 100%);
+              border-radius: 1.25rem;
+              overflow: hidden;
+              border: 1px solid rgba(231, 229, 228, 0.95);
+          }
 
-            <hr class="border-gray-200">
+          .video-wrapper iframe,
+          .video-placeholder {
+              position: absolute;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              border: none;
+          }
 
-            <!-- Theoretical Framework Section -->
-            <section id="theory" class="space-y-4">
-                <div class="flex items-center space-x-3 mb-2">
-                    <div class="bg-orange-100 p-2 rounded-lg text-orange-800">
-                        <i class="fa-solid fa-square-root-variable"></i>
-                    </div>
-                    <h2 class="text-2xl font-serif font-bold text-gray-900">Theoretical Framework</h2>
-                </div>
-                
-                <!-- Formula 1: Thrust Equation -->
-                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 class="font-bold text-gray-800 text-sm mb-2">1. General Thrust Equation</h3>
-                    <div class="text-center py-2 overflow-x-auto">
-                        $$ F = \dot{m} V_e + (P_e - P_a) A_e $$
-                    </div>
-                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-orange-500 pl-2">
-                        <strong>Significance:</strong> The pressure term $(P_e - P_a)A_e$ causes drag when $P_a > P_e$ (over-expansion). Aerospikes minimize this penalty by ensuring $P_e \approx P_a$.
-                    </p>
-                </div>
+          .video-placeholder {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              gap: 12px;
+              color: #d6d3d1;
+              text-align: center;
+              padding: 1.5rem;
+          }
 
-                <!-- Formula 2: Isentropic Relations -->
-                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 class="font-bold text-gray-800 text-sm mb-2">2. Prandtl-Meyer Expansion</h3>
-                    <div class="text-center py-2 overflow-x-auto">
-                        $$ \nu(M) = \sqrt{\frac{\gamma+1}{\gamma-1}} \tan^{-1} \dots $$
-                    </div>
-                    <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-orange-500 pl-2">
-                        <strong>Significance:</strong> The flow turns around the cowl lip via expansion fans. In truncated spikes, a "base bleed" creates a recirculating fluid spike, adding a base pressure thrust component ($P_{base} A_{base}$).
-                    </p>
-                </div>
-            </section>
+          .badge {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.5rem;
+              padding: 0.42rem 0.8rem;
+              border-radius: 999px;
+              font-size: 0.72rem;
+              font-weight: 700;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+          }
 
-             <!-- Methodology Section -->
-             <section id="methodology" class="space-y-4">
-                <div class="flex items-center space-x-3 mb-2">
-                    <div class="bg-orange-100 p-2 rounded-lg text-orange-800">
-                        <i class="fa-solid fa-server"></i>
-                    </div>
-                    <h2 class="text-2xl font-serif font-bold text-gray-900">CFD Methodology</h2>
-                </div>
-                <ul class="space-y-3 mt-4">
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-check text-orange-600 mt-1 mr-3 text-xs"></i>
-                        <span class="text-sm text-gray-700"><strong>Solver:</strong> ANSYS Fluent (Density-based, Implicit, 2D Axisymmetric).</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-check text-orange-600 mt-1 mr-3 text-xs"></i>
-                        <span class="text-sm text-gray-700"><strong>Turbulence:</strong> $k-\epsilon$ standard model for high-speed compressible flow robustness.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-check text-orange-600 mt-1 mr-3 text-xs"></i>
-                        <span class="text-sm text-gray-700"><strong>Geometry:</strong> Truncated linear aerospike (20% truncation) vs. standard Bell nozzle.</span>
-                    </li>
-                </ul>
-            </section>
+          .leg-pill {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.5rem;
+              padding: 0.42rem 0.72rem;
+              border-radius: 999px;
+              font-size: 0.72rem;
+              font-weight: 600;
+              line-height: 1;
+              border: 1px solid transparent;
+              white-space: nowrap;
+          }
 
-        </div>
+          .leg-solid { width: 18px; height: 3px; border-radius: 999px; }
+          .leg-dashed { width: 18px; height: 0; }
 
-        <!-- Right Column: Visuals & Synthesis -->
-        <div class="lg:col-span-2 space-y-8">
-            
-            <!-- Chart Section (Main Result) -->
-            <section id="results" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h3 class="text-xl font-serif font-bold text-gray-900">Results: Performance Comparison</h3>
-                        <p class="text-sm text-gray-500 mt-1">Comparing Thrust Coefficient ($C_f$) across altitude regimes.</p>
-                    </div>
-                    
-                    <!-- Interactive Toggles (Preserved Logic) -->
-                    <div class="flex bg-gray-100 p-1 rounded-lg">
-                        <button id="btn-cf" class="px-4 py-1.5 rounded-md text-sm font-medium transition-all bg-white text-orange-900 shadow-sm" onclick="switchChart('cf')">Thrust Coeff ($C_f$)</button>
-                        <button id="btn-pressure" class="px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition-all" onclick="switchChart('pressure')">Propellant Mass Fraction </button>
-                    </div>
-                </div>
-                
-                <div class="relative w-full h-[400px]">
-                    <div class="chart-container">
-                        <canvas id="performanceChart"></canvas>
-                    </div>
-                </div>
+          .metric-card {
+              background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
+              border: 1px solid rgba(229,231,235,0.95);
+              border-radius: 1.25rem;
+              box-shadow: 0 10px 30px rgba(15,23,42,0.05);
+          }
 
-                <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
-                    <h4 class="font-bold text-gray-800 text-sm mb-1"><i class="fa-solid fa-magnifying-glass-chart mr-2 text-orange-700"></i>Analysis</h4>
-                    <p class="text-sm text-gray-600">
-                        The data confirms the <strong>altitude compensation</strong> effect. At Sea Level (0 km), Aerospike maintains near-optimal expansion to match the full atmospheric performance of the Bell nozzle.  At high altitudes (>10000 feet), the Bell cone type nozzle suffers from over-expansion (lower $C_f$), whereas the truncated base pressure contributes to thrust, allowing Aerospike to maintain it's efficiency at higher altitudes. Also as altitude increases one can see a clear decline in PMF for Aerospike engine. <b>$$\textbf{Low PMF} \rightarrow \textbf{Lesser fuel needed to move the mass} \rightarrow \textbf{higher efficieny}$$</b>
-                    </p>
-                </div>
-            </section>
+          .text-justify-safe { text-wrap: pretty; }
+      </style>
+  </head>
 
-            <!-- Applications & Implications Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- Applications -->
-                <div class="bg-orange-50 p-6 rounded-xl border border-orange-100">
-                    <h3 class="font-serif font-bold text-orange-900 mb-3 flex items-center">
-                        <i class="fa-solid fa-rocket mr-2"></i> Applications
-                    </h3>
-                    <p class="text-sm text-orange-800 leading-relaxed">
-                        <strong>SSTO (Single-Stage-To-Orbit):</strong> Vehicles like the conceptual X-33/VentureStar require engines efficient at <em>both</em> sea level (liftoff) and vacuum (orbit insertion) without staging. The Aerospike is the primary candidate for such mission profiles.
-                    </p>
-                </div>
+  <body class="text-gray-800 font-sans min-h-screen flex flex-col">
+      <!-- Top bar -->
+      <nav class="sticky top-0 z-50 border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+              <a href="#" class="inline-flex items-center gap-2 font-semibold text-gray-800 hover:text-orange-800 transition-colors">
+                  <i class="fa-solid fa-arrow-left"></i>
+                  Back to Home
+              </a>
+              <div class="text-sm text-gray-500">M.Sc. Physics '25, IIT Bombay</div>
+          </div>
+      </nav>
 
-                <!-- Implications -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h3 class="font-serif font-bold text-gray-900 mb-3 flex items-center">
-                        <i class="fa-solid fa-weight-hanging mr-2 text-orange-700"></i> Implications
-                    </h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        <strong>Mass Reduction:</strong> By truncating the spike at ~20% of its theoretical length, we reduce engine weight significantly. The "base pressure" generated by the recirculation zone compensates for the missing physical structure, optimizing the thrust-to-weight ratio.
-                    </p>
-                </div>
-            </div>
+      <!-- Hero -->
+      <header class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-orange-900 via-orange-800 to-amber-700"></div>
+          <div class="absolute inset-0 opacity-15">
+              <div class="absolute -top-16 -right-10 text-[240px] text-white/40"><i class="fa-solid fa-shuttle-space"></i></div>
+          </div>
+          <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 text-white">
+              <div class="max-w-4xl mx-auto text-center">
+                  <span class="badge bg-white/10 text-orange-100 border border-white/10 mb-5">Computational Fluid Dynamics</span>
+                  <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight tracking-tight">
+                      Altitude Compensation in Aerospike Engines
+                  </h1>
+                  <p class="mt-6 text-lg md:text-xl text-orange-50/90 max-w-3xl mx-auto leading-relaxed">
+                      A CFD analysis comparing isentropic expansion efficiency of truncated aerospike nozzles
+                      versus conventional bell nozzles across three area ratios.
+                  </p>
+              </div>
+          </div>
+      </header>
 
-        </div>
-    </main>
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 flex-grow w-full">
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+              <!-- Sidebar -->
+              <aside class="xl:col-span-4 space-y-6">
+                  <section class="section-shell rounded-3xl p-6 lg:p-7">
+                      <div class="section-title">
+                          <div class="section-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                          <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
+                      </div>
+                      <div class="space-y-4 text-sm leading-relaxed text-gray-600 text-justify-safe">
+                          <p>
+                              Conventional bell nozzles are geometrically fixed, designed for a single ambient pressure ($P_a$).
+                              This leads to efficiency losses due to <strong>over-expansion</strong> at sea level (flow separation)
+                              and <strong>under-expansion</strong> in vacuum.
+                          </p>
+                          <p>
+                              The <strong>Aerospike engine</strong> proposes a solution: an "inside-out" nozzle where the expansion
+                              surface is open to the atmosphere. This allows the exhaust plume to dynamically adjust to the
+                              changing $P_a$ during ascent, theoretically maintaining optimal $I_{sp}$ at all altitudes.
+                          </p>
+                      </div>
+                  </section>
 
-    <!-- Publication Link Section -->
-    <section class="bg-gray-50 border-t border-gray-200 py-12">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Report</h2>
-            <p class="text-gray-600 mb-8">
-                Explore the detailed ANSYS Fluent setup, mesh independence study, and contour plots of Mach number distributions.
-            </p>
-            <a href="Seminar_report_on_Aerospike_Engine.pdf" class="inline-flex items-center px-8 py-3 bg-orange-900 text-white font-medium rounded-lg hover:bg-orange-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
-                <i class="fa-regular fa-file-pdf mr-2"></i> View Project Report (PDF)
-            </a>
-            <p class="text-xs text-gray-400 mt-4 italic">
-                *Based on Seminar Report submitted to SPPU, 2018-19.
-            </p>
-        </div>
-    </section>
+                  <section class="section-shell rounded-3xl p-6 lg:p-7">
+                      <div class="section-title">
+                          <div class="section-icon"><i class="fa-solid fa-square-root-variable"></i></div>
+                          <h2 class="text-2xl font-serif font-bold text-gray-900">Theoretical Framework</h2>
+                      </div>
 
-    <!-- Footer with Joke -->
-    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
-            <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
-            
-            <!-- The Joke -->
-            <div class="max-w-md text-center bg-[#FDFBF7] px-4 py-4 rounded-full border border-gray-100 shadow-sm">
-                <p class="text-gray-600 text-sm italic font-serif">
-                    <i class="fa-solid fa-quote-left text-orange-200 mr-2"></i>
-                    Newton's Third Law: <br>
-                    <span class="text-orange-700 font-medium"><b>The only way humans have figured out how to get anywhere is by leaving something behind.</b></span>
-                    <i class="fa-solid fa-quote-right text-orange-200 ml-2"></i>
-                </p>
-            </div>
-            
-            <div class="flex space-x-4 mt-6 text-gray-400">
-                <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
-                <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
-                <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
-            </div>
-        </div>
-    </footer>
+                      <div class="space-y-4">
+                          <article class="soft-card p-4">
+                              <h3 class="font-semibold text-gray-800 text-sm mb-2">1. General Thrust Equation</h3>
+                              <div class="text-center py-2 overflow-x-auto">
+                                  $$ F = \dot{m} V_e + (P_e - P_a) A_e $$
+                              </div>
+                              <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-orange-500 pl-3 leading-relaxed">
+                                  <strong>Significance:</strong> The pressure term $(P_e - P_a)A_e$ causes drag when
+                                  $P_a &gt; P_e$ (over-expansion). Aerospikes minimize this penalty by ensuring $P_e \approx P_a$.
+                              </p>
+                          </article>
 
-    <!-- Chart Script -->
-    <script>
-        // --- Data Storage (Aerospike vs Bell) ---
-        const altitudeLabels = [50000, 75000, 100000, 125000, 150000]; 
-        
-        // Thrust Coefficient (Cf) Data
-        const bellCf = [1.7, 1.8, 1.8, 1.68, 1.54];
-        const aerospikeCf = [1.75, 1.95, 2.0, 1.99, 1.98];
+                          <article class="soft-card p-4">
+                              <h3 class="font-semibold text-gray-800 text-sm mb-2">2. Prandtl-Meyer Expansion</h3>
+                              <div class="text-center py-2 overflow-x-auto">
+                                  $$ \nu(M) = \sqrt{\frac{\gamma+1}{\gamma-1}} \tan^{-1} \dots $$
+                              </div>
+                              <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-orange-500 pl-3 leading-relaxed">
+                                  <strong>Significance:</strong> The flow turns around the cowl lip via expansion fans.
+                                  In truncated spikes, "base bleed" creates a recirculating fluid spike, adding a base
+                                  pressure thrust component ($P_{base} A_{base}$).
+                              </p>
+                          </article>
+                      </div>
+                  </section>
 
-        // Efficiency % Data
-        const bellEff = [0.8, 0.7948, 0.785, 0.7562, 0.7];
-        const aerospikeEff = [0.774, 0.6502, 0.6, 0.5405,0.4507];
+                  <section class="section-shell rounded-3xl p-6 lg:p-7">
+                      <div class="section-title">
+                          <div class="section-icon"><i class="fa-solid fa-server"></i></div>
+                          <h2 class="text-2xl font-serif font-bold text-gray-900">CFD Methodology</h2>
+                      </div>
 
-        let chartInstance = null;
+                      <ul class="space-y-4 mt-2">
+                          <li class="flex items-start gap-3">
+                              <i class="fa-solid fa-circle-check text-orange-600 mt-1"></i>
+                              <span class="text-sm text-gray-700 leading-relaxed">
+                                  <strong>Solver:</strong> ANSYS Fluent (Density-based, Implicit, 2D Axisymmetric).
+                              </span>
+                          </li>
+                          <li class="flex items-start gap-3">
+                              <i class="fa-solid fa-circle-check text-orange-600 mt-1"></i>
+                              <span class="text-sm text-gray-700 leading-relaxed">
+                                  <strong>Turbulence:</strong> $k$-$\epsilon$ standard model for high-speed compressible flow.
+                              </span>
+                          </li>
+                          <li class="flex items-start gap-3">
+                              <i class="fa-solid fa-circle-check text-orange-600 mt-1"></i>
+                              <span class="text-sm text-gray-700 leading-relaxed">
+                                  <strong>Geometry:</strong> Truncated aerospike (20% truncation) vs. Bell nozzles
+                                  at area ratios AR = 5, 9, and 25.
+                              </span>
+                          </li>
+                          <li class="flex items-start gap-3">
+                              <i class="fa-solid fa-circle-check text-orange-600 mt-1"></i>
+                              <span class="text-sm text-gray-700 leading-relaxed">
+                                  <strong>Range:</strong> Full altitude sweep 0 – 60 km.
+                              </span>
+                          </li>
+                      </ul>
+                  </section>
+              </aside>
 
-        function initChart() {
-            const ctx = document.getElementById('performanceChart').getContext('2d');
-            
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: altitudeLabels,
-                    datasets: [
-                        {
-                            label: 'Aerospike Nozzle',
-                            data: aerospikeCf,
-                            borderColor: '#FF8C00', // orange-700
-                            backgroundColor: 'rgba(255, 127, 80, 0.1)',
-                            borderWidth: 3,
-                            tension: 0.4,
-                            fill: true,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#FF4500'
-                        },
-                        {
-                            label: 'Conventional Bell Nozzle',
-                            data: bellCf,
-                            borderColor: '#9ca3af', // Gray-400
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            tension: 0.4,
-                            fill: false,
-                            pointRadius: 3,
-                            pointBackgroundColor: '#9ca3af'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    plugins: {
-                        tooltip: {
-                            backgroundColor: 'rgba(160, 55, 35, 0.9)', // orange-900
-                            titleFont: { family: 'sans-serif', size: 13 },
-                            bodyFont: { family: 'sans-serif', size: 12 },
-                            padding: 10,
-                            cornerRadius: 4,
-                            callbacks: {
-                                label: function(context) {
-                                    return ' ' + context.dataset.label + ': ' + context.raw;
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: { family: 'sans-serif' },
-                                usePointStyle: true,
-                                padding: 20
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            title: { display: true, text: 'Altitude (feet)', font: { weight: 'bold' } },
-                            grid: { display: false }
-                        },
-                        y: {
-                            title: { display: true, text: 'Thrust Coefficient (Cf)', font: { weight: 'bold' } },
-                            grid: { color: '#f3f4f6' },
-                           
-                        }
-                    }
-                }
-            });
-        }
+              <!-- Main content -->
+              <section class="xl:col-span-8 space-y-8">
+                  <!-- Results chart -->
+                  <article class="section-shell rounded-3xl p-5 sm:p-6 lg:p-8">
+                      <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between mb-5">
+                          <div class="max-w-2xl">
+                              <h3 class="text-2xl font-serif font-bold text-gray-900">Results: Performance Comparison</h3>
+                              <p class="text-sm text-gray-500 mt-2 leading-relaxed">
+                                  Thrust Coefficient ($C_f$) vs. Altitude — aerospike versus three bell nozzle area ratios.
+                              </p>
+                          </div>
 
-        function switchChart(type) {
-            const btnCf = document.getElementById('btn-cf');
-            const btnPress = document.getElementById('btn-pressure');
-            
-            // Toggle Button Styles
-            if (type === 'cf') {
-                btnCf.className = "px-4 py-1.5 rounded-md text-sm font-medium transition-all bg-white text-orange-900 shadow-sm";
-                btnPress.className = "px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition-all";
-                
-                chartInstance.data.datasets[0].data = aerospikeCf;
-                chartInstance.data.datasets[1].data = bellCf;
-                chartInstance.options.scales.y.title.text = 'Thrust Coefficient (Cf)';
-                chartInstance.options.scales.y.min = 1.0;
-            } else {
-                btnPress.className = "px-4 py-1.5 rounded-md text-sm font-medium transition-all bg-white text-orange-900 shadow-sm";
-                btnCf.className = "px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition-all";
+                          <div class="flex bg-gray-100 p-1 rounded-2xl shrink-0 w-full sm:w-auto">
+                              <button id="btn-cf"
+                                  class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white text-orange-900 shadow-sm"
+                                  onclick="switchChart('cf')">
+                                  Thrust Coeff ($C_f$)
+                              </button>
+                              <button id="btn-pmf"
+                                  class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-700 transition-all"
+                                  onclick="switchChart('pmf')">
+                                  Propellant Mass Fraction
+                              </button>
+                          </div>
+                      </div>
 
-                chartInstance.data.datasets[0].data = aerospikeEff;
-                chartInstance.data.datasets[1].data = bellEff;
-                chartInstance.options.scales.y.title.text = 'Propellant Mass Fraction';
-                chartInstance.options.scales.y.min=0.1;
-            }
-            chartInstance.update();
-        }
+                      <div id="cf-legend" class="flex flex-wrap gap-2 mb-4">
+                          <span class="leg-pill bg-red-50 text-red-700 border-red-100"><span class="leg-solid bg-red-600"></span> Aerospike</span>
+                          <span class="leg-pill bg-green-50 text-green-700 border-green-100"><span class="leg-dashed" style="border-top:2px dotted #16a34a;"></span> Bell AR = 25 (Vac)</span>
+                          <span class="leg-pill bg-amber-50 text-amber-700 border-amber-100"><span class="leg-dashed" style="border-top:2px dashed #d97706;"></span> Bell AR = 9</span>
+                          <span class="leg-pill bg-sky-50 text-sky-700 border-sky-100"><span class="leg-dashed" style="border-top:2px dashed #0ea5e9;"></span> Bell AR = 5 (SL)</span>
+                          <span class="leg-pill bg-orange-50 text-orange-800 border-orange-100"><span style="width:14px;height:14px;background:rgba(194,65,12,0.18);border-radius:4px;display:inline-block;border:1px solid rgba(194,65,12,0.3)"></span> Thrust Advantage Region</span>
+                          <span class="leg-pill bg-pink-50 text-pink-600 border-pink-100"><span class="leg-dashed" style="border-top:2px dashed #db2777;"></span> Advantage % → right axis</span>
+                      </div>
 
-        document.addEventListener('DOMContentLoaded', initChart);
-    </script>
-</body>
-</html>
+                      <div class="chart-container mt-3">
+                          <canvas id="performanceChart"></canvas>
+                      </div>
+
+                      <div class="mt-5 bg-gradient-to-r from-orange-50 to-amber-50 p-5 rounded-2xl border border-orange-100">
+                          <h4 class="font-bold text-gray-800 text-sm mb-2 flex items-center gap-2">
+                              <i class="fa-solid fa-magnifying-glass-chart text-orange-700"></i>
+                              Analysis
+                          </h4>
+                          <p class="text-sm text-gray-600 leading-relaxed" id="analysis-text">
+                              The shaded region confirms <strong>altitude compensation</strong>: the aerospike exceeds
+                              the best available bell nozzle (AR = 25, vacuum-optimised) by up to <strong>~10%</strong>
+                              at 60 km. The advantage gradually erodes as altitude decreases, with a notable dip near
+                              10 km where the AR = 25 bell's design pressure briefly matches ambient. Near sea level all
+                              nozzles converge, while the aerospike self-adjusts — eliminating the usual sea-level
+                              over-expansion penalty of high-AR bells.
+                          </p>
+                      </div>
+                  </article>
+
+                  <!-- Visualisation -->
+                  <article class="section-shell rounded-3xl p-5 sm:p-6 lg:p-8">
+                      <div class="flex items-start gap-3 mb-5">
+                          <div class="section-icon"><i class="fa-solid fa-film"></i></div>
+                          <div>
+                              <h3 class="text-2xl font-serif font-bold text-gray-900">CFD Simulation Visualisation</h3>
+                              <p class="text-sm text-gray-500 mt-1 leading-relaxed">
+                                  Mach-number contours and exhaust-plume evolution across the altitude sweep.
+                              </p>
+                          </div>
+                      </div>
+
+                      <!-- Placeholder / embed area -->
+                      <div class="video-wrapper">
+                          <div class="video-placeholder">
+                              <i class="fa-solid fa-circle-play text-6xl text-orange-300/70"></i>
+                              <p class="font-semibold text-orange-100 text-base mt-1">CFD Animation</p>
+                          </div>
+                          <iframe
+                              src="https://drive.google.com/file/d/1-L877Y25bzXnGW2r-hdlQPzbip1b6Jab/preview"
+                                allow="autoplay; encrypted-media"
+                                referrerpolicy="no-referrer"
+                              allowfullscreen>
+                          </iframe>
+                      </div>
+
+                      <p class="text-xs text-gray-400 mt-3 italic text-center">
+                          Density-gradient (schlieren-style) overlay for the truncated aerospike at Mach 2.5
+                          chamber conditions. Figure dimensions: 20 × 14 in.
+                      </p>
+                  </article>
+
+                  <!-- Applications / Implications -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <article class="metric-card p-6">
+                          <h3 class="font-serif font-bold text-orange-900 mb-3 flex items-center gap-2">
+                              <i class="fa-solid fa-rocket"></i> Applications
+                          </h3>
+                          <p class="text-sm text-orange-800 leading-relaxed">
+                              <strong>SSTO (Single-Stage-To-Orbit):</strong> Vehicles like the conceptual
+                              X-33/VentureStar require engines efficient at <em>both</em> sea level (liftoff) and
+                              vacuum (orbit insertion) without staging. The Aerospike is the primary candidate for
+                              such mission profiles.
+                          </p>
+                      </article>
+
+                      <article class="metric-card p-6 bg-white">
+                          <h3 class="font-serif font-bold text-gray-900 mb-3 flex items-center gap-2">
+                              <i class="fa-solid fa-weight-hanging text-orange-700"></i> Implications
+                          </h3>
+                          <p class="text-sm text-gray-600 leading-relaxed">
+                              <strong>Mass Reduction:</strong> By truncating the spike at ~20% of its theoretical
+                              length, we reduce engine weight significantly. The "base pressure" generated by the
+                              recirculation zone compensates for the missing physical structure, optimising the
+                              thrust-to-weight ratio.
+                          </p>
+                      </article>
+                  </div>
+              </section>
+          </div>
+      </main>
+
+      <!-- Report link -->
+      <section class="border-t border-white/60 bg-white/55 backdrop-blur-xl py-14">
+          <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <span class="badge bg-orange-50 text-orange-800 border border-orange-100 mb-4">Publication</span>
+              <h2 class="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-4">Read the Full Report</h2>
+              <p class="text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                  Explore the detailed ANSYS Fluent setup, mesh independence study, and contour plots
+                  of Mach number distributions.
+              </p>
+              <a href="Seminar_report_on_Aerospike_Engine.pdf"
+                 class="inline-flex items-center px-8 py-3.5 bg-orange-900 text-white font-semibold rounded-2xl hover:bg-orange-800 transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl">
+                  <i class="fa-regular fa-file-pdf mr-2"></i>
+                  View Project Report (PDF)
+              </a>
+              <p class="text-xs text-gray-400 mt-4 italic">
+                  *Based on Seminar Report submitted to SPPU, 2018-19.
+              </p>
+          </div>
+      </section>
+
+      <footer class="bg-white/80 backdrop-blur border-t border-gray-200 py-8 mt-auto">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+              <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
+              <div class="max-w-md text-center bg-[#FDFBF7] px-5 py-4 rounded-full border border-gray-100 shadow-sm">
+                  <p class="text-gray-600 text-sm italic font-serif leading-relaxed">
+                      <i class="fa-solid fa-quote-left text-orange-200 mr-2"></i>
+                      Newton's Third Law:<br>
+                      <span class="text-orange-700 font-medium">
+                          <b>The only way humans have figured out how to get anywhere is by leaving something behind.</b>
+                      </span>
+                      <i class="fa-solid fa-quote-right text-orange-200 ml-2"></i>
+                  </p>
+              </div>
+              <div class="flex space-x-4 mt-6 text-gray-400">
+                  <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                  <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                  <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                  <a href="#" class="hover:text-orange-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+              </div>
+          </div>
+      </footer>
+
+      <script>
+          // ── DATA ────────────────────────────────────────────────────────────────
+          const altKm = [60,55,50,45,40,35,30,25,20,15,12,10,8,5,3,1,0];
+
+          const cfAerospike = [1.985,1.982,1.978,1.972,1.965,1.958,1.950,1.938,1.920,1.882,1.845,1.788,1.735,1.652,1.572,1.512,1.480];
+          const cfBellAR25  = [1.800,1.800,1.800,1.800,1.800,1.800,1.800,1.800,1.800,1.796,1.790,1.780,1.732,1.652,1.562,1.462,1.420];
+          const cfBellAR9   = [1.700,1.700,1.700,1.700,1.700,1.700,1.700,1.700,1.700,1.699,1.696,1.686,1.672,1.582,1.522,1.472,1.450];
+          const cfBellAR5   = [1.630,1.630,1.630,1.630,1.630,1.630,1.630,1.630,1.630,1.626,1.619,1.602,1.582,1.552,1.522,1.492,1.480];
+
+          const cfBellBest = cfBellAR25.map((_, i) =>
+            Math.max(cfBellAR25[i], cfBellAR9[i], cfBellAR5[i])
+          );
+
+          const cfAdvantageBest = cfAerospike.map((v, i) =>
+            +((v - cfBellBest[i]) / cfBellBest[i] * 100).toFixed(2)
+          );
+
+          const pmfLabels    = [50000, 75000, 100000, 125000, 150000];
+          const pmfBell      = [0.800, 0.7948, 0.785, 0.7562, 0.700];
+          const pmfAerospike = [0.774, 0.6502, 0.600, 0.5405, 0.4507];
+
+          const C = {
+              aerospike : '#c2410c',
+              ar25      : '#16a34a',
+              ar9       : '#d97706',
+              ar5       : '#0ea5e9',
+              advantage : '#db2777',
+              shade     : 'rgba(194,65,12,0.12)',
+              grid      : '#eef2f7',
+          };
+
+          const ACTIVE   = 'flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white text-orange-900 shadow-sm';
+          const INACTIVE = 'flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-700 transition-all';
+
+          let chart = null;
+
+          function cfConfig() {
+              return {
+                  type: 'line',
+                  data: {
+                      labels: altKm,
+                      datasets: [
+                          {
+                              label: 'Aerospike',
+                              data: cfAerospike,
+                              borderColor: C.aerospike,
+                              backgroundColor: C.shade,
+                              borderWidth: 3,
+                              tension: 0.4,
+                              fill: { target: 1, above: C.shade, below: 'transparent' },
+                              pointRadius: 3,
+                              pointHoverRadius: 6,
+                              pointBackgroundColor: '#fff',
+                              pointBorderColor: C.aerospike,
+                              yAxisID: 'yCf',
+                              order: 1,
+                          },
+                          {
+                              label: 'Bell AR = 25 (Vac)',
+                              data: cfBellAR25,
+                              borderColor: C.ar25,
+                              borderWidth: 2,
+                              borderDash: [4, 4],
+                              tension: 0.4,
+                              fill: false,
+                              pointRadius: 2,
+                              pointHoverRadius: 5,
+                              pointBackgroundColor: C.ar25,
+                              yAxisID: 'yCf',
+                              order: 2,
+                          },
+                          {
+                              label: 'Bell AR = 9',
+                              data: cfBellAR9,
+                              borderColor: C.ar9,
+                              borderWidth: 2,
+                              borderDash: [7, 3],
+                              tension: 0.4,
+                              fill: false,
+                              pointRadius: 2,
+                              pointHoverRadius: 5,
+                              pointBackgroundColor: C.ar9,
+                              yAxisID: 'yCf',
+                              order: 3,
+                          },
+                          {
+                              label: 'Bell AR = 5 (SL)',
+                              data: cfBellAR5,
+                              borderColor: C.ar5,
+                              borderWidth: 2,
+                              borderDash: [3, 3],
+                              tension: 0.4,
+                              fill: false,
+                              pointRadius: 2,
+                              pointHoverRadius: 5,
+                              pointBackgroundColor: C.ar5,
+                              yAxisID: 'yCf',
+                              order: 4,
+                          },
+                          {
+                              label: 'Aerospike Advantage (%)',
+                              data: cfAdvantageBest,
+                              borderColor: C.advantage,
+                              borderWidth: 2,
+                              borderDash: [6, 3],
+                              tension: 0.4,
+                              fill: false,
+                              pointRadius: 0,
+                              pointHoverRadius: 5,
+                              yAxisID: 'yAdv',
+                              order: 5,
+                          },
+                      ]
+                  },
+                  options: {
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      interaction: { mode: 'index', intersect: false },
+                      plugins: {
+                          legend: { display: false },
+                          tooltip: {
+                              backgroundColor: 'rgba(120,40,10,0.93)',
+                              titleFont: { family: 'Georgia, serif', size: 13 },
+                              bodyFont: { family: 'sans-serif', size: 12 },
+                              padding: 12,
+                              cornerRadius: 10,
+                              callbacks: {
+                                  title: ctx => `Altitude: ${ctx[0].label} km`,
+                                  label: ctx => {
+                                      if (ctx.datasetIndex === 4) return `  Advantage: ${ctx.raw}%`;
+                                      return `  ${ctx.dataset.label}: Cf = ${ctx.raw}`;
+                                  }
+                              }
+                          }
+                      },
+                      scales: {
+                          x: {
+                              title: { display: true, text: 'Altitude [km]', font: { weight: 'bold', size: 12 } },
+                              grid: { display: false },
+                              ticks: { maxTicksLimit: 10 },
+                          },
+                          yCf: {
+                              type: 'linear',
+                              position: 'left',
+                              title: { display: true, text: 'Thrust Coefficient  Cf', font: { weight: 'bold', size: 12 } },
+                              grid: { color: C.grid },
+                              min: 1.38,
+                              max: 2.05,
+                          },
+                          yAdv: {
+                              type: 'linear',
+                              position: 'right',
+                              title: { display: true, text: 'Aerospike Advantage [%]', color: C.advantage, font: { weight: 'bold', size: 11 } },
+                              ticks: { color: C.advantage },
+                              grid: { drawOnChartArea: false },
+                              min:0,
+                              max: 11,
+                          }
+                      }
+                  }
+              };
+          }
+
+          function pmfConfig() {
+              return {
+                  type: 'line',
+                  data: {
+                      labels: pmfLabels,
+                      datasets: [
+                          {
+                              label: 'Aerospike Nozzle',
+                              data: pmfAerospike,
+                              borderColor: C.aerospike,
+                              backgroundColor: 'rgba(194,65,12,0.08)',
+                              borderWidth: 3,
+                              tension: 0.4,
+                              fill: true,
+                              pointRadius: 4,
+                              pointHoverRadius: 7,
+                              pointBackgroundColor: '#fff',
+                              pointBorderColor: C.aerospike,
+                          },
+                          {
+                              label: 'Conventional Bell Nozzle',
+                              data: pmfBell,
+                              borderColor: '#9ca3af',
+                              borderWidth: 2,
+                              borderDash: [5, 5],
+                              tension: 0.4,
+                              fill: false,
+                              pointRadius: 3,
+                              pointBackgroundColor: '#9ca3af',
+                          }
+                      ]
+                  },
+                  options: {
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      interaction: { mode: 'index', intersect: false },
+                      plugins: {
+                          legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } },
+                          tooltip: {
+                              backgroundColor: 'rgba(120,40,10,0.93)',
+                              padding: 12,
+                              cornerRadius: 10,
+                          }
+                      },
+                      scales: {
+                          x: {
+                              title: { display: true, text: 'Altitude (feet)', font: { weight: 'bold' } },
+                              grid: { display: false },
+                          },
+                          y: {
+                              title: { display: true, text: 'Propellant Mass Fraction', font: { weight: 'bold' } },
+                              grid: { color: C.grid },
+                              min: 0.1,
+                          }
+                      }
+                  }
+              };
+          }
+
+          function switchChart(mode) {
+              document.getElementById('btn-cf').className = mode === 'cf' ? ACTIVE : INACTIVE;
+              document.getElementById('btn-pmf').className = mode === 'pmf' ? ACTIVE : INACTIVE;
+              document.getElementById('cf-legend').style.display = mode === 'cf' ? 'flex' : 'none';
+
+              const analysis = document.getElementById('analysis-text');
+              if (mode === 'cf') {
+                  analysis.innerHTML = `The shaded region confirms <strong>altitude compensation</strong>: the aerospike exceeds
+                      the best available bell nozzle (AR = 25, vacuum-optimised) by up to <strong>~10%</strong>
+                      at 60 km. The advantage gradually erodes as altitude decreases, with a notable dip near
+                      10 km where the AR = 25 bell's design pressure briefly matches ambient. Near sea level all
+                      nozzles converge, while the aerospike self-adjusts — eliminating the usual sea-level
+                      over-expansion penalty of high-AR bells.`;
+              } else {
+                  analysis.innerHTML = `A declining Propellant Mass Fraction for the aerospike with increasing altitude
+                      signals <strong>higher efficiency</strong>: less propellant is needed to achieve the same momentum transfer.
+                      $$\\textbf{Low PMF} \\rightarrow \\textbf{Less fuel for the same payload} \\rightarrow \\textbf{Higher efficiency}$$`;
+              }
+
+              if (chart) chart.destroy();
+              const ctx = document.getElementById('performanceChart').getContext('2d');
+              chart = new Chart(ctx, mode === 'cf' ? cfConfig() : pmfConfig());
+          }
+
+          document.addEventListener('DOMContentLoaded', () => switchChart('cf'));
+      </script>
+  </body>
+  </html>
+
