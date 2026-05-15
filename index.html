@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.2/chartjs-plugin-annotation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.2.1/chartjs-plugin-annotation.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="google-site-verification" content="M4d0vFFMKf4imPXZAU_1xNitnaiZoVcINlxO9Ej2IVE" />
     <meta name="description" content="Yugesh Bhoge - Computational Astrophysicist. Explore my portfolio showcasing research, projects, and expertise in astrophysics and computational science.">
@@ -620,7 +620,7 @@
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 relative min-h-[110px]">
                             <h4 class="font-semibold text-gray-900 text-xs uppercase tracking-wider mb-2">Photometric Decline</h4>
                             <p id="index-desc-u" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-100 pr-4">
-                                <strong>u-band:</strong> Rapid collapse in NSBH flux (Δm ≈ 2.43 at day 2) due to absence of high-Y<sub>e</sub> polar ejecta. BNS sustains emission.
+                                <strong>u-band:</strong> Rapid collapse in NSBH flux (Δm ≈ 3.38 at day 2) due to absence of high-Y<sub>e</sub> polar ejecta. BNS sustains emission.
                             </p>
                             <p id="index-desc-i" class="text-xs text-gray-600 absolute transition-opacity duration-300 opacity-0 pointer-events-none pr-4">
                                 <strong>i-band:</strong> Trend reverses. Massive, high-opacity tidal tails in NSBH increase diffusion timescales, sustaining emission longer than BNS.
@@ -1130,32 +1130,194 @@ new Chart(ctxSkills, {
 });
 
 /* ── Kilonova Light Curve ────────────────────────────────── */
-const knData = {
+const knData = {  
     labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
     u: {
-        bns:  [27.8, 27.0, 27.51, 28.2, 28.8, 29.4, 30.1, 30.5, 30.9],
-        nsbh: [27.67, 29.5, 30.1, 29.9, 29.9, 30.1, 30.3, 30.6, 30.8]
+        bns:  [26.72, 26.74, 27.38, 27.94, 28.64, 29.48, 30.20, 30.72, 31.09],
+        nsbh: [25.69, 26.65, 28.76, 28.89, 29.30, 29.81, 30.27, 30.65, 31.02]
     },
     i: {
-        bns:  [23.2, 21.75, 22.2, 22.8, 23.2, 23.8, 24.6, 25.1, 25.6],
-        nsbh: [25.8, 25.2, 24.9, 24.64, 24.6, 24.8, 25.0, 25.3, 25.5]
+        bns:  [21.43, 21.45, 22.09, 22.65, 23.35, 24.19, 24.91, 25.43, 25.80],
+        nsbh: [23.62, 23.29, 23.51, 23.60, 24.01, 24.52, 24.98, 25.36, 25.73]
     }
 };
 
 const uAnnots = {
-    vline:      { type:'line', scaleID:'x', value:2, borderColor:'#1f2937', borderDash:[5,5], borderWidth:1 },
-    bnsArrow:   { type:'line', scaleID:'y', xMin:2.2, xMax:2.2, yMin:27.0, yMax:27.51, borderColor:'#C2410C', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
-    bnsLabel:   { type:'label', xValue:2.7, yValue:27.25, content:'Δm = 0.51', color:'#C2410C', font:{size:10,weight:'bold'} },
-    nsbhArrow:  { type:'line', scaleID:'y', xMin:1.8, xMax:1.8, yMin:27.67, yMax:30.1, borderColor:'#2563EB', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
-    nsbhLabel:  { type:'label', xValue:1.2, yValue:28.9, content:'Δm = 2.43', color:'#2563EB', font:{size:10,weight:'bold'} }
-};
+    vline: {
+        type: 'line',
+        scaleID: 'x', value: 2,
+        borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
+        label: {
+            display: false,
+            position: 'start',
+            backgroundColor: 'rgba(31,41,55,0.08)',
+            color: '#374151',
+            font: { size: 10, weight: 'bold' },
+            padding: { x: 6, y: 3 },
+            yAdjust: -14
+        }
+    },
+    // BNS: horizontal dashed line at peak (day 1)
+    bnsPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 26.74,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // BNS: horizontal dashed line at day-2 value
+    bnsTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 27.38,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // NSBH: horizontal dashed line at initial value
+    nsbhPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 25.69,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // NSBH: horizontal dashed line at day-2 value
+    nsbhTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 28.76,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // BNS double-headed arrow between peak and day-2 value
+    bnsArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 2.4, xMax: 2.4,
+        yMin: 26.74, yMax: 27.38,
+        borderColor: '#C2410C', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    // BNS label
+    bnsLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 3.0, yValue: 27.06,
+        content: ['Δm = 0.72'],
+        color: '#C2410C',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(255,237,213,0.85)',
+        borderColor: '#C2410C',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    },
+    // NSBH double-headed arrow between initial and day-2 value
+    nsbhArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 5.5, xMax: 5.5,
+        yMin: 25.69, yMax: 28.76,
+        borderColor: '#2563EB', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    // NSBH label
+    nsbhLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 6.0, yValue: 27.06,
+        content: ['Δm = 3.38'],
+        color: '#2563EB',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(219,234,254,0.85)',
+        borderColor: '#2563EB',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    }
+    };
 const iAnnots = {
-    vline:      { type:'line', scaleID:'x', value:6, borderColor:'#1f2937', borderDash:[5,5], borderWidth:1 },
-    bnsArrow:   { type:'line', scaleID:'y', xMin:5.8, xMax:5.8, yMin:21.75, yMax:24.6, borderColor:'#C2410C', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
-    bnsLabel:   { type:'label', xValue:5.3, yValue:23.2, content:'Δm = 2.85', color:'#C2410C', font:{size:10,weight:'bold'} },
-    nsbhArrow:  { type:'line', scaleID:'y', xMin:6.2, xMax:6.2, yMin:24.64, yMax:25.0, borderColor:'#2563EB', borderWidth:1.5, arrowHeads:{start:{display:true,length:5,width:3},end:{display:true,length:5,width:3}} },
-    nsbhLabel:  { type:'label', xValue:6.8, yValue:24.8, content:'Δm = 0.36', color:'#2563EB', font:{size:10,weight:'bold'} }
-};
+    vline: {
+        type: 'line',
+        scaleID: 'x', value: 6,
+        borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
+        label: {
+            display: false,
+            content: 'Day 10',
+            position: 'start',
+            backgroundColor: 'rgba(31,41,55,0.08)',
+            color: '#374151',
+            font: { size: 10, weight: 'bold' },
+            padding: { x: 6, y: 3 },
+            yAdjust: -14
+        }
+    },
+    bnsPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 21.45,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    bnsTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 24.91,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    nsbhPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 23.29,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    nsbhTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 24.98,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    bnsArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 4.5, xMax: 4.5,
+        yMin: 21.45, yMax: 24.91,
+        borderColor: '#C2410C', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    bnsLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 5, yValue: 22.9,
+        content: ['Δm = 3.54'],
+        color: '#C2410C',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(255,237,213,0.85)',
+        borderColor: '#C2410C',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    },
+    nsbhArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 1, xMax: 1,
+        yMin: 23.29, yMax: 24.98,
+        borderColor: '#2563EB', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    nsbhLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 1.5, yValue: 24.15,
+        content: ['Δm = 1.70'],
+        color: '#2563EB',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(219,234,254,0.85)',
+        borderColor: '#2563EB',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    }};
 
 const ctxKilonova = document.getElementById('kilonovaChart').getContext('2d');
 const kilonovaChart = new Chart(ctxKilonova, {
@@ -1189,7 +1351,7 @@ const kilonovaChart = new Chart(ctxKilonova, {
             }
         },
         scales: {
-            y: { reverse:true, grid:{ color:'#f3f4f6', drawBorder:false }, min:26.5, max:31.5 },
+            y: { reverse:true, grid:{ color:'#f3f4f6', drawBorder:false }, min:25.0, max:31.5 },
             x: { grid:{ display:false, drawBorder:false } }
         }
     }
@@ -1207,13 +1369,13 @@ function switchKilonovaBand(band) {
         btnU.className = active; btnI.className = inactive;
         descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
         descI.style.opacity = 0; descI.style.pointerEvents = 'none';
-        kilonovaChart.options.scales.y.min = 26.5; kilonovaChart.options.scales.y.max = 31.5;
+        kilonovaChart.options.scales.y.min = 25; kilonovaChart.options.scales.y.max = 31.5;
         kilonovaChart.options.plugins.annotation.annotations = uAnnots;
     } else {
         btnI.className = active; btnU.className = inactive;
         descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
         descU.style.opacity = 0; descU.style.pointerEvents = 'none';
-        kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 26.5;
+        kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 26;
         kilonovaChart.options.plugins.annotation.annotations = iAnnots;
     }
     kilonovaChart.data.datasets[0].data = knData[band].bns;

@@ -5,47 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kilonova Distinction | Yugesh Bhoge</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.2/chartjs-plugin-annotation.min.js"></script>
+
+    <!-- Chart.js core -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- Annotation plugin — use cdnjs for reliability; UMD auto-registers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.2.1/chartjs-plugin-annotation.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
+            tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+            options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0KCTM3XW77"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-0KCTM3XW77');
-  </script>
-  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0KCTM3XW77"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0KCTM3XW77');
+    </script>
+
     <style>
-      @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-      }
-      .fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
-      }
-  </style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-900 font-sans">
-    
+
     <nav class="bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="index.html" class="font-serif font-bold text-xl hover:text-indigo-600 transition-colors"><i class="fa-solid fa-arrow-left mr-2"></i> Back to Home</a>
+            <a href="index.html" class="font-serif font-bold text-xl hover:text-indigo-600 transition-colors">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Back to Home
+            </a>
             <div class="text-sm text-gray-500 font-medium hidden sm:block">M.Sc. Physics '25, IIT Bombay</div>
         </div>
     </nav>
@@ -56,7 +55,6 @@
                 <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
             </svg>
         </div>
-        
         <div class="max-w-5xl mx-auto px-4 text-center relative z-10 fade-in-up">
             <div class="inline-block px-4 py-1 bg-indigo-700 rounded-full text-xs font-bold mb-4 border border-indigo-500 tracking-widest uppercase shadow-sm">
                 Published Research & Thesis
@@ -65,31 +63,32 @@
                 Distinguishing BNS and NSBH Kilonovae via Photometric Decline Rates
             </h1>
             <p class="text-xl text-indigo-200 mb-6 max-w-3xl mx-auto font-light leading-relaxed">
-                Establishing robust, eos and population-independent electromagnetic classification metrics to break gravitational-wave degeneracies using multi-band optical spectra.
+                Establishing robust, eos and population-independent electromagnetic classification metrics to break
+                gravitational-wave degeneracies using multi-band optical spectra.
             </p>
             <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-indigo-300 font-mono mt-8 border-t border-indigo-800 pt-6 max-w-2xl mx-auto">
-                <span>Ish Gupta</span> <span class="text-indigo-600 hidden sm:inline">•</span>
-                <span><b>Yugesh Bhoge</b></span> <span class="text-indigo-600 hidden sm:inline">•</span>
-                <span>Rahul Kashyap</span> <span class="text-indigo-600 hidden sm:inline">•</span>
+                <span>Ish Gupta</span>
+                <span class="text-indigo-600 hidden sm:inline">•</span>
+                <span><b>Yugesh Bhoge</b></span>
+                <span class="text-indigo-600 hidden sm:inline">•</span>
+                <span>Rahul Kashyap</span>
+                <span class="text-indigo-600 hidden sm:inline">•</span>
                 <span>Mukul Bhattacharya</span>
             </div>
         </div>
-        
-        <div class="mt-16 max-w-3xl mx-auto px-4 relative z-20 fade-in-up" style="animation-delay: 0.3s; opacity: 0;">
+        <div class="mt-16 max-w-3xl mx-auto px-4 relative z-20 fade-in-up" style="animation-delay:0.3s;opacity:0;">
             <div class="relative group">
                 <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
                 <div class="relative bg-indigo-950/40 backdrop-blur-md border border-indigo-500/30 p-8 rounded-2xl shadow-2xl">
                     <i class="fa-solid fa-quote-left absolute top-6 left-6 text-indigo-400/20 text-5xl"></i>
                     <div class="relative z-10 text-center">
                         <p class="text-indigo-50 font-serif italic text-xl md:text-2xl leading-relaxed">
-                            “Nature uses only the longest threads to weave her patterns.”
+                            "Nature uses only the longest threads to weave her patterns."
                         </p>
                         <p class="text-indigo-400 text-xs mt-3 font-mono uppercase tracking-widest">— Richard Feynman</p>
-                        
                         <div class="w-16 h-px bg-indigo-500/40 mx-auto my-5"></div>
-                        
                         <p class="text-indigo-200 font-serif italic text-md md:text-lg leading-relaxed">
-                            “...Unfortunately, she also knots them so we can’t tell HMNS from LMBH.”
+                            "...Unfortunately, she also knots them so we can't tell HMNS from LMBH."
                         </p>
                     </div>
                     <i class="fa-solid fa-quote-right absolute bottom-6 right-6 text-indigo-400/20 text-5xl"></i>
@@ -99,21 +98,28 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        
+
+        <!-- LEFT COLUMN -->
         <div class="lg:col-span-1 space-y-8">
-      
-           <div class="group">
-            <div class="flex items-center space-x-3 mb-3">
-                <div class="bg-indigo-100 p-2.5 rounded-lg text-indigo-800 shadow-sm group-hover:bg-indigo-200 group-hover:scale-105 transition-all duration-300">
-                    <i class="fa-solid fa-lightbulb"></i>
+            <div class="group">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="bg-indigo-100 p-2.5 rounded-lg text-indigo-800 shadow-sm group-hover:bg-indigo-200 group-hover:scale-105 transition-all duration-300">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">The Degeneracy Problem</h2>
                 </div>
-                <h2 class="text-2xl font-serif font-bold text-gray-900">The Degeneracy Problem</h2>
-            </div>
                 <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    Gravitational-wave (GW) observatories face a critical challenge: distinguishing between a high-mass ratio Binary Neutron Star (BNS) merger and a low-mass Neutron Star-Black Hole (NSBH) merger. When the primary mass falls into the rang $2.5 - 5 M_\odot$, GW signals alone yield highly degenerate parameter estimations i.e. it can't distinghuish between a <b>HMNS</b> (<b>H</b>igh <b>M</b>ass <b>N</b>eutron <b>S</b>tar) and a <b>LMBH</b> (<b>L</b>ow <b>M</b>ass <b>B</b>lack <b>H</b>ole).
+                    Gravitational-wave (GW) observatories face a critical challenge: distinguishing between a high-mass ratio
+                    Binary Neutron Star (BNS) merger and a low-mass Neutron Star-Black Hole (NSBH) merger. When the primary
+                    mass falls into the range $2.5 - 5 M_\odot$, GW signals alone yield highly degenerate parameter
+                    estimations i.e. it can't distinguish between a <b>HMNS</b> (<b>H</b>igh <b>M</b>ass <b>N</b>eutron
+                    <b>S</b>tar) and a <b>LMBH</b> (<b>L</b>ow <b>M</b>ass <b>B</b>lack <b>H</b>ole).
                 </p>
                 <p class="text-gray-600 text-sm leading-relaxed text-justify mt-3">
-                    As wide-field optical surveys like the <strong>Rubin Observatory (LSST)</strong> come online, thousands of kilonovae will be discovered serendipitously without GW triggers. We demonstrate that the kilonova light curve itself, specifically its post-peak magnitude decline ($\Delta m$), acts as a definitive, distance-independent classifier.
+                    As wide-field optical surveys like the <strong>Rubin Observatory (LSST)</strong> come online, thousands
+                    of kilonovae will be discovered serendipitously without GW triggers. We demonstrate that the kilonova
+                    light curve itself, specifically its post-peak magnitude decline ($\Delta m$), acts as a definitive,
+                    distance-independent classifier.
                 </p>
             </div>
 
@@ -124,15 +130,11 @@
                 <ul class="list-none text-sm text-gray-700 space-y-4">
                     <li class="flex items-start">
                         <i class="fa-solid fa-layer-group text-green-500 mt-1 mr-3 text-xs"></i>
-                        <div>
-                            <strong>Population Synthesis:</strong> Simulated dense grids of $2 \times 10^4$ BNS and NSBH systems covering plausible mass, spin, and Equation of State (EoS) parameter spaces.
-                        </div>
+                        <div><strong>Population Synthesis:</strong> Simulated dense grids of $2 \times 10^4$ BNS and NSBH systems covering plausible mass, spin, and Equation of State (EoS) parameter spaces.</div>
                     </li>
                     <li class="flex items-start">
                         <i class="fa-solid fa-calculator text-green-500 mt-1 mr-3 text-xs"></i>
-                        <div>
-                            <strong>NR-Calibrated Fits:</strong> Extracted dynamical ($M_{dyn}$) and post-merger disk ($M_{disk}$) ejecta masses using numerical relativity formulae (<b>Krüger & Foucart</b> for NSBH; <b>Nedora 2023</b> for BNS).
-                        </div>
+                        <div><strong>NR-Calibrated Fits:</strong> Extracted dynamical ($M_{dyn}$) and post-merger disk ($M_{disk}$) ejecta masses using numerical relativity formulae (<b>Krüger & Foucart</b> for NSBH; <b>Nedora 2023</b> for BNS).</div>
                     </li>
                 </ul>
             </div>
@@ -143,75 +145,76 @@
                 </div>
                 <h3 class="font-bold text-indigo-900 mb-2 relative z-10">LSST Survey Strategy</h3>
                 <p class="text-sm text-indigo-800 leading-relaxed relative z-10 text-justify">
-                    Our findings establish a prioritization metric for the Vera C. Rubin Observatory. A rapid $\ge 3$ mag drop in the $u$-band within 48 hours is a smoking gun for an NSBH merger, allowing automated pipelines to immediately trigger expensive spectroscopic follow-up before the transient fades.
+                    Our findings establish a prioritization metric for the Vera C. Rubin Observatory. A rapid $\ge 3$ mag
+                    drop in the $u$-band within 48 hours is a smoking gun for an NSBH merger, allowing automated pipelines
+                    to immediately trigger expensive spectroscopic follow-up before the transient fades.
                 </p>
             </div>
 
+            <!-- Physics Explorer -->
             <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-200 hover:shadow-lg hover:border-indigo-300 transition-all duration-300">
                 <h3 class="font-bold text-gray-900 mb-2 flex items-center">
                     <i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> Physics Explorer
                 </h3>
                 <p class="text-xs text-gray-500 mb-6 leading-relaxed">
-                    Adjust the physical parameters below to see how they govern the diffusion timescale ($t_d$), dictating whether the kilonova peaks early or late.
+                    Adjust the physical parameters below to see how they govern the diffusion timescale ($t_d$).
                 </p>
-
                 <div class="space-y-6">
                     <div>
                         <div class="flex justify-between text-xs font-bold text-gray-700 mb-2">
                             <span>Ejecta Mass ($M_{ej}$)</span>
                             <span id="val-mass" class="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">0.05 M⊙</span>
                         </div>
-                        <input type="range" id="slider-mass" min="0.01" max="0.1" step="0.01" value="0.05" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <input type="range" id="slider-mass" min="0.01" max="0.1" step="0.01" value="0.05"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
                     </div>
-
                     <div>
                         <div class="flex justify-between text-xs font-bold text-gray-700 mb-2">
                             <span>Velocity ($v_{ej}$)</span>
                             <span id="val-vel" class="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">0.20 c</span>
                         </div>
-                        <input type="range" id="slider-vel" min="0.05" max="0.3" step="0.01" value="0.20" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <input type="range" id="slider-vel" min="0.05" max="0.3" step="0.01" value="0.20"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
                     </div>
-
                     <div>
                         <div class="flex justify-between text-xs font-bold text-gray-700 mb-2">
                             <span>Opacity ($\kappa$)</span>
                             <span id="val-opac" class="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">1.0 cm²/g</span>
                         </div>
-                        <input type="range" id="slider-opac" min="0.1" max="15" step="0.1" value="1.0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <input type="range" id="slider-opac" min="0.1" max="15" step="0.1" value="1.0"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
                         <div class="flex justify-between text-[10px] text-gray-400 mt-1 font-medium px-1">
-                            <span>Lanthanide-poor</span>
-                            <span>Lanthanide-rich</span>
+                            <span>Lanthanide-poor</span><span>Lanthanide-rich</span>
                         </div>
                     </div>
                 </div>
-
                 <div class="mt-6 p-5 bg-gradient-to-br from-indigo-50 to-white rounded-xl border border-indigo-100 text-center shadow-inner">
                     <div class="text-[10px] text-indigo-400 font-bold mb-1 uppercase tracking-widest">Calculated Timescale ($t_d$)</div>
                     <div class="text-4xl font-serif font-bold text-gray-900 drop-shadow-sm" id="calc-td">4.2 Days</div>
                     <div class="text-xs text-indigo-600 mt-2 font-medium px-2" id="calc-type">Fast diffusion: Typical of early BNS emission.</div>
                 </div>
             </div>
-
         </div>
 
+        <!-- RIGHT COLUMN -->
         <div class="lg:col-span-2 space-y-10">
-            
+
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
                 <div class="flex items-center space-x-3 mb-6 border-b border-gray-100 pb-4">
-                    <div class="bg-orange-100 p-2.5 rounded-lg text-orange-800">
-                      <i class="fa-solid fa-atom"></i>
-                    </div>
+                    <div class="bg-orange-100 p-2.5 rounded-lg text-orange-800"><i class="fa-solid fa-atom"></i></div>
                     <h2 class="text-2xl font-serif font-bold text-gray-900">Ejecta Geometry & Composition</h2>
                 </div>
                 <p class="text-sm text-gray-600 mb-6 text-justify leading-relaxed">
-                    The observable differences in kilonovae stem from the fundamentally different ways matter is ejected during the merger, governed primarily by the <strong>electron fraction ($Y_e$)</strong> which determines lanthanide production via the r-process.
+                    The observable differences in kilonovae stem from the fundamentally different ways matter is ejected
+                    during the merger, governed primarily by the <strong>electron fraction ($Y_e$)</strong> which
+                    determines lanthanide production via the r-process.
                 </p>
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-3">
                         <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 text-sm uppercase tracking-wider">NSBH Mergers</h3>
                         <p class="text-sm text-gray-600 text-justify">
-                            Driven by extreme tidal disruption, NSBH mergers produce massive, highly asymmetric equatorial tidal tails. Because this dynamical ejecta comes directly from the neutron star's inner crust, it is extremely neutron-rich <strong>(low $Y_e \le 0.1$)</strong>.
+                            Driven by extreme tidal disruption, NSBH mergers produce massive, highly asymmetric equatorial
+                            tidal tails. This dynamical ejecta is extremely neutron-rich <strong>(low $Y_e \le 0.1$)</strong>.
                         </p>
                         <div class="bg-gray-50 p-3 rounded-lg text-xs text-gray-700 border border-gray-100">
                             <ul class="space-y-1">
@@ -221,11 +224,11 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="space-y-3">
                         <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 text-sm uppercase tracking-wider">BNS Mergers</h3>
                         <p class="text-sm text-gray-600 text-justify">
-                            BNS mergers undergo violent contact, producing shock-heated polar dynamical ejecta and massive accretion disk winds. Weak interactions (neutrino irradiation) raise the electron fraction in these regions <strong>(high $Y_e \ge 0.25$)</strong>.
+                            BNS mergers undergo violent contact, producing shock-heated polar dynamical ejecta. Neutrino
+                            irradiation raises $Y_e$ <strong>(high $Y_e \ge 0.25$)</strong>.
                         </p>
                         <div class="bg-gray-50 p-3 rounded-lg text-xs text-gray-700 border border-gray-100">
                             <ul class="space-y-1">
@@ -239,65 +242,62 @@
             </div>
 
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
-              <div class="flex items-center space-x-3 mb-6 border-b border-gray-100 pb-4">
-                <div class="bg-indigo-100 p-2.5 rounded-lg text-indigo-800">
-                  <i class="fa-solid fa-square-root-variable"></i>
+                <div class="flex items-center space-x-3 mb-6 border-b border-gray-100 pb-4">
+                    <div class="bg-indigo-100 p-2.5 rounded-lg text-indigo-800"><i class="fa-solid fa-square-root-variable"></i></div>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Thermodynamic Framework</h2>
                 </div>
-                <h2 class="text-2xl font-serif font-bold text-gray-900">Thermodynamic Framework</h2>
-              </div>
                 <p class="text-sm text-gray-600 mb-5 text-justify leading-relaxed">
-                    While our primary results rely on 3D Monte Carlo simulations, the underlying physics is beautifully captured by the <strong>Arnett-Chatzopoulos-Villar (ACV)</strong> semi-analytic formulation. The energy evolution within the expanding, radiation-dominated cloud is tracked as:
+                    The underlying physics is captured by the <strong>Arnett-Chatzopoulos-Villar (ACV)</strong>
+                    semi-analytic formulation:
                 </p>
                 <div class="overflow-x-auto bg-gray-50 p-4 rounded-xl border border-gray-200 text-center mb-6 shadow-inner">
                     $$\frac{dE}{dt} + p\frac{dV}{dt} = \dot{Q}_{decay} - L$$
                 </div>
-                <p class="text-sm text-gray-600 mb-5 text-justify leading-relaxed">
-                    The bolometric luminosity, $L(t)$, is obtained by integrating the radioactive heating rate over time, modulated by the <strong>diffusion timescale</strong> ($t_d$). This timescale dictates how quickly photons escape the ejecta cloud:
-                </p>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     <div class="overflow-x-auto bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-center justify-center shadow-inner">
                         $$L(t) = 2\,e^{-\left(\frac{t}{t_{\rm d}}\right)^2} \int_0^t \left(\frac{t'}{t_{\rm d}}\right) e^{\left(\frac{t'}{t_{\rm d}}\right)^2}\, \dot{E}(t')\,\frac{dt'}{t_{\rm d}}$$
                     </div>
-                    
                     <div class="overflow-x-auto bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center justify-center shadow-inner">
                         $$t_d = \left( \frac{\kappa M_{ej}}{\beta c v_{ej}} \right)^{1/2}$$
                         <span class="text-[10px] text-gray-400 mt-2 font-sans">(where geometric constant $\beta \approx 13.8$)</span>
                     </div>
                 </div>
                 <p class="text-sm text-gray-500 italic text-center">
-                    Use the Interactive Physics Explorer to test this equation. Higher opacity ($\kappa$) in NSBH ejecta leads to larger $t_d$, trapping heat and slowing the photometric decline.
+                    Higher opacity ($\kappa$) in NSBH ejecta leads to larger $t_d$, trapping heat and slowing the decline.
                 </p>
             </div>
 
+            <!-- Chart Card -->
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 relative overflow-hidden">
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 gap-4 border-b border-gray-100 pb-4">
                     <div class="flex-1">
                         <h3 class="text-xl font-serif font-bold text-gray-900">Post-Peak Photometric Decline ($\Delta m$)</h3>
-                        
                         <div class="relative mt-2 min-h-[60px]">
                             <p id="desc-u" class="text-sm text-gray-500 transition-opacity duration-300 absolute top-0 left-0 w-full opacity-100">
-                                Displaying magnitude evolution in the blue <strong>u-band</strong>. The absence of high-$Y_e$ polar ejecta in NSBH events leads to a rapid collapse in blue flux ($\Delta m \sim 2.43$ at day 2). BNS events sustain this emission much longer.
+                                Displaying magnitude evolution in the blue <strong>u-band</strong>. The absence of
+                                high-$Y_e$ polar ejecta in NSBH events leads to a rapid collapse in blue flux
+                                ($\Delta m \sim 3.38$ at day 2). BNS events sustain this emission much longer.
                             </p>
                             <p id="desc-i" class="text-sm text-gray-500 transition-opacity duration-300 absolute top-0 left-0 w-full opacity-0 pointer-events-none">
-                                Displaying magnitude evolution in the red <strong>i-band</strong>. The trend reverses: massive, high-opacity, lanthanide-rich tidal tails in NSBH mergers increase diffusion timescales, trapping heat and sustaining emission longer than BNS events.
+                                Displaying magnitude evolution in the red <strong>i-band</strong>. The trend reverses:
+                                massive lanthanide-rich tidal tails in NSBH mergers sustain emission longer than BNS events.
                             </p>
                         </div>
                     </div>
-                    
                     <div class="flex bg-gray-100 p-1.5 rounded-xl border border-gray-200 shadow-inner shrink-0 self-start lg:self-center">
-                        <button id="btn-u-band" class="px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none" onclick="switchBand('u')">
+                        <button id="btn-u-band" onclick="switchBand('u')"
+                            class="px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none">
                             u-band (Blue)
                         </button>
-                        <button id="btn-i-band" class="px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none" onclick="switchBand('i')">
+                        <button id="btn-i-band" onclick="switchBand('i')"
+                            class="px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none">
                             i-band (Red)
                         </button>
                     </div>
                 </div>
-                
                 <div class="relative w-full h-[450px]">
                     <canvas id="kilonovaChart"></canvas>
                 </div>
-                
                 <div class="flex flex-wrap justify-center gap-6 mt-6 border-t border-gray-100 pt-5 bg-gray-50/50 rounded-b-xl -mx-6 px-6 pb-2">
                     <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleDataset(0)">
                         <span class="flex items-center justify-center w-6 h-6 rounded bg-orange-100 border-2 border-[#C2410C] shadow-sm group-hover:scale-110 transition-transform duration-300">
@@ -315,15 +315,18 @@
             </div>
         </div>
     </main>
-    
+
     <section class="bg-gray-50 border-t border-gray-200 py-16">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Research Publication</h2>
             <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-                Explore the complete multi-band analysis, cumulative distribution functions for $\Delta m$ thresholds, and robust decision boundaries for current and next-generation optical surveys.
+                Explore the complete multi-band analysis, cumulative distribution functions for $\Delta m$ thresholds,
+                and robust decision boundaries for current and next-generation optical surveys.
             </p>
-            <a href="https://arxiv.org/abs/2603.13484" target="_blank" class="inline-flex items-center px-8 py-4 bg-indigo-900 text-white font-medium rounded-lg hover:bg-indigo-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
-                <i class="fa-regular fa-file-pdf mr-3 text-xl"></i> Read pre-print "Distinguishing between BNS and NSBH Kilonovae"
+            <a href="https://arxiv.org/abs/2603.13484" target="_blank"
+                class="inline-flex items-center px-8 py-4 bg-indigo-900 text-white font-medium rounded-lg hover:bg-indigo-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
+                <i class="fa-regular fa-file-pdf mr-3 text-xl"></i>
+                Read pre-print "Distinguishing between BNS and NSBH Kilonovae"
             </a>
         </div>
     </section>
@@ -331,156 +334,289 @@
     <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
             <p class="text-gray-500 text-sm mb-4">&copy; 2026 Yugesh Bhoge. All rights reserved.</p>
-            
             <div class="max-w-md text-center bg-gray-50 px-6 py-4 rounded-2xl border border-gray-100 shadow-sm">
                 <p class="text-gray-600 text-sm italic font-serif">
                     <i class="fa-solid fa-quote-left text-indigo-200 mr-2"></i>
                     This work benefited from gravitational waves, electromagnetic counterparts, and the <br>
-                    <span class="text-indigo-700 font-medium"><b> simultaneous failure of both at 3 a.m.</b></span>
+                    <span class="text-indigo-700 font-medium"><b>simultaneous failure of both at 3 a.m.</b></span>
                     <i class="fa-solid fa-quote-right text-indigo-200 ml-2"></i>
                 </p>
             </div>
-            
             <div class="flex space-x-6 mt-6 text-gray-400">
                 <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-indigo-900 transition-transform hover:scale-110"><i class="fa-brands fa-instagram text-xl"></i></a>
-                <a href="https://github.com/yugeshbhoge" class="hover:text-indigo-900 transition-transform hover:scale-110"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="https://github.com/yugeshbhoge"           class="hover:text-indigo-900 transition-transform hover:scale-110"><i class="fa-brands fa-github text-xl"></i></a>
                 <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-indigo-900 transition-transform hover:scale-110"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-indigo-900 transition-transform hover:scale-110"><i class="fa-solid fa-envelope text-xl"></i></a>
+                <a href="mailto:yugeshbhoge.edu@gmail.com"         class="hover:text-indigo-900 transition-transform hover:scale-110"><i class="fa-solid fa-envelope text-xl"></i></a>
             </div>
         </div>
     </footer>
-    
+
 <script>
-    // --- 1. Physics Interactive Calculator ---
-    function initDiffusionCalc() {
-        const sliderMass = document.getElementById('slider-mass');
-        const sliderVel = document.getElementById('slider-vel');
-        const sliderOpac = document.getElementById('slider-opac');
-        
-        const valMass = document.getElementById('val-mass');
-        const valVel = document.getElementById('val-vel');
-        const valOpac = document.getElementById('val-opac');
-        const calcTd = document.getElementById('calc-td');
-        const calcType = document.getElementById('calc-type');
+// ── 1. Physics Interactive Calculator ─────────────────────────────────────────
+function initDiffusionCalc() {
+    const sliderMass = document.getElementById('slider-mass');
+    const sliderVel  = document.getElementById('slider-vel');
+    const sliderOpac = document.getElementById('slider-opac');
+    const valMass    = document.getElementById('val-mass');
+    const valVel     = document.getElementById('val-vel');
+    const valOpac    = document.getElementById('val-opac');
+    const calcTd     = document.getElementById('calc-td');
+    const calcType   = document.getElementById('calc-type');
 
-        function updateCalc() {
-            const m = parseFloat(sliderMass.value);
-            const v = parseFloat(sliderVel.value);
-            const k = parseFloat(sliderOpac.value);
-
-            // Update Labels
-            valMass.textContent = `${m.toFixed(2)} M⊙`; 
-            valVel.textContent = `${v.toFixed(2)} c`;
-            valOpac.textContent = `${k.toFixed(1)} cm²/g`;
-
-            // Physics Calculation
-            const M_sun = 1.989e33; 
-            const c = 2.998e10;     
-            
-            const M_g = m * M_sun;
-            const v_cms = v * c;
-            
-            // UPDATED EQUATION: t_d = sqrt( (kappa * M_ej) / (beta * c * v_ej) )
-            const beta = 13.8; // Standard geometric constant
-            const t_d_sec = Math.sqrt((k * M_g) / (beta * c * v_cms));
-            const t_d_days = t_d_sec / (24 * 3600);
-
-            // Update UI
-            calcTd.textContent = `${t_d_days.toFixed(1)} Days`;
-
-            // Contextual Text Coloring
-            if (k < 1.0) {
-                calcType.textContent = "Fast diffusion: Typical of early blue BNS emission.";
-                calcType.className = "text-xs text-blue-600 mt-2 font-medium px-2";
-            } else if (k > 5.0) {
-                calcType.textContent = "Slow diffusion: Traps heat, yielding red NSBH emission.";
-                calcType.className = "text-xs text-orange-600 mt-2 font-medium px-2";
-            } else {
-                calcType.textContent = "Intermediate diffusion timescale.";
-                calcType.className = "text-xs text-indigo-600 mt-2 font-medium px-2";
-            }
+    function updateCalc() {
+        const m = parseFloat(sliderMass.value);
+        const v = parseFloat(sliderVel.value);
+        const k = parseFloat(sliderOpac.value);
+        valMass.textContent = `${m.toFixed(2)} M⊙`;
+        valVel.textContent  = `${v.toFixed(2)} c`;
+        valOpac.textContent = `${k.toFixed(1)} cm²/g`;
+        const M_sun   = 1.989e33;
+        const c_cgs   = 2.998e10;
+        const beta    = 13.8;
+        const t_d_sec = Math.sqrt((k * m * M_sun) / (beta * c_cgs * v * c_cgs));
+        calcTd.textContent = `${(t_d_sec / 86400).toFixed(1)} Days`;
+        if (k < 1.0) {
+            calcType.textContent = "Fast diffusion: Typical of early blue BNS emission.";
+            calcType.className   = "text-xs text-blue-600 mt-2 font-medium px-2";
+        } else if (k > 5.0) {
+            calcType.textContent = "Slow diffusion: Traps heat, yielding red NSBH emission.";
+            calcType.className   = "text-xs text-orange-600 mt-2 font-medium px-2";
+        } else {
+            calcType.textContent = "Intermediate diffusion timescale.";
+            calcType.className   = "text-xs text-indigo-600 mt-2 font-medium px-2";
         }
-
-        sliderMass.addEventListener('input', updateCalc);
-        sliderVel.addEventListener('input', updateCalc);
-        sliderOpac.addEventListener('input', updateCalc);
-        
-        updateCalc(); // Initialize on load
     }
-    
-    document.addEventListener('DOMContentLoaded', initDiffusionCalc);
+    sliderMass.addEventListener('input', updateCalc);
+    sliderVel .addEventListener('input', updateCalc);
+    sliderOpac.addEventListener('input', updateCalc);
+    updateCalc();
+}
 
-    // --- 2. Interactive Chart Data ---
-    const chartData = {
-        labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
-        u: {
-            bns: [27.8, 27.0, 27.51, 28.2, 28.8, 29.4, 30.1, 30.5, 30.9], 
-            nsbh: [27.67, 29.5, 30.1, 29.9, 29.9, 30.1, 30.3, 30.6, 30.8]  
-        },
-        i: {
-            bns: [23.2, 21.75, 22.2, 22.8, 23.2, 23.8, 24.6, 25.1, 25.6],
-            nsbh: [25.8, 25.2, 24.9, 24.64, 24.6, 24.8, 25.0, 25.3, 25.5]  
+// ── 2. Chart data ─────────────────────────────────────────────────────────────
+const chartData = {
+    labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
+    u: {
+        bns:  [26.72, 26.74, 27.38, 27.94, 28.64, 29.48, 30.20, 30.72, 31.09],
+        nsbh: [25.69, 26.65, 28.76, 28.89, 29.30, 29.81, 30.27, 30.65, 31.02]
+    },
+    i: {
+        bns:  [21.43, 21.45, 22.09, 22.65, 23.35, 24.19, 24.91, 25.43, 25.80],
+        nsbh: [23.62, 23.29, 23.51, 23.60, 24.01, 24.52, 24.98, 25.36, 25.73]
+    }
+};
+
+// ── 3. Annotations ────────────────────────────────────────────────────────────
+// KEY FIX: x-axis is type:'linear', so xMin/xMax/xScaleID are numeric values.
+// Using scaleID explicitly ensures the annotation plugin resolves coords correctly.
+
+const uAnnotations = {
+    // Vertical dashed line at day 2 (measurement reference)
+    vline: {
+        type: 'line',
+        scaleID: 'x', value: 2,
+        borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
+        label: {
+            display: false,
+            position: 'start',
+            backgroundColor: 'rgba(31,41,55,0.08)',
+            color: '#374151',
+            font: { size: 10, weight: 'bold' },
+            padding: { x: 6, y: 3 },
+            yAdjust: -14
         }
-    };
+    },
+    // BNS: horizontal dashed line at peak (day 1)
+    bnsPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 26.74,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // BNS: horizontal dashed line at day-2 value
+    bnsTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 27.38,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // NSBH: horizontal dashed line at initial value
+    nsbhPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 25.69,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // NSBH: horizontal dashed line at day-2 value
+    nsbhTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 28.76,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    // BNS double-headed arrow between peak and day-2 value
+    bnsArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 2.4, xMax: 2.4,
+        yMin: 26.74, yMax: 27.38,
+        borderColor: '#C2410C', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    // BNS label
+    bnsLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 3.5, yValue: 27.06,
+        content: ['Δm = 0.72'],
+        color: '#C2410C',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(255,237,213,0.85)',
+        borderColor: '#C2410C',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    },
+    // NSBH double-headed arrow between initial and day-2 value
+    nsbhArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 8, xMax: 8,
+        yMin: 25.69, yMax: 28.76,
+        borderColor: '#2563EB', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    // NSBH label
+    nsbhLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 9.0, yValue: 27.06,
+        content: ['Δm = 3.38'],
+        color: '#2563EB',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(219,234,254,0.85)',
+        borderColor: '#2563EB',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    }
+};
 
-    // Annotations Configurations
-    const uAnnotations = {
-        vline: { type: 'line', scaleID: 'x', value: 2, borderColor: '#1f2937', borderDash: [5, 5], borderWidth: 1.5 },
-        bnsPeak: { type: 'line', scaleID: 'y', value: 27.0, borderColor: '#C2410C', borderDash: [3, 3], borderWidth: 1 },
-        bnsTarget: { type: 'line', scaleID: 'y', value: 27.51, borderColor: '#C2410C', borderDash: [3, 3], borderWidth: 1 },
-        nsbhPeak: { type: 'line', scaleID: 'y', value: 27.67, borderColor: '#2563EB', borderDash: [3, 3], borderWidth: 1 },
-        nsbhTarget: { type: 'line', scaleID: 'y', value: 30.1, borderColor: '#2563EB', borderDash: [3, 3], borderWidth: 1 },
-        bnsArrow: {
-            type: 'line', scaleID: 'y', xMin: 2.2, xMax: 2.2, yMin: 27.0, yMax: 27.51, borderColor: '#C2410C', borderWidth: 1.5,
-            arrowHeads: { start: { display: true, length: 6, width: 4 }, end: { display: true, length: 6, width: 4 } }
-        },
-        bnsLabel: { type: 'label', xValue: 2.6, yValue: 27.25, content: 'Δm = 0.51', color: '#C2410C', font: { size: 12, family: 'sans-serif', weight: 'bold' } },
-        nsbhArrow: {
-            type: 'line', scaleID: 'y', xMin: 1.8, xMax: 1.8, yMin: 27.67, yMax: 30.1, borderColor: '#2563EB', borderWidth: 1.5,
-            arrowHeads: { start: { display: true, length: 6, width: 4 }, end: { display: true, length: 6, width: 4 } }
-        },
-        nsbhLabel: { type: 'label', xValue: 1.3, yValue: 28.9, content: 'Δm = 2.43', color: '#2563EB', font: { size: 12, family: 'sans-serif', weight: 'bold' } }
-    };
+const iAnnotations = {
+    vline: {
+        type: 'line',
+        scaleID: 'x', value: 10,
+        borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
+        label: {
+            display: false,
+            content: 'Day 10',
+            position: 'start',
+            backgroundColor: 'rgba(31,41,55,0.08)',
+            color: '#374151',
+            font: { size: 10, weight: 'bold' },
+            padding: { x: 6, y: 3 },
+            yAdjust: -14
+        }
+    },
+    bnsPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 21.45,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    bnsTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 24.91,
+        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    nsbhPeakLine: {
+        type: 'line',
+        scaleID: 'y', value: 23.29,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    nsbhTargetLine: {
+        type: 'line',
+        scaleID: 'y', value: 24.98,
+        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
+    },
+    bnsArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 11, xMax: 11,
+        yMin: 21.45, yMax: 24.91,
+        borderColor: '#C2410C', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    bnsLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 12.0, yValue: 22.9,
+        content: ['Δm = 3.54'],
+        color: '#C2410C',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(255,237,213,0.85)',
+        borderColor: '#C2410C',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    },
+    nsbhArrow: {
+        type: 'line',
+        xScaleID: 'x', yScaleID: 'y',
+        xMin: 1, xMax: 1,
+        yMin: 23.29, yMax: 24.98,
+        borderColor: '#2563EB', borderWidth: 2,
+        arrowHeads: {
+            start: { display: true, length: 8, width: 5, fill: true },
+            end:   { display: true, length: 8, width: 5, fill: true }
+        }
+    },
+    nsbhLabel: {
+        type: 'label',
+        xScaleID: 'x', yScaleID: 'y',
+        xValue: 2.0, yValue: 24.15,
+        content: ['Δm = 1.70'],
+        color: '#2563EB',
+        font: { size: 11, weight: 'bold', family: 'monospace' },
+        backgroundColor: 'rgba(219,234,254,0.85)',
+        borderColor: '#2563EB',
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: { x: 6, y: 3 }
+    }
+};
 
-    const iAnnotations = {
-        vline: { type: 'line', scaleID: 'x', value: 6, borderColor: '#1f2937', borderDash: [5, 5], borderWidth: 1.5 },
-        bnsPeak: { type: 'line', scaleID: 'y', value: 21.75, borderColor: '#C2410C', borderDash: [3, 3], borderWidth: 1 },
-        bnsTarget: { type: 'line', scaleID: 'y', value: 24.6, borderColor: '#C2410C', borderDash: [3, 3], borderWidth: 1 },
-        nsbhPeak: { type: 'line', scaleID: 'y', value: 24.64, borderColor: '#2563EB', borderDash: [3, 3], borderWidth: 1 },
-        nsbhTarget: { type: 'line', scaleID: 'y', value: 25.0, borderColor: '#2563EB', borderDash: [3, 3], borderWidth: 1 },
-        bnsArrow: {
-            type: 'line', scaleID: 'y', xMin: 5.8, xMax: 5.8, yMin: 21.75, yMax: 24.6, borderColor: '#C2410C', borderWidth: 1.5,
-            arrowHeads: { start: { display: true, length: 6, width: 4 }, end: { display: true, length: 6, width: 4 } }
-        },
-        bnsLabel: { type: 'label', xValue: 5.3, yValue: 23.2, content: 'Δm = 2.85', color: '#C2410C', font: { size: 12, family: 'sans-serif', weight: 'bold' } },
-        nsbhArrow: {
-            type: 'line', scaleID: 'y', xMin: 6.2, xMax: 6.2, yMin: 24.64, yMax: 25.0, borderColor: '#2563EB', borderWidth: 1.5,
-            arrowHeads: { start: { display: true, length: 6, width: 4 }, end: { display: true, length: 6, width: 4 } }
-        },
-        nsbhLabel: { type: 'label', xValue: 6.7, yValue: 24.8, content: 'Δm = 0.36', color: '#2563EB', font: { size: 12, family: 'sans-serif', weight: 'bold' } }
-    };
+// ── 4. Build chart after DOM is ready ─────────────────────────────────────────
+let kilonovaChart;
+
+document.addEventListener('DOMContentLoaded', function () {
+    initDiffusionCalc();
 
     const ctx = document.getElementById('kilonovaChart').getContext('2d');
-    const kilonovaChart = new Chart(ctx, {
-    type: 'line',
-    data: {                          
-        labels: chartData.labels,    
-        datasets: [
-            {
-                label: 'BNS Progenitor',
-                data: chartData['u'].bns,
-                borderColor: '#C2410C',
-                backgroundColor: 'rgba(194, 65, 12, 0.08)',
-                tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
-            },
-            {
-                label: 'NSBH Progenitor',
-                data: chartData['u'].nsbh,
-                borderColor: '#2563EB',
-                backgroundColor: 'rgba(37, 99, 235, 0.08)',
-                tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
-            }
-        ]
+    kilonovaChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            // KEY FIX: provide labels as numbers but declare x-axis as type:'linear'
+            // so annotation xMin/xMax values map to actual numeric coordinates.
+            datasets: [
+                {
+                    label: 'BNS Progenitor',
+                    data: chartData.u.bns.map((y, i) => ({ x: chartData.labels[i], y })),
+                    borderColor: '#C2410C',
+                    backgroundColor: 'rgba(194,65,12,0.08)',
+                    tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
+                },
+                {
+                    label: 'NSBH Progenitor',
+                    data: chartData.u.nsbh.map((y, i) => ({ x: chartData.labels[i], y })),
+                    borderColor: '#2563EB',
+                    backgroundColor: 'rgba(37,99,235,0.08)',
+                    tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
+                }
+            ]
         },
         options: {
             responsive: true,
@@ -490,75 +626,73 @@
                 legend: { display: false },
                 annotation: { annotations: uAnnotations },
                 tooltip: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    titleColor: '#1f2937',
-                    bodyColor: '#4b5563',
-                    borderColor: '#e5e7eb',
-                    borderWidth: 1,
-                    padding: 12,
+                    backgroundColor: 'rgba(255,255,255,0.95)',
+                    titleColor: '#1f2937', bodyColor: '#4b5563',
+                    borderColor: '#e5e7eb', borderWidth: 1, padding: 12,
                     callbacks: {
-                        label: function(context) { return `${context.dataset.label}: ${context.parsed.y.toFixed(2)} mag`; },
-                        title: function(items) { return `Day ${items[0].label} Post-Peak`; }
+                        label:  c    => `${c.dataset.label}: ${c.parsed.y.toFixed(2)} mag`,
+                        title: items => `Day ${items[0].parsed.x} Post-Peak`
                     }
                 }
             },
             scales: {
-                y: { 
-                    reverse: true, 
+                y: {
+                    // Magnitude axis is reversed (brighter = smaller number = higher on chart)
+                    reverse: true, min: 25, max: 31.5,
                     title: { display: true, text: 'Absolute Magnitude (AB)', color: '#4b5563', font: { weight: 'bold' } },
-                    grid: { color: '#f3f4f6', drawBorder: false },
-                    min: 26.5,     
-                    max: 31.5 
+                    grid:  { color: '#f3f4f6' }
                 },
-                x: { 
+                x: {
+                    // KEY FIX: must be 'linear' so annotation numeric coordinates work correctly
+                    type: 'linear',
+                    min: 0.5, max: 14,
                     title: { display: true, text: 'Time Since Peak (Days)', color: '#4b5563', font: { weight: 'bold' } },
-                    grid: { display: false, drawBorder: false }
+                    grid:  { display: false },
+                    ticks: {
+                        values: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
+                        callback: v => v
+                    }
                 }
             }
         }
     });
+});
 
-    function switchBand(band) {
-        const uBtn = document.getElementById('btn-u-band');
-        const iBtn = document.getElementById('btn-i-band');
-        const descU = document.getElementById('desc-u');
-        const descI = document.getElementById('desc-i');
+// ── 5. Band switcher ──────────────────────────────────────────────────────────
+function switchBand(band) {
+    const uBtn  = document.getElementById('btn-u-band');
+    const iBtn  = document.getElementById('btn-i-band');
+    const descU = document.getElementById('desc-u');
+    const descI = document.getElementById('desc-i');
+    const active   = "px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none";
+    const inactive = "px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none";
 
-        if (band === 'u') {
-            uBtn.className = "px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none";
-            iBtn.className = "px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none";
-            
-            descU.style.opacity = 1;
-            descU.style.pointerEvents = 'auto';
-            descI.style.opacity = 0;
-            descI.style.pointerEvents = 'none';
-
-            kilonovaChart.options.scales.y.min = 26.5;
-            kilonovaChart.options.scales.y.max = 31.5;
-        } else {
-            iBtn.className = "px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none";
-            uBtn.className = "px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none";
-            
-            descU.style.opacity = 0;
-            descU.style.pointerEvents = 'none';
-            descI.style.opacity = 1;
-            descI.style.pointerEvents = 'auto';
-
-            kilonovaChart.options.scales.y.min = 21;
-            kilonovaChart.options.scales.y.max = 26.5;
-        }
-
-        kilonovaChart.data.datasets[0].data = chartData[band].bns;
-        kilonovaChart.data.datasets[1].data = chartData[band].nsbh;        
-        kilonovaChart.options.plugins.annotation.annotations = (band === 'u') ? uAnnotations : iAnnotations;
-        kilonovaChart.update();
+    if (band === 'u') {
+        uBtn.className = active;  iBtn.className = inactive;
+        descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
+        descI.style.opacity = 0; descI.style.pointerEvents = 'none';
+        kilonovaChart.options.scales.y.min = 25;
+        kilonovaChart.options.scales.y.max = 31.5;
+        kilonovaChart.options.plugins.annotation.annotations = uAnnotations;
+    } else {
+        iBtn.className = active;  uBtn.className = inactive;
+        descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
+        descU.style.opacity = 0; descU.style.pointerEvents = 'none';
+        kilonovaChart.options.scales.y.min = 21;
+        kilonovaChart.options.scales.y.max = 26;
+        kilonovaChart.options.plugins.annotation.annotations = iAnnotations;
     }
+    kilonovaChart.data.datasets[0].data = chartData[band].bns.map((y, i) => ({ x: chartData.labels[i], y }));
+    kilonovaChart.data.datasets[1].data = chartData[band].nsbh.map((y, i) => ({ x: chartData.labels[i], y }));
+    kilonovaChart.update();
+}
 
-    function toggleDataset(i) {
-        const meta = kilonovaChart.getDatasetMeta(i);
-        meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
-        kilonovaChart.update();
-    }
+// ── 6. Toggle dataset visibility ──────────────────────────────────────────────
+function toggleDataset(i) {
+    const meta = kilonovaChart.getDatasetMeta(i);
+    meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
+    kilonovaChart.update();
+}
 </script>
 </body>
 </html>
