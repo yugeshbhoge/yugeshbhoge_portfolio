@@ -4,30 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kilonova Distinction | Yugesh Bhoge</title>
+
+    <!--
+    ═══════════════════════════════════════════════════════════
+     PERFORMANCE OPTIMIZATIONS (vs original)
+     1. Removed polyfill.io  — ES6 is native in all modern browsers
+     2. MathJax → KaTeX      — ~150 KB vs ~400 KB; renders synchronously
+     3. All scripts moved to end of <body> so HTML paints first
+     4. preconnect hints for every CDN domain shave 100-200 ms per domain
+     5. Google Analytics moved to end of body (non-critical analytics)
+    ═══════════════════════════════════════════════════════════
+    -->
+
+    <!-- 1. Preconnect to every CDN used on this page -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+    <!-- 2. Tailwind Play CDN (runtime; fine for portfolio scale) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Chart.js core -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-    <!-- Annotation plugin — use cdnjs for reliability; UMD auto-registers -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.2.1/chartjs-plugin-annotation.min.js"></script>
-
+    <!-- 3. CSS-only resources in <head> so they load in parallel with HTML parse -->
+    <!-- KaTeX CSS — must come before KaTeX JS renders math -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <!-- Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script>
-        MathJax = {
-            tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
-            options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0KCTM3XW77"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-0KCTM3XW77');
-    </script>
 
     <style>
         @keyframes fadeInUp {
@@ -57,7 +60,7 @@
         </div>
         <div class="max-w-5xl mx-auto px-4 text-center relative z-10 fade-in-up">
             <div class="inline-block px-4 py-1 bg-indigo-700 rounded-full text-xs font-bold mb-4 border border-indigo-500 tracking-widest uppercase shadow-sm">
-                Published Research & Thesis
+                Master Thesis & Published Research
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight drop-shadow-md">
                 Distinguishing BNS and NSBH Kilonovae via Photometric Decline Rates
@@ -134,7 +137,7 @@
                     </li>
                     <li class="flex items-start">
                         <i class="fa-solid fa-calculator text-green-500 mt-1 mr-3 text-xs"></i>
-                        <div><strong>NR-Calibrated Fits:</strong> Extracted dynamical ($M_{dyn}$) and post-merger disk ($M_{disk}$) ejecta masses using numerical relativity formulae (<b>Krüger & Foucart</b> for NSBH; <b>Nedora 2023</b> for BNS).</div>
+                        <div><strong>NR-Calibrated Fits:</strong> Extracted dynamical ($M_{dyn}$) and post-merger disk ($M_{disk}$) ejecta masses using numerical relativity formulae (<b>Krüger &amp; Foucart</b> for NSBH; <b>Nedora 2023</b> for BNS).</div>
                     </li>
                 </ul>
             </div>
@@ -202,7 +205,7 @@
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
                 <div class="flex items-center space-x-3 mb-6 border-b border-gray-100 pb-4">
                     <div class="bg-orange-100 p-2.5 rounded-lg text-orange-800"><i class="fa-solid fa-atom"></i></div>
-                    <h2 class="text-2xl font-serif font-bold text-gray-900">Ejecta Geometry & Composition</h2>
+                    <h2 class="text-2xl font-serif font-bold text-gray-900">Ejecta Geometry &amp; Composition</h2>
                 </div>
                 <p class="text-sm text-gray-600 mb-6 text-justify leading-relaxed">
                     The observable differences in kilonovae stem from the fundamentally different ways matter is ejected
@@ -351,348 +354,263 @@
         </div>
     </footer>
 
-<script>
-// ── 1. Physics Interactive Calculator ─────────────────────────────────────────
-function initDiffusionCalc() {
-    const sliderMass = document.getElementById('slider-mass');
-    const sliderVel  = document.getElementById('slider-vel');
-    const sliderOpac = document.getElementById('slider-opac');
-    const valMass    = document.getElementById('val-mass');
-    const valVel     = document.getElementById('val-vel');
-    const valOpac    = document.getElementById('val-opac');
-    const calcTd     = document.getElementById('calc-td');
-    const calcType   = document.getElementById('calc-type');
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         ALL SCRIPTS AT END OF BODY
+         HTML & CSS paint fully before any JS is fetched or executed.
+         Load order: Chart.js → annotation plugin → KaTeX → page logic → GTM
+    ═══════════════════════════════════════════════════════════════════════ -->
 
-    function updateCalc() {
-        const m = parseFloat(sliderMass.value);
-        const v = parseFloat(sliderVel.value);
-        const k = parseFloat(sliderOpac.value);
-        valMass.textContent = `${m.toFixed(2)} M⊙`;
-        valVel.textContent  = `${v.toFixed(2)} c`;
-        valOpac.textContent = `${k.toFixed(1)} cm²/g`;
-        const M_sun   = 1.989e33;
-        const c_cgs   = 2.998e10;
-        const beta    = 13.8;
-        const t_d_sec = Math.sqrt((k * m * M_sun) / (beta * c_cgs * v * c_cgs));
-        calcTd.textContent = `${(t_d_sec / 86400).toFixed(1)} Days`;
-        if (k < 1.0) {
-            calcType.textContent = "Fast diffusion: Typical of early blue BNS emission.";
-            calcType.className   = "text-xs text-blue-600 mt-2 font-medium px-2";
-        } else if (k > 5.0) {
-            calcType.textContent = "Slow diffusion: Traps heat, yielding red NSBH emission.";
-            calcType.className   = "text-xs text-orange-600 mt-2 font-medium px-2";
-        } else {
-            calcType.textContent = "Intermediate diffusion timescale.";
-            calcType.className   = "text-xs text-indigo-600 mt-2 font-medium px-2";
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- Annotation plugin (UMD build auto-registers itself with Chart.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.2.1/chartjs-plugin-annotation.min.js"></script>
+
+    <!-- KaTeX: replaces MathJax (~150 KB vs ~400 KB; renders synchronously) -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+    <script>
+        // Render all $...$ and $$...$$ in the page
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: '$$', right: '$$', display: true  },
+                { left: '$',  right: '$',  display: false }
+            ],
+            throwOnError: false
+        });
+    </script>
+
+    <!-- Page logic -->
+    <script>
+    // ── 1. Physics Interactive Calculator ─────────────────────────────────────
+    (function initDiffusionCalc() {
+        const sliderMass = document.getElementById('slider-mass');
+        const sliderVel  = document.getElementById('slider-vel');
+        const sliderOpac = document.getElementById('slider-opac');
+        const valMass    = document.getElementById('val-mass');
+        const valVel     = document.getElementById('val-vel');
+        const valOpac    = document.getElementById('val-opac');
+        const calcTd     = document.getElementById('calc-td');
+        const calcType   = document.getElementById('calc-type');
+
+        function updateCalc() {
+            const m = parseFloat(sliderMass.value);
+            const v = parseFloat(sliderVel.value);
+            const k = parseFloat(sliderOpac.value);
+            valMass.textContent = `${m.toFixed(2)} M\u2299`;
+            valVel.textContent  = `${v.toFixed(2)} c`;
+            valOpac.textContent = `${k.toFixed(1)} cm\u00b2/g`;
+            const M_sun   = 1.989e33;
+            const c_cgs   = 2.998e10;
+            const beta    = 13.8;
+            const t_d_sec = Math.sqrt((k * m * M_sun) / (beta * c_cgs * v * c_cgs));
+            calcTd.textContent = `${(t_d_sec / 86400).toFixed(1)} Days`;
+            if (k < 1.0) {
+                calcType.textContent = "Fast diffusion: Typical of early blue BNS emission.";
+                calcType.className   = "text-xs text-blue-600 mt-2 font-medium px-2";
+            } else if (k > 5.0) {
+                calcType.textContent = "Slow diffusion: Traps heat, yielding red NSBH emission.";
+                calcType.className   = "text-xs text-orange-600 mt-2 font-medium px-2";
+            } else {
+                calcType.textContent = "Intermediate diffusion timescale.";
+                calcType.className   = "text-xs text-indigo-600 mt-2 font-medium px-2";
+            }
         }
-    }
-    sliderMass.addEventListener('input', updateCalc);
-    sliderVel .addEventListener('input', updateCalc);
-    sliderOpac.addEventListener('input', updateCalc);
-    updateCalc();
-}
+        sliderMass.addEventListener('input', updateCalc);
+        sliderVel .addEventListener('input', updateCalc);
+        sliderOpac.addEventListener('input', updateCalc);
+        updateCalc();
+    })();
 
-// ── 2. Chart data ─────────────────────────────────────────────────────────────
-const chartData = {
-    labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
-    u: {
-        bns:  [26.72, 26.74, 27.38, 27.94, 28.64, 29.48, 30.20, 30.72, 31.09],
-        nsbh: [25.69, 26.65, 28.76, 28.89, 29.30, 29.81, 30.27, 30.65, 31.02]
-    },
-    i: {
-        bns:  [21.43, 21.45, 22.09, 22.65, 23.35, 24.19, 24.91, 25.43, 25.80],
-        nsbh: [23.62, 23.29, 23.51, 23.60, 24.01, 24.52, 24.98, 25.36, 25.73]
-    }
-};
-
-// ── 3. Annotations ────────────────────────────────────────────────────────────
-// KEY FIX: x-axis is type:'linear', so xMin/xMax/xScaleID are numeric values.
-// Using scaleID explicitly ensures the annotation plugin resolves coords correctly.
-
-const uAnnotations = {
-    // Vertical dashed line at day 2 (measurement reference)
-    vline: {
-        type: 'line',
-        scaleID: 'x', value: 2,
-        borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
-        label: {
-            display: false,
-            position: 'start',
-            backgroundColor: 'rgba(31,41,55,0.08)',
-            color: '#374151',
-            font: { size: 10, weight: 'bold' },
-            padding: { x: 6, y: 3 },
-            yAdjust: -14
-        }
-    },
-    // BNS: horizontal dashed line at peak (day 1)
-    bnsPeakLine: {
-        type: 'line',
-        scaleID: 'y', value: 26.74,
-        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    // BNS: horizontal dashed line at day-2 value
-    bnsTargetLine: {
-        type: 'line',
-        scaleID: 'y', value: 27.38,
-        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    // NSBH: horizontal dashed line at initial value
-    nsbhPeakLine: {
-        type: 'line',
-        scaleID: 'y', value: 25.69,
-        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    // NSBH: horizontal dashed line at day-2 value
-    nsbhTargetLine: {
-        type: 'line',
-        scaleID: 'y', value: 28.76,
-        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    // BNS double-headed arrow between peak and day-2 value
-    bnsArrow: {
-        type: 'line',
-        xScaleID: 'x', yScaleID: 'y',
-        xMin: 2.4, xMax: 2.4,
-        yMin: 26.74, yMax: 27.38,
-        borderColor: '#C2410C', borderWidth: 2,
-        arrowHeads: {
-            start: { display: true, length: 8, width: 5, fill: true },
-            end:   { display: true, length: 8, width: 5, fill: true }
-        }
-    },
-    // BNS label
-    bnsLabel: {
-        type: 'label',
-        xScaleID: 'x', yScaleID: 'y',
-        xValue: 3.5, yValue: 27.06,
-        content: ['Δm = 0.72'],
-        color: '#C2410C',
-        font: { size: 11, weight: 'bold', family: 'monospace' },
-        backgroundColor: 'rgba(255,237,213,0.85)',
-        borderColor: '#C2410C',
-        borderWidth: 1,
-        borderRadius: 4,
-        padding: { x: 6, y: 3 }
-    },
-    // NSBH double-headed arrow between initial and day-2 value
-    nsbhArrow: {
-        type: 'line',
-        xScaleID: 'x', yScaleID: 'y',
-        xMin: 8, xMax: 8,
-        yMin: 25.69, yMax: 28.76,
-        borderColor: '#2563EB', borderWidth: 2,
-        arrowHeads: {
-            start: { display: true, length: 8, width: 5, fill: true },
-            end:   { display: true, length: 8, width: 5, fill: true }
-        }
-    },
-    // NSBH label
-    nsbhLabel: {
-        type: 'label',
-        xScaleID: 'x', yScaleID: 'y',
-        xValue: 9.0, yValue: 27.06,
-        content: ['Δm = 3.38'],
-        color: '#2563EB',
-        font: { size: 11, weight: 'bold', family: 'monospace' },
-        backgroundColor: 'rgba(219,234,254,0.85)',
-        borderColor: '#2563EB',
-        borderWidth: 1,
-        borderRadius: 4,
-        padding: { x: 6, y: 3 }
-    }
-};
-
-const iAnnotations = {
-    vline: {
-        type: 'line',
-        scaleID: 'x', value: 10,
-        borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
-        label: {
-            display: false,
-            content: 'Day 10',
-            position: 'start',
-            backgroundColor: 'rgba(31,41,55,0.08)',
-            color: '#374151',
-            font: { size: 10, weight: 'bold' },
-            padding: { x: 6, y: 3 },
-            yAdjust: -14
-        }
-    },
-    bnsPeakLine: {
-        type: 'line',
-        scaleID: 'y', value: 21.45,
-        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    bnsTargetLine: {
-        type: 'line',
-        scaleID: 'y', value: 24.91,
-        borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    nsbhPeakLine: {
-        type: 'line',
-        scaleID: 'y', value: 23.29,
-        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    nsbhTargetLine: {
-        type: 'line',
-        scaleID: 'y', value: 24.98,
-        borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
-    },
-    bnsArrow: {
-        type: 'line',
-        xScaleID: 'x', yScaleID: 'y',
-        xMin: 11, xMax: 11,
-        yMin: 21.45, yMax: 24.91,
-        borderColor: '#C2410C', borderWidth: 2,
-        arrowHeads: {
-            start: { display: true, length: 8, width: 5, fill: true },
-            end:   { display: true, length: 8, width: 5, fill: true }
-        }
-    },
-    bnsLabel: {
-        type: 'label',
-        xScaleID: 'x', yScaleID: 'y',
-        xValue: 12.0, yValue: 22.9,
-        content: ['Δm = 3.54'],
-        color: '#C2410C',
-        font: { size: 11, weight: 'bold', family: 'monospace' },
-        backgroundColor: 'rgba(255,237,213,0.85)',
-        borderColor: '#C2410C',
-        borderWidth: 1,
-        borderRadius: 4,
-        padding: { x: 6, y: 3 }
-    },
-    nsbhArrow: {
-        type: 'line',
-        xScaleID: 'x', yScaleID: 'y',
-        xMin: 1, xMax: 1,
-        yMin: 23.29, yMax: 24.98,
-        borderColor: '#2563EB', borderWidth: 2,
-        arrowHeads: {
-            start: { display: true, length: 8, width: 5, fill: true },
-            end:   { display: true, length: 8, width: 5, fill: true }
-        }
-    },
-    nsbhLabel: {
-        type: 'label',
-        xScaleID: 'x', yScaleID: 'y',
-        xValue: 2.0, yValue: 24.15,
-        content: ['Δm = 1.70'],
-        color: '#2563EB',
-        font: { size: 11, weight: 'bold', family: 'monospace' },
-        backgroundColor: 'rgba(219,234,254,0.85)',
-        borderColor: '#2563EB',
-        borderWidth: 1,
-        borderRadius: 4,
-        padding: { x: 6, y: 3 }
-    }
-};
-
-// ── 4. Build chart after DOM is ready ─────────────────────────────────────────
-let kilonovaChart;
-
-document.addEventListener('DOMContentLoaded', function () {
-    initDiffusionCalc();
-
-    const ctx = document.getElementById('kilonovaChart').getContext('2d');
-    kilonovaChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            // KEY FIX: provide labels as numbers but declare x-axis as type:'linear'
-            // so annotation xMin/xMax values map to actual numeric coordinates.
-            datasets: [
-                {
-                    label: 'BNS Progenitor',
-                    data: chartData.u.bns.map((y, i) => ({ x: chartData.labels[i], y })),
-                    borderColor: '#C2410C',
-                    backgroundColor: 'rgba(194,65,12,0.08)',
-                    tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
-                },
-                {
-                    label: 'NSBH Progenitor',
-                    data: chartData.u.nsbh.map((y, i) => ({ x: chartData.labels[i], y })),
-                    borderColor: '#2563EB',
-                    backgroundColor: 'rgba(37,99,235,0.08)',
-                    tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
-                }
-            ]
+    // ── 2. Chart data ─────────────────────────────────────────────────────────
+    const chartData = {
+        labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
+        u: {
+            bns:  [26.72, 26.74, 27.38, 27.94, 28.64, 29.48, 30.20, 30.72, 31.09],
+            nsbh: [25.69, 26.65, 28.76, 28.89, 29.30, 29.81, 30.27, 30.65, 31.02]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: { mode: 'index', intersect: false },
-            plugins: {
-                legend: { display: false },
-                annotation: { annotations: uAnnotations },
-                tooltip: {
-                    backgroundColor: 'rgba(255,255,255,0.95)',
-                    titleColor: '#1f2937', bodyColor: '#4b5563',
-                    borderColor: '#e5e7eb', borderWidth: 1, padding: 12,
-                    callbacks: {
-                        label:  c    => `${c.dataset.label}: ${c.parsed.y.toFixed(2)} mag`,
-                        title: items => `Day ${items[0].parsed.x} Post-Peak`
+        i: {
+            bns:  [21.43, 21.45, 22.09, 22.65, 23.35, 24.19, 24.91, 25.43, 25.80],
+            nsbh: [23.62, 23.29, 23.51, 23.60, 24.01, 24.52, 24.98, 25.36, 25.73]
+        }
+    };
+
+    // ── 3. Annotations ────────────────────────────────────────────────────────
+    const uAnnotations = {
+        vline: {
+            type: 'line', scaleID: 'x', value: 2,
+            borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
+            label: { display: false }
+        },
+        bnsPeakLine:   { type: 'line', scaleID: 'y', value: 26.74, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        bnsTargetLine: { type: 'line', scaleID: 'y', value: 27.38, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        nsbhPeakLine:  { type: 'line', scaleID: 'y', value: 25.69, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        nsbhTargetLine:{ type: 'line', scaleID: 'y', value: 28.76, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        bnsArrow: {
+            type: 'line', xScaleID: 'x', yScaleID: 'y',
+            xMin: 2.4, xMax: 2.4, yMin: 26.74, yMax: 27.38,
+            borderColor: '#C2410C', borderWidth: 2,
+            arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
+        },
+        bnsLabel: {
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 3.5, yValue: 27.06,
+            content: ['\u0394m = 0.72'], color: '#C2410C',
+            font: { size: 11, weight: 'bold', family: 'monospace' },
+            backgroundColor: 'rgba(255,237,213,0.85)', borderColor: '#C2410C',
+            borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
+        },
+        nsbhArrow: {
+            type: 'line', xScaleID: 'x', yScaleID: 'y',
+            xMin: 8, xMax: 8, yMin: 25.69, yMax: 28.76,
+            borderColor: '#2563EB', borderWidth: 2,
+            arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
+        },
+        nsbhLabel: {
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 9.0, yValue: 27.06,
+            content: ['\u0394m = 3.38'], color: '#2563EB',
+            font: { size: 11, weight: 'bold', family: 'monospace' },
+            backgroundColor: 'rgba(219,234,254,0.85)', borderColor: '#2563EB',
+            borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
+        }
+    };
+
+    const iAnnotations = {
+        vline: {
+            type: 'line', scaleID: 'x', value: 10,
+            borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
+            label: { display: false }
+        },
+        bnsPeakLine:   { type: 'line', scaleID: 'y', value: 21.45, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        bnsTargetLine: { type: 'line', scaleID: 'y', value: 24.91, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        nsbhPeakLine:  { type: 'line', scaleID: 'y', value: 23.29, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        nsbhTargetLine:{ type: 'line', scaleID: 'y', value: 24.98, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        bnsArrow: {
+            type: 'line', xScaleID: 'x', yScaleID: 'y',
+            xMin: 11, xMax: 11, yMin: 21.45, yMax: 24.91,
+            borderColor: '#C2410C', borderWidth: 2,
+            arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
+        },
+        bnsLabel: {
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 12.0, yValue: 22.9,
+            content: ['\u0394m = 3.54'], color: '#C2410C',
+            font: { size: 11, weight: 'bold', family: 'monospace' },
+            backgroundColor: 'rgba(255,237,213,0.85)', borderColor: '#C2410C',
+            borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
+        },
+        nsbhArrow: {
+            type: 'line', xScaleID: 'x', yScaleID: 'y',
+            xMin: 1, xMax: 1, yMin: 23.29, yMax: 24.98,
+            borderColor: '#2563EB', borderWidth: 2,
+            arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
+        },
+        nsbhLabel: {
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 2.0, yValue: 24.15,
+            content: ['\u0394m = 1.70'], color: '#2563EB',
+            font: { size: 11, weight: 'bold', family: 'monospace' },
+            backgroundColor: 'rgba(219,234,254,0.85)', borderColor: '#2563EB',
+            borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
+        }
+    };
+
+    // ── 4. Build chart ────────────────────────────────────────────────────────
+    let kilonovaChart;
+    (function buildChart() {
+        const ctx = document.getElementById('kilonovaChart').getContext('2d');
+        kilonovaChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'BNS Progenitor',
+                        data: chartData.u.bns.map((y, i) => ({ x: chartData.labels[i], y })),
+                        borderColor: '#C2410C', backgroundColor: 'rgba(194,65,12,0.08)',
+                        tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
+                    },
+                    {
+                        label: 'NSBH Progenitor',
+                        data: chartData.u.nsbh.map((y, i) => ({ x: chartData.labels[i], y })),
+                        borderColor: '#2563EB', backgroundColor: 'rgba(37,99,235,0.08)',
+                        tension: 0.4, borderWidth: 3, pointRadius: 5, fill: true
                     }
-                }
+                ]
             },
-            scales: {
-                y: {
-                    // Magnitude axis is reversed (brighter = smaller number = higher on chart)
-                    reverse: true, min: 25, max: 31.5,
-                    title: { display: true, text: 'Absolute Magnitude (AB)', color: '#4b5563', font: { weight: 'bold' } },
-                    grid:  { color: '#f3f4f6' }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    annotation: { annotations: uAnnotations },
+                    tooltip: {
+                        backgroundColor: 'rgba(255,255,255,0.95)',
+                        titleColor: '#1f2937', bodyColor: '#4b5563',
+                        borderColor: '#e5e7eb', borderWidth: 1, padding: 12,
+                        callbacks: {
+                            label:  c    => `${c.dataset.label}: ${c.parsed.y.toFixed(2)} mag`,
+                            title: items => `Day ${items[0].parsed.x} Post-Peak`
+                        }
+                    }
                 },
-                x: {
-                    // KEY FIX: must be 'linear' so annotation numeric coordinates work correctly
-                    type: 'linear',
-                    min: 0.5, max: 14,
-                    title: { display: true, text: 'Time Since Peak (Days)', color: '#4b5563', font: { weight: 'bold' } },
-                    grid:  { display: false },
-                    ticks: {
-                        values: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
-                        callback: v => v
+                scales: {
+                    y: {
+                        reverse: true, min: 25, max: 31.5,
+                        title: { display: true, text: 'Absolute Magnitude (AB)', color: '#4b5563', font: { weight: 'bold' } },
+                        grid:  { color: '#f3f4f6' }
+                    },
+                    x: {
+                        type: 'linear', min: 0.5, max: 14,
+                        title: { display: true, text: 'Time Since Peak (Days)', color: '#4b5563', font: { weight: 'bold' } },
+                        grid:  { display: false },
+                        ticks: { values: [0.5,1,2,4,6,8,10,12,14], callback: v => v }
                     }
                 }
             }
+        });
+    })();
+
+    // ── 5. Band switcher ──────────────────────────────────────────────────────
+    function switchBand(band) {
+        const uBtn  = document.getElementById('btn-u-band');
+        const iBtn  = document.getElementById('btn-i-band');
+        const descU = document.getElementById('desc-u');
+        const descI = document.getElementById('desc-i');
+        const active   = "px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none";
+        const inactive = "px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none";
+        if (band === 'u') {
+            uBtn.className = active;  iBtn.className = inactive;
+            descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
+            descI.style.opacity = 0; descI.style.pointerEvents = 'none';
+            kilonovaChart.options.scales.y.min = 25;
+            kilonovaChart.options.scales.y.max = 31.5;
+            kilonovaChart.options.plugins.annotation.annotations = uAnnotations;
+        } else {
+            iBtn.className = active;  uBtn.className = inactive;
+            descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
+            descU.style.opacity = 0; descU.style.pointerEvents = 'none';
+            kilonovaChart.options.scales.y.min = 21;
+            kilonovaChart.options.scales.y.max = 26;
+            kilonovaChart.options.plugins.annotation.annotations = iAnnotations;
         }
-    });
-});
-
-// ── 5. Band switcher ──────────────────────────────────────────────────────────
-function switchBand(band) {
-    const uBtn  = document.getElementById('btn-u-band');
-    const iBtn  = document.getElementById('btn-i-band');
-    const descU = document.getElementById('desc-u');
-    const descI = document.getElementById('desc-i');
-    const active   = "px-5 py-2 text-sm font-bold rounded-lg shadow-sm bg-white text-indigo-700 transition-all duration-300 focus:outline-none";
-    const inactive = "px-5 py-2 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 focus:outline-none";
-
-    if (band === 'u') {
-        uBtn.className = active;  iBtn.className = inactive;
-        descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
-        descI.style.opacity = 0; descI.style.pointerEvents = 'none';
-        kilonovaChart.options.scales.y.min = 25;
-        kilonovaChart.options.scales.y.max = 31.5;
-        kilonovaChart.options.plugins.annotation.annotations = uAnnotations;
-    } else {
-        iBtn.className = active;  uBtn.className = inactive;
-        descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
-        descU.style.opacity = 0; descU.style.pointerEvents = 'none';
-        kilonovaChart.options.scales.y.min = 21;
-        kilonovaChart.options.scales.y.max = 26;
-        kilonovaChart.options.plugins.annotation.annotations = iAnnotations;
+        kilonovaChart.data.datasets[0].data = chartData[band].bns.map((y, i)  => ({ x: chartData.labels[i], y }));
+        kilonovaChart.data.datasets[1].data = chartData[band].nsbh.map((y, i) => ({ x: chartData.labels[i], y }));
+        kilonovaChart.update();
     }
-    kilonovaChart.data.datasets[0].data = chartData[band].bns.map((y, i) => ({ x: chartData.labels[i], y }));
-    kilonovaChart.data.datasets[1].data = chartData[band].nsbh.map((y, i) => ({ x: chartData.labels[i], y }));
-    kilonovaChart.update();
-}
 
-// ── 6. Toggle dataset visibility ──────────────────────────────────────────────
-function toggleDataset(i) {
-    const meta = kilonovaChart.getDatasetMeta(i);
-    meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
-    kilonovaChart.update();
-}
-</script>
+    // ── 6. Toggle dataset visibility ──────────────────────────────────────────
+    function toggleDataset(i) {
+        const meta = kilonovaChart.getDatasetMeta(i);
+        meta.hidden = meta.hidden === null ? !kilonovaChart.data.datasets[i].hidden : null;
+        kilonovaChart.update();
+    }
+    </script>
+
+    <!-- Google Analytics — loaded last; analytics must never block content -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0KCTM3XW77"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0KCTM3XW77');
+    </script>
+
 </body>
 </html>
