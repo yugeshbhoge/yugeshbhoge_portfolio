@@ -56,7 +56,7 @@
 </head>
 
 <body class="bg-[#FDFBF7] text-gray-800 font-sans flex flex-col min-h-screen">
-    
+
     <!-- Navigation -->
     <nav class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -71,24 +71,27 @@
         <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
             <i class="fa-solid fa-atom text-[300px]"></i>
         </div>
-        
+
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
             <div class="inline-block px-3 py-1 bg-green-800 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 text-green-200">
                 Computational Astrophysics
             </div>
             <h1 class="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">Constraining Neutron Star Equation of State</h1>
             <p class="text-xl text-green-100 max-w-2xl mx-auto font-light">
-                Recovering tidal deformability from Neutron Star-Black Hole (NSBH) mergers using Bayesian Inference.
+                Bayesian model selection across 900 simulated and 3 real NSBH mergers, from today's LIGO network to the Einstein Telescope and Cosmic Explorer.
+            </p>
+            <p class="text-sm text-green-300 mt-5 tracking-wide">
+                Vasudev Dubey &middot; Rahul Kashyap &middot; Yugesh Bhoge <br> Department of Physics, IIT Bombay
             </p>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 flex-grow">
-        
+
         <!-- Left Column: Narrative (Motivation, Methodology, Theory) -->
         <div class="lg:col-span-1 space-y-8">
-            
+
             <!-- Motivation Section -->
             <section id="motivation" class="space-y-4">
                 <div class="flex items-center space-x-3 mb-2">
@@ -98,16 +101,19 @@
                     <h2 class="text-2xl font-serif font-bold text-gray-900">Motivation</h2>
                 </div>
                 <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    The internal structure of Neutron Stars (NS) remains one of the most enigmatic puzzles in modern astrophysics. While Binary Neutron Star (BNS) mergers like GW170817 have provided initial constraints, <strong>Neutron Star-Black Hole (NSBH)</strong> mergers offer a unique laboratory. 
+                    The internal structure of Neutron Stars (NS) is still one of the central open problems in astrophysics. Only a handful of Binary Neutron Star (BNS: GW170817, GW190425) and <strong>Neutron Star-Black Hole (NSBH)</strong> mergers (GW200105, GW200115, GW230529) have been observed so far, far too few to tightly pin down the Equation of State (EoS).
                 </p>
                 <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    Specifically, if the NS is tidally disrupted before plunging into the BH ISCO (Innermost Stable Circular Orbit), matter remains outside the horizon, creating a cutoff frequency in the gravitational waveform. This cutoff is directly dependent on the NS radius and, consequently, the Equation of State (EoS).
+                    Because black holes carry exactly zero tidal deformability, NSBH mergers isolate the neutron star's own tidal signature far more cleanly than BNS events, where the two stars' effects are entangled into a single combined parameter. With next-generation detectors; O5, A&#9839;, and 3G facilities like the Einstein Telescope and Cosmic Explorer, expected to push annual NSBH detection rates far higher, the open question becomes: <em>how many events are actually needed to distinguish one EoS from another?</em>
+                </p>
+                <p class="text-gray-600 text-xs leading-relaxed text-justify bg-green-50 border border-green-100 rounded-lg p-3">
+                    This work extends a companion Bayesian model-selection study of BNS systems (Kashyap et al., 2025). Consistent with that earlier work, BNS events remain more efficient at constraining the EoS <em>per detection</em>, but NSBH-based inference reaches comparable confidence given a moderately larger number of events.
                 </p>
             </section>
 
             <hr class="border-gray-200">
 
-            <!-- Theoretical Framework Section (New) -->
+            <!-- Theoretical Framework Section -->
             <section id="theory" class="space-y-4">
                 <div class="flex items-center space-x-3 mb-2">
                     <div class="bg-green-100 p-2 rounded-lg text-green-800">
@@ -115,26 +121,26 @@
                     </div>
                     <h2 class="text-2xl font-serif font-bold text-gray-900">Theoretical Framework</h2>
                 </div>
-                
+
                 <!-- Formula 1: Tidal Deformability -->
                 <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                     <h3 class="font-bold text-gray-800 text-sm mb-2">1. Dimensionless Tidal Deformability</h3>
                     <div class="text-center py-2 overflow-x-auto">
-                        $$ \Lambda = \frac{2}{3} \frac{c^2}{G} \left( \frac{R}{M} \right)^5 $$
+                        $$ \Lambda = \frac{2}{3} k_2 \left( \frac{c^2 R}{G M} \right)^5 $$
                     </div>
                     <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-green-500 pl-2">
-                        <strong>Significance:</strong> $\Lambda$ quantifies the "stiffness" of the star. A stiffer EoS yields a larger radius $R$ and a significantly larger $\Lambda$. This parameter is imprinted on the phase of the gravitational wave signal during the inspiral.
+                        <strong>Significance:</strong> $\Lambda$ quantifies the "stiffness" of the star, built from the, $l=2$ tidal Love number $k_2$ and compactness $R/M$. A stiffer EoS yields a larger radius and a much larger $\Lambda$. Because NSBH mergers involve only one deformable body, they let us recover a neutron star's <em>bare</em> $\Lambda$ directly, rather than the combined $\tilde{\Lambda}$ measured in BNS mergers.
                     </p>
                 </div>
 
-                <!-- Formula 2: Bayes Factor -->
+                <!-- Formula 2: Cumulative Log-Odds Ratio -->
                 <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 class="font-bold text-gray-800 text-sm mb-2">2. Bayesian Model Selection</h3>
+                    <h3 class="font-bold text-gray-800 text-sm mb-2">2. Cumulative Log-Odds Ratio (N events)</h3>
                     <div class="text-center py-2 overflow-x-auto">
-                        $$ \mathcal{B}_{AB} = \frac{P(d|\mathcal{M}_A)}{P(d|\mathcal{M}_B)} = \frac{\int \mathcal{L}(d|\theta_A) \pi(\theta_A) d\theta_A}{\int \mathcal{L}(d|\theta_B) \pi(\theta_B) d\theta_B} $$
+                        $$ \log \mathcal{O}^i_j = (N-1)\log f + \sum_{n=1}^{N} \left[ \log \mathcal{Z}(H_i|d_n) - \log \mathcal{Z}(H_j|d_n) \right] $$
                     </div>
                     <p class="text-xs text-gray-600 mt-2 italic border-l-2 border-green-500 pl-2">
-                        <strong>Significance:</strong> The Bayes Factor $\mathcal{B}_{AB}$ compares how well two competing EoS models ($\mathcal{M}_A$, $\mathcal{M}_B$) fit the data ($d$). A value $\ln \mathcal{B} < 0$ for a model relative to the true injection indicates it is statistically disfavored.
+                        <strong>Significance:</strong> Combines the per-event Bayesian evidence $\mathcal{Z}$ from $N$ NSBH detections into a single odds ratio favouring EoS hypothesis $H_i$ over $H_j$. The correction factor $f$ accounts for the fact that different EoS models imply different maximum NS masses, and therefore different prior volumes, which would otherwise bias the comparison.
                     </p>
                 </div>
             </section>
@@ -150,11 +156,19 @@
                 <ul class="space-y-3 mt-4">
                     <li class="flex items-start">
                         <i class="fa-solid fa-check text-green-600 mt-1 mr-3 text-xs"></i>
-                        <span class="text-sm text-gray-700"><strong>Injection:</strong> Synthetic signals generated using <strong>IMRPhenomNSBH</strong> with specific EoS properties (e.g., SLy, H4).</span>
+                        <span class="text-sm text-gray-700"><strong>Injection:</strong> Synthetic signals generated with <strong>IMRPhenomNSBH</strong> (cross-checked against <strong>SEOBNRv4_ROM_NRTidalv2_NSBH</strong>) for three injected EoS; <strong>APR4, SLy, DD2</strong>, recovered against 11 candidate models spanning nucleonic, hyperonic, phase-transition, and piecewise-polytropic classes.</span>
                     </li>
                     <li class="flex items-start">
                         <i class="fa-solid fa-check text-green-600 mt-1 mr-3 text-xs"></i>
-                        <span class="text-sm text-gray-700"><strong>Sampler:</strong> Utilized the <em class="text-green-800">Bilby</em> library with the <code>dynesty</code> sampler to explore the high-dimensional parameter space (chirp mass $\mathcal{M}$, mass ratio $q$, spins $\chi$, etc.).</span>
+                        <span class="text-sm text-gray-700"><strong>Population:</strong> 900 simulated NSBH events (100 per EoS &times; detector-network pair) across three configurations, <strong>O5</strong>, <strong>A&#9839;</strong>, and a 3G network (Einstein Telescope + Cosmic Explorer, labelled <strong>ECC</strong>), with full 17-dimensional Bayesian parameter estimation per event.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-green-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Sampler:</strong> Utilized the <em class="text-green-800">Bilby</em> library with relative-binning likelihoods. <code>dynesty</code> and <code>nessai</code> were benchmarked head-to-head; <code>nessai</code> was adopted for all final runs after showing 3.8&times; to 30.5&times; faster sampling with statistically consistent evidence.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-green-600 mt-1 mr-3 text-xs"></i>
+                        <span class="text-sm text-gray-700"><strong>Evidence &amp; validation:</strong> Computed in two 2D subspaces, $(\tilde\Lambda,\eta)$ and $(m_2,\Lambda_2)$, then combined across events via the cumulative log-odds ratio above. The same pipeline was applied to public GWOSC posterior samples for three real LVK NSBH detections.</span>
                     </li>
                 </ul>
             </section>
@@ -163,44 +177,99 @@
 
         <!-- Right Column: Visuals & Synthesis -->
         <div class="lg:col-span-2 space-y-8">
-            
+
             <!-- Chart Section (Main Result) -->
             <section id="results" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-xl font-serif font-bold text-gray-900">Results: Recovering the EoS</h3>
-                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Injection: SLy EoS</span>
+                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">3 EoS &times; 3 Networks &times; 900 Events</span>
                 </div>
-                
+
                 <p class="text-sm text-gray-500 mb-6">
-                    We evaluated the preference for various Equation of State models against an injected signal governed by the <strong>SLy</strong> EoS. The plot shows the natural log Bayes Factor ($\ln \mathcal{B}$) relative to the true model.
+                    We tested 11 candidate EoS models against three injected EoS (APR4, SLy, DD2) across three detector networks, then validated the pipeline on three real LVK NSBH detections.
                 </p>
 
-                <div class="relative w-full h-[350px]">
-                    <div class="chart-container relative h-full w-full">
-                        <canvas id="eosChart"></canvas>
+                <!-- Key Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-3 text-center">
+                        <div class="text-2xl font-serif font-bold text-green-900">900</div>
+                        <div class="text-[11px] text-green-800 mt-1">simulated NSBH events</div>
+                    </div>
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-3 text-center">
+                        <div class="text-2xl font-serif font-bold text-green-900">17-D</div>
+                        <div class="text-[11px] text-green-800 mt-1">Bayesian PE per event</div>
+                    </div>
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-3 text-center">
+                        <div class="text-2xl font-serif font-bold text-green-900">20&ndash;50</div>
+                        <div class="text-[11px] text-green-800 mt-1">events to robustly ID EoS</div>
+                    </div>
+                    <div class="bg-green-900 rounded-xl p-3 text-center">
+                        <div class="text-lg font-serif font-bold text-white leading-tight">(m&#8322;,&Lambda;&#8322;) + ECC</div>
+                        <div class="text-[11px] text-green-200 mt-1">best-discriminating combo</div>
+                    </div>
+                </div>
+
+                <!-- Two charts -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800 mb-2">Discriminating Power vs. Detector Network</h4>
+                        <div class="relative w-full h-[280px]">
+                            <canvas id="evidenceChart"></canvas>
+                        </div>
+                        <p class="text-[11px] text-gray-400 mt-2">Approx. cumulative log&#8321;&#8320;Z separation in the $(m_2,\Lambda_2)$ subspace over 50 events (more negative = wrong EoS more strongly disfavoured).</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800 mb-2">Sampler Speed-up: nessai vs. dynesty</h4>
+                        <div class="relative w-full h-[280px]">
+                            <canvas id="speedupChart"></canvas>
+                        </div>
+                        <p class="text-[11px] text-gray-400 mt-2">Adopting nessai kept large-scale, population-level inference computationally tractable.</p>
                     </div>
                 </div>
 
                 <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
                     <h4 class="font-bold text-gray-800 text-sm mb-1"><i class="fa-solid fa-magnifying-glass-chart mr-2 text-green-700"></i>Analysis</h4>
                     <p class="text-sm text-gray-600">
-                        The analysis successfully recovers the injected <strong>SLy</strong> EoS ($\ln \mathcal{B} = 0$). Notably, stiffer equations of state like <strong>H4</strong> are strongly ruled out ($\ln \mathcal{B} \approx -8.1$).
+                        Across all three injected EoS and detector networks, the true EoS consistently achieves the highest Bayesian evidence, and the recovered $\Lambda_2$ vs. NS-mass relation encloses the injected curve at 1&sigma; regardless of which waveform model is used. Discriminating power is strongest in the $(m_2,\Lambda_2)$ subspace and grows sharply with sensitivity: moving from O5 to a 3G (ECC) network roughly quadruples the achievable log-evidence separation over 50 events.
                         <br><br>
-                        This effectively places an upper bound on the tidal deformability, $\tilde{\Lambda}$, constraining the possible radii of neutron stars. Models predicting very large radii (stiff EoS) are inconsistent with the observed compactness required for tidal disruption effects in this regime.
+                        Recovery becomes markedly less certain and less discriminating, for higher-mass neutron stars ($\gtrsim 2\,M_\odot$), where $\Lambda_2 \to 0$ and the measurement error approaches the size of the signal itself.
                     </p>
+                </div>
+
+                <!-- Real Event Validation -->
+                <div class="mt-8">
+                    <h4 class="text-sm font-bold text-gray-800 mb-3"><i class="fa-solid fa-satellite-dish mr-2 text-green-700"></i>Validation on Real LVK Events</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="border border-gray-200 rounded-xl p-3 text-center">
+                            <div class="text-xs text-gray-400">O3</div>
+                            <div class="font-serif font-bold text-gray-900">GW200105</div>
+                            <div class="mt-1 inline-block bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">Best fit: PP2</div>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-3 text-center">
+                            <div class="text-xs text-gray-400">O3</div>
+                            <div class="font-serif font-bold text-gray-900">GW200115</div>
+                            <div class="mt-1 inline-block bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">Best fit: PP2</div>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-3 text-center">
+                            <div class="text-xs text-gray-400">O4a</div>
+                            <div class="font-serif font-bold text-gray-900">GW230529</div>
+                            <div class="mt-1 inline-block bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">Best fit: H4</div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-3">With current detector sensitivity and only three confirmed NSBH detections, these preferences are suggestive rather than statistically decisive, matching the population study's own finding that ~20&ndash;50 events are needed for confident discrimination.</p>
                 </div>
             </section>
 
             <!-- Applications & Implications Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 <!-- Applications -->
                 <div class="bg-green-50 p-6 rounded-xl border border-green-100">
                     <h3 class="font-serif font-bold text-green-900 mb-3 flex items-center">
                         <i class="fa-solid fa-rocket mr-2"></i> Applications
                     </h3>
                     <p class="text-sm text-green-800 leading-relaxed">
-                        This Bayesian framework is directly applicable to data from the LIGO-Virgo-KAGRA <strong>O4 and O5 observing runs</strong>. It enables robust distinction between BNS and NSBH populations based on the tidal imprint found in the high-frequency merger part of the waveform.
+                        This Bayesian model-selection framework is designed to scale with LIGO-Virgo-KAGRA's <strong>O5 and A&#9839;</strong> upgrades, and thanks to the sampler speed-up demonstrated here remains computationally tractable for next-generation networks like the <strong>Einstein Telescope and Cosmic Explorer</strong>, where NSBH detection rates are expected to rise dramatically.
                     </p>
                 </div>
 
@@ -210,7 +279,7 @@
                         <i class="fa-solid fa-earth-americas mr-2 text-green-700"></i> Implications
                     </h3>
                     <p class="text-sm text-gray-600 leading-relaxed">
-                        Constraints on $\Lambda$ map directly to the <strong>QCD phase diagram</strong> at low temperatures and supranuclear densities. Our results help rule out extreme exotic matter states that would require EoS stiffer than those observed, tightening the bounds on the nuclear symmetry energy.
+                        Because NSBH mergers isolate a single neutron star's tidal response, they offer a clean window into the nuclear EoS. Ranking 11 candidate models such as  nucleonic, hyperonic, phase-transition, and piecewise-polytropic against real and simulated data helps narrow the allowed <strong>nuclear symmetry energy</strong> and feeds directly into the broader <strong>QCD phase diagram</strong> at supranuclear densities.
                     </p>
                 </div>
             </div>
@@ -223,7 +292,7 @@
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Research</h2>
             <p class="text-gray-600 mb-8">
-                Explore the detailed derivation of the Bayesian formalism, corner plots for posterior distributions, and discussion on systematic errors in the full thesis.
+                Explore the detailed derivation of the Bayesian formalism, corner plots for posterior distributions, and discussion on systematic errors in the full paper.
             </p>
             <!-- Placeholder for Publication Link -->
             <a href="#" class="inline-flex items-center px-8 py-3 bg-green-900 text-white font-medium rounded-lg hover:bg-green-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
@@ -238,8 +307,8 @@
     <!-- Footer with Joke -->
     <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
-            <p class="text-gray-500 text-sm mb-4">&copy; 2025 Yugesh Bhoge. All rights reserved.</p>
-            
+            <p class="text-gray-500 text-sm mb-4">&copy; 2026 Yugesh Bhoge. All rights reserved.</p>
+
             <!-- The Joke -->
             <div class="max-w-md text-center bg-[#FDFBF7] px-2 py-4 rounded-full border border-gray-100">
                 <p class="text-gray-600 text-sm italic font-serif">
@@ -249,13 +318,13 @@
                     <i class="fa-solid fa-quote-right text-green-200 ml-2"></i>
                 </p>
             </div>
-            
+
             <div class="flex space-x-4 mt-6 text-gray-400">
                 <a href="https://www.instagram.com/yugesh_bhoge/" class="hover:text-green-900 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
                 <a href="https://github.com/yugeshbhoge" class="hover:text-green-900 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
                 <a href="https://www.linkedin.com/in/yugesh-bhoge-917b4513a/" class="hover:text-green-900 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
                 <a href="mailto:yugeshbhoge.edu@gmail.com" class="hover:text-green-900 transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
-                
+
             </div>
         </div>
     </footer>
@@ -263,32 +332,25 @@
     <!-- Chart Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('eosChart').getContext('2d');
-            
-            // Data derived from the research context provided
-            const labels = ['SLy (True)', 'APR4', 'DD2', 'ALF2', 'H4'];
-            const dataValues = [0, -2.5, -5.2, -4.8, -8.1];
 
-            new Chart(ctx, {
+            // Chart 1: Discriminating power (m2, Lambda2) subspace vs detector network
+            const evCtx = document.getElementById('evidenceChart').getContext('2d');
+            new Chart(evCtx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: ['O5', 'A\u266f', 'ECC (3G)'],
                     datasets: [{
-                        label: 'Log Bayes Factor (ln B)',
-                        data: dataValues,
+                        label: 'Approx. cumulative log\u2081\u2080Z separation (50 events)',
+                        data: [-1250, -1250, -6000],
                         backgroundColor: [
-                            'rgba(34, 197, 94, 0.8)',   // SLy - Green (highlight)
-                            'rgba(156, 163, 175, 0.4)', // APR4 - Gray
-                            'rgba(156, 163, 175, 0.4)', // DD2
-                            'rgba(156, 163, 175, 0.4)', // ALF2
-                            'rgba(239, 68, 68, 0.4)'    // H4 - Red tint (strongly disfavored)
+                            'rgba(156, 163, 175, 0.5)',
+                            'rgba(156, 163, 175, 0.5)',
+                            'rgba(34, 197, 94, 0.8)'
                         ],
                         borderColor: [
-                            'rgba(34, 197, 94, 1)',
                             'rgba(156, 163, 175, 1)',
                             'rgba(156, 163, 175, 1)',
-                            'rgba(156, 163, 175, 1)',
-                            'rgba(239, 68, 68, 1)'
+                            'rgba(34, 197, 94, 1)'
                         ],
                         borderWidth: 1,
                         borderRadius: 4
@@ -297,20 +359,12 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Horizontal bar chart for better label readability
                     plugins: {
-                        legend: {
-                            display: false // Hide legend as the title explains it
-                        },
+                        legend: { display: false },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return ` ln B: ${context.raw}`;
-                                },
-                                afterLabel: function(context) {
-                                    if (context.raw === 0) return "Preferred Model (Injected)";
-                                    if (context.raw < -5) return "Strongly Disfavored";
-                                    return "Disfavored";
+                                    return ' ~' + context.raw + ' (log\u2081\u2080Z)';
                                 }
                             },
                             backgroundColor: 'rgba(20, 83, 45, 0.9)',
@@ -318,33 +372,75 @@
                         }
                     },
                     scales: {
-                        x: {
+                        y: {
                             title: {
                                 display: true,
-                                text: 'Log Bayes Factor (ln B)',
+                                text: 'log\u2081\u2080Z separation',
                                 color: '#374151',
                                 font: { weight: 'bold' }
                             },
-                            grid: {
-                                color: 'rgba(0,0,0,0.05)'
-                            }
+                            grid: { color: 'rgba(0,0,0,0.05)' }
                         },
-                        y: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    family: 'serif',
-                                    size: 14
-                                }
-                            }
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'serif', size: 13 } }
                         }
                     },
-                    animation: {
-                        duration: 1500,
-                        easing: 'easeOutQuart'
-                    }
+                    animation: { duration: 1200, easing: 'easeOutQuart' }
+                }
+            });
+
+            // Chart 2: nessai vs dynesty speedup
+            const spCtx = document.getElementById('speedupChart').getContext('2d');
+            new Chart(spCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['O5', 'A\u266f', 'ECC (3G)'],
+                    datasets: [{
+                        label: 'Speed-up (dynesty / nessai)',
+                        data: [3.82, 6.92, 30.51],
+                        backgroundColor: [
+                            'rgba(20, 83, 45, 0.55)',
+                            'rgba(20, 83, 45, 0.75)',
+                            'rgba(20, 83, 45, 0.95)'
+                        ],
+                        borderColor: 'rgba(20, 83, 45, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.raw + '\u00d7 faster';
+                                }
+                            },
+                            backgroundColor: 'rgba(20, 83, 45, 0.9)',
+                            titleFont: { family: 'serif' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Speed-up factor (\u00d7)',
+                                color: '#374151',
+                                font: { weight: 'bold' }
+                            },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'serif', size: 13 } }
+                        }
+                    },
+                    animation: { duration: 1200, easing: 'easeOutQuart' }
                 }
             });
         });
