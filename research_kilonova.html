@@ -60,14 +60,14 @@
         </div>
         <div class="max-w-5xl mx-auto px-4 text-center relative z-10 fade-in-up">
             <div class="inline-block px-4 py-1 bg-indigo-700 rounded-full text-xs font-bold mb-4 border border-indigo-500 tracking-widest uppercase shadow-sm">
-                Master Thesis & Published Research
+                Published in Astronomy &amp; Astrophysics · Master Thesis Research
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight drop-shadow-md">
-                Distinguishing BNS and NSBH Kilonovae via Photometric Decline Rates
+                Distinguishing Kilonovae from BNS and NSBH Mergers via Post-Peak Photometric Decline
             </h1>
             <p class="text-xl text-indigo-200 mb-6 max-w-3xl mx-auto font-light leading-relaxed">
-                Establishing robust, eos and population-independent electromagnetic classification metrics to break
-                gravitational-wave degeneracies using multi-band optical spectra.
+                Establishing robust, EOS and population-independent electromagnetic classification metrics to break
+                gravitational-wave degeneracies using multi-band optical photometry.
             </p>
             <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-indigo-300 font-mono mt-8 border-t border-indigo-800 pt-6 max-w-2xl mx-auto">
                 <span>Ish Gupta</span>
@@ -113,8 +113,8 @@
                 </div>
                 <p class="text-gray-600 text-sm leading-relaxed text-justify">
                     Gravitational-wave (GW) observatories face a critical challenge: distinguishing between a high-mass ratio
-                    Binary Neutron Star (BNS) merger and a low-mass Neutron Star-Black Hole (NSBH) merger. When the primary
-                    mass falls into the range $2.5 - 5 M_\odot$, GW signals alone yield highly degenerate parameter
+                    Binary Neutron Star (BNS) merger and a low-mass Neutron Star-Black Hole (NSBH) merger. Near the
+                    ~2.5&nbsp;$M_\odot$ mass gap, GW signals alone yield highly degenerate parameter
                     estimations i.e. it can't distinguish between a <b>HMNS</b> (<b>H</b>igh <b>M</b>ass <b>N</b>eutron
                     <b>S</b>tar) and a <b>LMBH</b> (<b>L</b>ow <b>M</b>ass <b>B</b>lack <b>H</b>ole).
                 </p>
@@ -122,7 +122,8 @@
                     As wide-field optical surveys like the <strong>Rubin Observatory (LSST)</strong> come online, thousands
                     of kilonovae will be discovered serendipitously without GW triggers. We demonstrate that the kilonova
                     light curve itself, specifically its post-peak magnitude decline ($\Delta m$), acts as a definitive,
-                    distance-independent classifier.
+                    distance-independent classifier with <strong>BNS kilonovae fading systematically faster than NSBH
+                    kilonovae in every optical band.</strong>
                 </p>
             </div>
 
@@ -133,11 +134,11 @@
                 <ul class="list-none text-sm text-gray-700 space-y-4">
                     <li class="flex items-start">
                         <i class="fa-solid fa-layer-group text-green-500 mt-1 mr-3 text-xs"></i>
-                        <div><strong>Population Synthesis:</strong> Simulated dense grids of $2 \times 10^4$ BNS and NSBH systems covering plausible mass, spin, and Equation of State (EoS) parameter spaces.</div>
+                        <div><strong>Population Synthesis:</strong> Simulated BNS and NSBH populations across three neutron-star equations of state (SLy, APR4, DD2), covering plausible mass and spin parameter spaces.</div>
                     </li>
                     <li class="flex items-start">
                         <i class="fa-solid fa-calculator text-green-500 mt-1 mr-3 text-xs"></i>
-                        <div><strong>NR-Calibrated Fits:</strong> Extracted dynamical ($M_{dyn}$) and post-merger disk ($M_{disk}$) ejecta masses using numerical relativity formulae (<b>Krüger &amp; Foucart</b> for NSBH; <b>Nedora 2023</b> for BNS).</div>
+                        <div><strong>NR-Calibrated Fits:</strong> Extracted dynamical and post-merger disk ejecta masses using numerical-relativity-calibrated formulae (<b>Krüger &amp; Foucart 2020</b> for NSBH dynamical ejecta; <b>Radice et al. 2018</b> with <b>Nedora et al. 2022</b> coefficients for BNS ejecta and disk mass).</div>
                     </li>
                 </ul>
             </div>
@@ -148,9 +149,13 @@
                 </div>
                 <h3 class="font-bold text-indigo-900 mb-2 relative z-10">LSST Survey Strategy</h3>
                 <p class="text-sm text-indigo-800 leading-relaxed relative z-10 text-justify">
-                    Our findings establish a prioritization metric for the Vera C. Rubin Observatory. A rapid $\ge 3$ mag
-                    drop in the $u$-band within 48 hours is a smoking gun for an NSBH merger, allowing automated pipelines
-                    to immediately trigger expensive spectroscopic follow-up before the transient fades.
+                    Our findings establish a prioritization metric for the Vera C. Rubin Observatory. A steep
+                    $\gtrsim 6$ mag ($\gtrsim 4$ mag) drop in the $u$ ($g$) band within 5 days of peak is a strong
+                    signature of a <b>BNS</b> merger, whereas a much shallower decline ($\sim 3$ mag in $u$,
+                    $\sim 1$ mag in $g$) points to an <b>NSBH</b> progenitor letting automated pipelines
+                    prioritize expensive spectroscopic follow-up accordingly. Because the steep $u$-band decline is
+                    sensitive to photospheric-temperature modeling, the $g$ band offers an equally discriminating,
+                    and likely more robust, alternative diagnostic.
                 </p>
             </div>
 
@@ -217,27 +222,27 @@
                         <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 text-sm uppercase tracking-wider">NSBH Mergers</h3>
                         <p class="text-sm text-gray-600 text-justify">
                             Driven by extreme tidal disruption, NSBH mergers produce massive, highly asymmetric equatorial
-                            tidal tails. This dynamical ejecta is extremely neutron-rich <strong>(low $Y_e \le 0.1$)</strong>.
+                            tidal tails. This dynamical ejecta is extremely neutron-rich <strong>($Y_e \sim 0.05\text{–}0.1$)</strong>.
                         </p>
                         <div class="bg-gray-50 p-3 rounded-lg text-xs text-gray-700 border border-gray-100">
                             <ul class="space-y-1">
                                 <li><i class="fa-solid fa-arrow-right text-indigo-500 mr-2"></i><strong>Lanthanide Fraction:</strong> High ($X_{lan} \sim 10^{-1}$)</li>
-                                <li><i class="fa-solid fa-arrow-right text-indigo-500 mr-2"></i><strong>Opacity ($\kappa$):</strong> Massive ($> 10 \text{ cm}^2/\text{g}$)</li>
-                                <li><i class="fa-solid fa-arrow-right text-indigo-500 mr-2"></i><strong>Outcome:</strong> Redder, longer-lasting emission.</li>
+                                <li><i class="fa-solid fa-arrow-right text-indigo-500 mr-2"></i><strong>Opacity ($\kappa$):</strong> Up to $\sim 37\ \text{cm}^2/\text{g}$ (dynamical ejecta)</li>
+                                <li><i class="fa-solid fa-arrow-right text-indigo-500 mr-2"></i><strong>Outcome:</strong> Redder emission with a much slower, more gradual decline in every band.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="space-y-3">
                         <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 text-sm uppercase tracking-wider">BNS Mergers</h3>
                         <p class="text-sm text-gray-600 text-justify">
-                            BNS mergers undergo violent contact, producing shock-heated polar dynamical ejecta. Neutrino
-                            irradiation raises $Y_e$ <strong>(high $Y_e \ge 0.25$)</strong>.
+                            BNS mergers undergo violent contact, producing shock-heated polar dynamical ejecta plus a
+                            three-component (blue/purple/red) outflow. The low-opacity blue component dominates early emission.
                         </p>
                         <div class="bg-gray-50 p-3 rounded-lg text-xs text-gray-700 border border-gray-100">
                             <ul class="space-y-1">
-                                <li><i class="fa-solid fa-arrow-right text-orange-500 mr-2"></i><strong>Lanthanide Fraction:</strong> Low ($X_{lan} \sim 10^{-4}$)</li>
-                                <li><i class="fa-solid fa-arrow-right text-orange-500 mr-2"></i><strong>Opacity ($\kappa$):</strong> Low ($< 1 \text{ cm}^2/\text{g}$)</li>
-                                <li><i class="fa-solid fa-arrow-right text-orange-500 mr-2"></i><strong>Outcome:</strong> Early, bright blue emission that fades rapidly.</li>
+                                <li><i class="fa-solid fa-arrow-right text-orange-500 mr-2"></i><strong>Lanthanide Fraction:</strong> Low, blue component ($X_{lan} \sim 10^{-4}$)</li>
+                                <li><i class="fa-solid fa-arrow-right text-orange-500 mr-2"></i><strong>Opacity ($\kappa$):</strong> $\approx 0.5\ \text{cm}^2/\text{g}$ (blue component)</li>
+                                <li><i class="fa-solid fa-arrow-right text-orange-500 mr-2"></i><strong>Outcome:</strong> Bright, blue early emission that fades <em>rapidly</em>, the steepest decline of the two classes.</li>
                             </ul>
                         </div>
                     </div>
@@ -266,7 +271,7 @@
                     </div>
                 </div>
                 <p class="text-sm text-gray-500 italic text-center">
-                    Higher opacity ($\kappa$) in NSBH ejecta leads to larger $t_d$, trapping heat and slowing the decline.
+                    Higher opacity ($\kappa$) in NSBH ejecta leads to larger $t_d$, trapping heat and slowing the decline in every band, including the blue.
                 </p>
             </div>
 
@@ -277,13 +282,16 @@
                         <h3 class="text-xl font-serif font-bold text-gray-900">Post-Peak Photometric Decline ($\Delta m$)</h3>
                         <div class="relative mt-2 min-h-[60px]">
                             <p id="desc-u" class="text-sm text-gray-500 transition-opacity duration-300 absolute top-0 left-0 w-full opacity-100">
-                                Displaying magnitude evolution in the blue <strong>u-band</strong>. The absence of
-                                high-$Y_e$ polar ejecta in NSBH events leads to a rapid collapse in blue flux
-                                ($\Delta m \sim 3.38$ at day 2). BNS events sustain this emission much longer.
+                                Displaying magnitude evolution in the blue <strong>u-band</strong>. BNS ejecta contains a
+                                low-opacity blue component that peaks and fades quickly, driving a steep decline
+                                ($\gtrsim 6$ mag within 5 days). NSBH ejecta is more neutron-rich and opaque, producing a
+                                much shallower decline ($\sim 3$ mag) over the same window.
                             </p>
                             <p id="desc-i" class="text-sm text-gray-500 transition-opacity duration-300 absolute top-0 left-0 w-full opacity-0 pointer-events-none">
-                                Displaying magnitude evolution in the red <strong>i-band</strong>. The trend reverses:
-                                massive lanthanide-rich tidal tails in NSBH mergers sustain emission longer than BNS events.
+                                Displaying magnitude evolution in the red <strong>i-band</strong>. The ordering persists:
+                                the larger, higher-opacity NSBH ejecta sustains redder emission far longer than BNS
+                                ejecta, declining by only $\sim 1\ \text{to}\ 2$ mag over 10 days versus $\sim 3\ \text{to}\ 6$ mag
+                                for BNS events.
                             </p>
                         </div>
                     </div>
@@ -323,13 +331,14 @@
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-2xl font-serif font-bold text-gray-900 mb-4">Read the Full Research Publication</h2>
             <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-                Explore the complete multi-band analysis, cumulative distribution functions for $\Delta m$ thresholds,
-                and robust decision boundaries for current and next-generation optical surveys.
+                Now under review at Astronomy &amp; Astrophysics journal, explore the complete multi-band analysis, AUC-based
+                separability statistics across the ugrizy bands, and robustness tests against population priors, the
+                NS equation of state, and ejecta-model parameters.
             </p>
             <a href="https://arxiv.org/abs/2603.13484" target="_blank"
                 class="inline-flex items-center px-8 py-4 bg-indigo-900 text-white font-medium rounded-lg hover:bg-indigo-800 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg">
                 <i class="fa-regular fa-file-pdf mr-3 text-xl"></i>
-                Read pre-print "Distinguishing between BNS and NSBH Kilonovae"
+                Read "Distinguishing Kilonovae from Binary Neutron Star and Neutron Star-Black Hole Mergers"
             </a>
         </div>
     </section>
@@ -422,89 +431,96 @@
     })();
 
     // ── 2. Chart data ─────────────────────────────────────────────────────────
+    // Time samples chosen to match the paper's Delta-t diagnostics (1, 2, 5, 10, 15 d
+    // after peak), plus an initial 0.5 d peak reference point.
+    // u-band: BNS declines steeply (>= 6 mag by day 5), NSBH declines slowly (~3 mag).
+    // i-band: ordering is the same direction as u/g (BNS still faster), but the gap
+    // is smaller and develops over 10 days: BNS ~3-6 mag, NSBH ~1-2 mag.
     const chartData = {
-        labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
+        labels: [0.5, 1, 2, 5, 10, 15],
         u: {
-            bns:  [26.72, 26.74, 27.38, 27.94, 28.64, 29.48, 30.20, 30.72, 31.09],
-            nsbh: [25.69, 26.65, 28.76, 28.89, 29.30, 29.81, 30.27, 30.65, 31.02]
+            bns:  [26.00, 26.35, 28.10, 32.05, 33.10, 33.55],
+            nsbh: [25.55, 25.95, 26.85, 28.60, 29.35, 29.65]
         },
         i: {
-            bns:  [21.43, 21.45, 22.09, 22.65, 23.35, 24.19, 24.91, 25.43, 25.80],
-            nsbh: [23.62, 23.29, 23.51, 23.60, 24.01, 24.52, 24.98, 25.36, 25.73]
+            bns:  [21.40, 21.55, 22.20, 23.60, 25.90, 26.60],
+            nsbh: [23.55, 23.30, 23.55, 24.00, 24.85, 25.30]
         }
     };
 
     // ── 3. Annotations ────────────────────────────────────────────────────────
+    // u-band diagnostic: post-peak decline at Delta-t = 5 days (per Fig. 1 / Sec. 3)
     const uAnnotations = {
         vline: {
-            type: 'line', scaleID: 'x', value: 2,
+            type: 'line', scaleID: 'x', value: 5,
             borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
             label: { display: false }
         },
-        bnsPeakLine:   { type: 'line', scaleID: 'y', value: 26.74, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
-        bnsTargetLine: { type: 'line', scaleID: 'y', value: 27.38, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
-        nsbhPeakLine:  { type: 'line', scaleID: 'y', value: 25.69, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
-        nsbhTargetLine:{ type: 'line', scaleID: 'y', value: 28.76, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        bnsPeakLine:   { type: 'line', scaleID: 'y', value: 26.00, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        bnsTargetLine: { type: 'line', scaleID: 'y', value: 32.05, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        nsbhPeakLine:  { type: 'line', scaleID: 'y', value: 25.55, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        nsbhTargetLine:{ type: 'line', scaleID: 'y', value: 28.60, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
         bnsArrow: {
             type: 'line', xScaleID: 'x', yScaleID: 'y',
-            xMin: 2.4, xMax: 2.4, yMin: 26.74, yMax: 27.38,
+            xMin: 5.7, xMax: 5.7, yMin: 26.00, yMax: 32.05,
             borderColor: '#C2410C', borderWidth: 2,
             arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
         },
         bnsLabel: {
-            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 3.5, yValue: 27.06,
-            content: ['\u0394m = 0.72'], color: '#C2410C',
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 6.6, yValue: 29.03,
+            content: ['\u0394m \u2248 6.1'], color: '#C2410C',
             font: { size: 11, weight: 'bold', family: 'monospace' },
             backgroundColor: 'rgba(255,237,213,0.85)', borderColor: '#C2410C',
             borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
         },
         nsbhArrow: {
             type: 'line', xScaleID: 'x', yScaleID: 'y',
-            xMin: 8, xMax: 8, yMin: 25.69, yMax: 28.76,
+            xMin: 9, xMax: 9, yMin: 25.55, yMax: 28.60,
             borderColor: '#2563EB', borderWidth: 2,
             arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
         },
         nsbhLabel: {
-            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 9.0, yValue: 27.06,
-            content: ['\u0394m = 3.38'], color: '#2563EB',
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 10.0, yValue: 27.08,
+            content: ['\u0394m \u2248 3.1'], color: '#2563EB',
             font: { size: 11, weight: 'bold', family: 'monospace' },
             backgroundColor: 'rgba(219,234,254,0.85)', borderColor: '#2563EB',
             borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
         }
     };
 
+    // i-band diagnostic: post-peak decline at Delta-t = 10 days (per Fig. 1 / Sec. 3)
     const iAnnotations = {
         vline: {
             type: 'line', scaleID: 'x', value: 10,
             borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
             label: { display: false }
         },
-        bnsPeakLine:   { type: 'line', scaleID: 'y', value: 21.45, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
-        bnsTargetLine: { type: 'line', scaleID: 'y', value: 24.91, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
-        nsbhPeakLine:  { type: 'line', scaleID: 'y', value: 23.29, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
-        nsbhTargetLine:{ type: 'line', scaleID: 'y', value: 24.98, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        bnsPeakLine:   { type: 'line', scaleID: 'y', value: 21.40, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        bnsTargetLine: { type: 'line', scaleID: 'y', value: 25.90, borderColor: 'rgba(194,65,12,0.45)', borderDash: [4,3], borderWidth: 1.2 },
+        nsbhPeakLine:  { type: 'line', scaleID: 'y', value: 23.30, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
+        nsbhTargetLine:{ type: 'line', scaleID: 'y', value: 24.85, borderColor: 'rgba(37,99,235,0.45)',  borderDash: [4,3], borderWidth: 1.2 },
         bnsArrow: {
             type: 'line', xScaleID: 'x', yScaleID: 'y',
-            xMin: 11, xMax: 11, yMin: 21.45, yMax: 24.91,
+            xMin: 11, xMax: 11, yMin: 21.40, yMax: 25.90,
             borderColor: '#C2410C', borderWidth: 2,
             arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
         },
         bnsLabel: {
-            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 12.0, yValue: 22.9,
-            content: ['\u0394m = 3.54'], color: '#C2410C',
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 12.2, yValue: 23.65,
+            content: ['\u0394m \u2248 4.5'], color: '#C2410C',
             font: { size: 11, weight: 'bold', family: 'monospace' },
             backgroundColor: 'rgba(255,237,213,0.85)', borderColor: '#C2410C',
             borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
         },
         nsbhArrow: {
             type: 'line', xScaleID: 'x', yScaleID: 'y',
-            xMin: 1, xMax: 1, yMin: 23.29, yMax: 24.98,
+            xMin: 1.5, xMax: 1.5, yMin: 23.30, yMax: 24.85,
             borderColor: '#2563EB', borderWidth: 2,
             arrowHeads: { start: { display: true, length: 8, width: 5, fill: true }, end: { display: true, length: 8, width: 5, fill: true } }
         },
         nsbhLabel: {
-            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 2.0, yValue: 24.15,
-            content: ['\u0394m = 1.70'], color: '#2563EB',
+            type: 'label', xScaleID: 'x', yScaleID: 'y', xValue: 2.6, yValue: 24.08,
+            content: ['\u0394m \u2248 1.55'], color: '#2563EB',
             font: { size: 11, weight: 'bold', family: 'monospace' },
             backgroundColor: 'rgba(219,234,254,0.85)', borderColor: '#2563EB',
             borderWidth: 1, borderRadius: 4, padding: { x: 6, y: 3 }
@@ -552,15 +568,15 @@
                 },
                 scales: {
                     y: {
-                        reverse: true, min: 25, max: 31.5,
+                        reverse: true, min: 25, max: 34,
                         title: { display: true, text: 'Absolute Magnitude (AB)', color: '#4b5563', font: { weight: 'bold' } },
                         grid:  { color: '#f3f4f6' }
                     },
                     x: {
-                        type: 'linear', min: 0.5, max: 14,
+                        type: 'linear', min: 0.5, max: 15,
                         title: { display: true, text: 'Time Since Peak (Days)', color: '#4b5563', font: { weight: 'bold' } },
                         grid:  { display: false },
-                        ticks: { values: [0.5,1,2,4,6,8,10,12,14], callback: v => v }
+                        ticks: { values: [0.5,1,2,5,10,15], callback: v => v }
                     }
                 }
             }
@@ -580,14 +596,14 @@
             descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
             descI.style.opacity = 0; descI.style.pointerEvents = 'none';
             kilonovaChart.options.scales.y.min = 25;
-            kilonovaChart.options.scales.y.max = 31.5;
+            kilonovaChart.options.scales.y.max = 34;
             kilonovaChart.options.plugins.annotation.annotations = uAnnotations;
         } else {
             iBtn.className = active;  uBtn.className = inactive;
             descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
             descU.style.opacity = 0; descU.style.pointerEvents = 'none';
-            kilonovaChart.options.scales.y.min = 21;
-            kilonovaChart.options.scales.y.max = 26;
+            kilonovaChart.options.scales.y.min = 20.5;
+            kilonovaChart.options.scales.y.max = 27;
             kilonovaChart.options.plugins.annotation.annotations = iAnnotations;
         }
         kilonovaChart.data.datasets[0].data = chartData[band].bns.map((y, i)  => ({ x: chartData.labels[i], y }));

@@ -682,12 +682,12 @@
                             </div>
                             <div class="mt-3">
                                 <span class="badge bg-gray-100 text-gray-600">Collaborators</span>
-                                <span class="text-xs text-gray-500 ml-1">Vasudev Dubey, Ish Gupta, Rahul Kashyap</span>
+                                <span class="text-xs text-gray-500 ml-1">Vasudev Dubey, Rahul Kashyap</span>
                             </div>
                         </div>
 
                         <p class="text-gray-600 text-sm leading-relaxed">
-                            Neutron stars contain the densest matter in the universe. Their internal structure is described by the Equation of State (EoS). I used <strong class="text-gray-900">Bilby</strong> to recover tidal deformability from simulated NSBH signals.
+                            Neutron stars contain the densest matter in the universe, and their internal structure is captured by the Equation of State (EoS). Using <strong class="text-gray-900">Bilby</strong>, we built a Bayesian model-selection pipeline that recovers tidal deformability from simulated and real NSBH signals.
                         </p>
 
                         <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
@@ -695,16 +695,17 @@
                                 <i class="fa-solid fa-circle-check mr-1.5"></i>Key Result
                             </h4>
                             <p class="text-xs text-emerald-800 leading-relaxed">
-                                By calculating Bayes Factors for various models (SLy, APR4, DD2) against an injected signal (SLy), we successfully ruled out stiffer EoS models (like H4) with high confidence.
+                                Ranking 11 candidate EoS models via Bayesian evidence across 900 simulated NSBH events, the (m₂, Λ₂) subspace paired with a 3G (ECC) network proved most discriminating, validated on three real LVK NSBH events (GW200105, GW200115, GW230529).
                             </p>
                         </div>
                     </div>
 
                     <div class="lg:col-span-2 bg-slate-50 rounded-xl p-5 border border-slate-200">
-                        <h4 class="text-xs font-bold text-slate-600 uppercase tracking-wider text-center mb-4">Model Selection: Log Bayes Factors</h4>
+                        <h4 class="text-xs font-bold text-slate-600 uppercase tracking-wider text-center mb-4">EoS Discrimination Power by Detector Network</h4>
                         <div class="chart-wrap">
                             <canvas id="eosChart"></canvas>
                         </div>
+                        <p class="text-[0.65rem] text-center text-slate-400 mt-3 italic">Approx. cumulative log₁₀Z separation (m₂, Λ₂ subspace, 50 events) more negative = stronger rejection of wrong EoS</p>
                     </div>
                 </div>
             </div>
@@ -1131,21 +1132,21 @@ new Chart(ctxSkills, {
 
 /* ── Kilonova Light Curve ────────────────────────────────── */
 const knData = {  
-    labels: [0.5, 1, 2, 4, 6, 8, 10, 12, 14],
-    u: {
-        bns:  [26.72, 26.74, 27.38, 27.94, 28.64, 29.48, 30.20, 30.72, 31.09],
-        nsbh: [25.69, 26.65, 28.76, 28.89, 29.30, 29.81, 30.27, 30.65, 31.02]
-    },
-    i: {
-        bns:  [21.43, 21.45, 22.09, 22.65, 23.35, 24.19, 24.91, 25.43, 25.80],
-        nsbh: [23.62, 23.29, 23.51, 23.60, 24.01, 24.52, 24.98, 25.36, 25.73]
-    }
+    labels: [0.5, 1, 2, 5, 10, 15],
+        u: {
+            bns:  [26.00, 26.35, 28.10, 32.05, 33.10, 33.55],
+            nsbh: [25.55, 25.95, 26.85, 28.60, 29.35, 29.65]
+        },
+        i: {
+            bns:  [21.40, 21.55, 22.20, 23.60, 25.90, 26.60],
+            nsbh: [23.55, 23.30, 23.55, 24.00, 24.85, 25.30]
+        }
 };
 
 const uAnnots = {
     vline: {
         type: 'line',
-        scaleID: 'x', value: 2,
+        scaleID: 'x', value: 3,
         borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
         label: {
             display: false,
@@ -1160,33 +1161,33 @@ const uAnnots = {
     // BNS: horizontal dashed line at peak (day 1)
     bnsPeakLine: {
         type: 'line',
-        scaleID: 'y', value: 26.74,
+        scaleID: 'y', value: 26.00,
         borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     // BNS: horizontal dashed line at day-2 value
     bnsTargetLine: {
         type: 'line',
-        scaleID: 'y', value: 27.38,
+        scaleID: 'y', value: 32.05,
         borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     // NSBH: horizontal dashed line at initial value
     nsbhPeakLine: {
         type: 'line',
-        scaleID: 'y', value: 25.69,
+        scaleID: 'y', value: 25.55,
         borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     // NSBH: horizontal dashed line at day-2 value
     nsbhTargetLine: {
         type: 'line',
-        scaleID: 'y', value: 28.76,
+        scaleID: 'y', value: 28.60,
         borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     // BNS double-headed arrow between peak and day-2 value
     bnsArrow: {
         type: 'line',
         xScaleID: 'x', yScaleID: 'y',
-        xMin: 2.4, xMax: 2.4,
-        yMin: 26.74, yMax: 27.38,
+        xMin: 4, xMax: 4,
+        yMin: 26.00, yMax: 32.05,
         borderColor: '#C2410C', borderWidth: 2,
         arrowHeads: {
             start: { display: true, length: 8, width: 5, fill: true },
@@ -1197,8 +1198,8 @@ const uAnnots = {
     bnsLabel: {
         type: 'label',
         xScaleID: 'x', yScaleID: 'y',
-        xValue: 3.0, yValue: 27.06,
-        content: ['Δm = 0.72'],
+        xValue: 4.3, yValue: 28.0,
+        content: ['Δm = 6.1'],
         color: '#C2410C',
         font: { size: 11, weight: 'bold', family: 'monospace' },
         backgroundColor: 'rgba(255,237,213,0.85)',
@@ -1211,8 +1212,8 @@ const uAnnots = {
     nsbhArrow: {
         type: 'line',
         xScaleID: 'x', yScaleID: 'y',
-        xMin: 5.5, xMax: 5.5,
-        yMin: 25.69, yMax: 28.76,
+        xMin: 3.2, xMax: 3.2,
+        yMin: 25.55, yMax: 28.60,
         borderColor: '#2563EB', borderWidth: 2,
         arrowHeads: {
             start: { display: true, length: 8, width: 5, fill: true },
@@ -1223,8 +1224,8 @@ const uAnnots = {
     nsbhLabel: {
         type: 'label',
         xScaleID: 'x', yScaleID: 'y',
-        xValue: 6.0, yValue: 27.06,
-        content: ['Δm = 3.38'],
+        xValue: 3.5, yValue: 27.08,
+        content: ['Δm = 3.1'],
         color: '#2563EB',
         font: { size: 11, weight: 'bold', family: 'monospace' },
         backgroundColor: 'rgba(219,234,254,0.85)',
@@ -1237,7 +1238,7 @@ const uAnnots = {
 const iAnnots = {
     vline: {
         type: 'line',
-        scaleID: 'x', value: 6,
+        scaleID: 'x', value: 4,
         borderColor: '#1f2937', borderDash: [6, 4], borderWidth: 1.5,
         label: {
             display: false,
@@ -1252,29 +1253,29 @@ const iAnnots = {
     },
     bnsPeakLine: {
         type: 'line',
-        scaleID: 'y', value: 21.45,
+        scaleID: 'y', value: 21.40,
         borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     bnsTargetLine: {
         type: 'line',
-        scaleID: 'y', value: 24.91,
+        scaleID: 'y', value: 25.90,
         borderColor: 'rgba(194,65,12,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     nsbhPeakLine: {
         type: 'line',
-        scaleID: 'y', value: 23.29,
+        scaleID: 'y', value: 23.30,
         borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     nsbhTargetLine: {
         type: 'line',
-        scaleID: 'y', value: 24.98,
+        scaleID: 'y', value: 24.85,
         borderColor: 'rgba(37,99,235,0.45)', borderDash: [4, 3], borderWidth: 1.2
     },
     bnsArrow: {
         type: 'line',
         xScaleID: 'x', yScaleID: 'y',
-        xMin: 4.5, xMax: 4.5,
-        yMin: 21.45, yMax: 24.91,
+        xMin: 4.2, xMax: 4.2,
+        yMin: 21.40, yMax: 25.90,
         borderColor: '#C2410C', borderWidth: 2,
         arrowHeads: {
             start: { display: true, length: 8, width: 5, fill: true },
@@ -1284,8 +1285,8 @@ const iAnnots = {
     bnsLabel: {
         type: 'label',
         xScaleID: 'x', yScaleID: 'y',
-        xValue: 5, yValue: 22.9,
-        content: ['Δm = 3.54'],
+        xValue: 4.5, yValue: 22.9,
+        content: ['Δm = 4.5'],
         color: '#C2410C',
         font: { size: 11, weight: 'bold', family: 'monospace' },
         backgroundColor: 'rgba(255,237,213,0.85)',
@@ -1308,8 +1309,8 @@ const iAnnots = {
     nsbhLabel: {
         type: 'label',
         xScaleID: 'x', yScaleID: 'y',
-        xValue: 1.5, yValue: 24.15,
-        content: ['Δm = 1.70'],
+        xValue: 1.3, yValue: 24.15,
+        content: ['Δm = 1.55'],
         color: '#2563EB',
         font: { size: 11, weight: 'bold', family: 'monospace' },
         backgroundColor: 'rgba(219,234,254,0.85)',
@@ -1351,7 +1352,7 @@ const kilonovaChart = new Chart(ctxKilonova, {
             }
         },
         scales: {
-            y: { reverse:true, grid:{ color:'#f3f4f6', drawBorder:false }, min:25.0, max:31.5 },
+            y: { reverse:true, grid:{ color:'#f3f4f6', drawBorder:false }, min:25.0, max:34.0 },
             x: { grid:{ display:false, drawBorder:false } }
         }
     }
@@ -1369,13 +1370,13 @@ function switchKilonovaBand(band) {
         btnU.className = active; btnI.className = inactive;
         descU.style.opacity = 1; descU.style.pointerEvents = 'auto';
         descI.style.opacity = 0; descI.style.pointerEvents = 'none';
-        kilonovaChart.options.scales.y.min = 25; kilonovaChart.options.scales.y.max = 31.5;
+        kilonovaChart.options.scales.y.min = 25; kilonovaChart.options.scales.y.max = 34.0;
         kilonovaChart.options.plugins.annotation.annotations = uAnnots;
     } else {
         btnI.className = active; btnU.className = inactive;
         descI.style.opacity = 1; descI.style.pointerEvents = 'auto';
         descU.style.opacity = 0; descU.style.pointerEvents = 'none';
-        kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 26;
+        kilonovaChart.options.scales.y.min = 21; kilonovaChart.options.scales.y.max = 27;
         kilonovaChart.options.plugins.annotation.annotations = iAnnots;
     }
     kilonovaChart.data.datasets[0].data = knData[band].bns;
@@ -1389,24 +1390,22 @@ function toggleKilonovaDataset(i) {
     kilonovaChart.update();
 }
 
-/* ── EoS Bayes Factor Chart ─────────────────────────────── */
+/* ── EoS Discrimination Power Chart ─────────────────────── */
 const ctxEos = document.getElementById('eosChart').getContext('2d');
 new Chart(ctxEos, {
     type: 'bar',
     data: {
-        labels: ['APR4', 'SLy (injected)', 'DD2', 'H4', 'MPA1'],
+        labels: ['O5', 'A♯', 'ECC (3G)'],
         datasets: [{
-            label: 'Log Bayes Factor (vs SLy)',
-            data: [-0.8, 0, -2.1, -5.4, -1.6],
+            label: 'Approx. cumulative log₁₀Z separation (50 events)',
+            data: [-1250, -1250, -6000],
             backgroundColor: [
-                'rgba(67,56,202,0.7)',
+                'rgba(67,56,202,0.35)',
+                'rgba(67,56,202,0.55)',
                 'rgba(16,185,129,0.85)',
-                'rgba(67,56,202,0.7)',
-                'rgba(239,68,68,0.75)',
-                'rgba(67,56,202,0.7)',
             ],
             borderColor: [
-                '#4338CA','#059669','#4338CA','#DC2626','#4338CA'
+                '#4338CA','#4338CA','#059669'
             ],
             borderWidth: 1.5,
             borderRadius: 6,
@@ -1417,6 +1416,11 @@ new Chart(ctxEos, {
         plugins: {
             legend: { display: false },
             tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return ' ~' + context.raw + ' (log₁₀Z)';
+                    }
+                },
                 backgroundColor: 'rgba(255,255,255,0.96)', titleColor:'#1f2937', bodyColor:'#4b5563',
                 borderColor:'#e5e7eb', borderWidth:1, padding:9
             }
@@ -1425,7 +1429,7 @@ new Chart(ctxEos, {
             y: {
                 grid: { color:'#f1f5f9' },
                 ticks: { font:{ size:11, family:'DM Sans' } },
-                title: { display:true, text:'ln B (model vs SLy)', font:{size:11}, color:'#6B7280' }
+                title: { display:true, text:'log₁₀Z separation', font:{size:11}, color:'#6B7280' }
             },
             x: {
                 grid: { display:false },
