@@ -8,6 +8,105 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .photo-frame:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3); }
+         .poem-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+        }
+
+        .poem-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+
+        /* ─── Versions of Me Reader ─────────────────────────────── */
+
+        .poem-reader {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45);
+        }
+
+        .poem-slide-wrapper {
+            background: #030712;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .poem-slide {
+            display: block;
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .poem-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: #111827;
+            border-top: 1px solid #1f2937;
+        }
+
+        .poem-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: 0.5rem;
+            background: #1f2937;
+            color: #d1d5db;
+            border: 1px solid #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .poem-nav-btn:hover:not(:disabled) {
+            background: #374151;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .poem-nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .poem-counter {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .poem-navigation {
+                padding: 0.75rem;
+            }
+
+            .poem-nav-btn span {
+                display: none;
+            }
+
+            .poem-nav-btn {
+                width: 42px;
+                height: 42px;
+                justify-content: center;
+                padding: 0;
+            }
+        }
     </style>
 
 
@@ -50,7 +149,7 @@
         <!-- Astrophotography Section -->
         <div class="mb-20">
             <h2 class="text-2xl font-bold mb-8 border-b border-gray-800 pb-4"><i class="fa-solid fa-star text-yellow-400 mr-2"></i> Astrophotography</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="protected-gallery grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="aspect-video bg-black rounded-xl border border-gray-800 flex items-center justify-center relative overflow-hidden group">
                     <!-- Placeholder for Astro Image 1 -->
                     <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black opacity-80 group-hover:opacity-100 transition duration-700"></div>
@@ -70,11 +169,116 @@
                   </div>
             </div>
         </div>
+        <!-- Poetry & Writing Section -->
+        <div class="mb-20">
+            <h2 class="text-2xl font-bold mb-8 border-b border-gray-800 pb-4">
+                <i class="fa-solid fa-feather-pointed text-purple-400 mr-2"></i>
+                Poetry & Writing
+            </h2>
 
+            <!-- Standalone Poems -->
+            <div class="protected-gallery grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+
+                <!-- The Lighthouse -->
+                <div class="poem-card bg-gray-800 rounded-xl overflow-hidden border border-gray-800">
+                    <img
+                        src="Poem_Lighthouse.jpg"
+                        alt="The Lighthouse - Poem by Yugesh Bhoge"
+                        loading="lazy"
+                    >
+                </div>
+
+                <!-- Mountain's Peak -->
+                <div class="poem-card bg-gray-800 rounded-xl overflow-hidden border border-gray-800">
+                    <img
+                        src="Poem_Mountains_peak.jpg"
+                        alt="Mountain's Peak - Poem by Yugesh Bhoge"
+                        loading="lazy"
+                    >
+                </div>
+
+                <!-- The Star Lady -->
+                <div class="poem-card bg-gray-800 rounded-xl overflow-hidden border border-gray-800">
+                    <img
+                        src="Poem_Star_lady.jpg"
+                        alt="The Star Lady - Poem by Yugesh Bhoge"
+                        loading="lazy"
+                    >
+                </div>
+
+            </div>
+
+
+            <!-- Versions of Me -->
+            <div class="max-w-4xl mx-auto">
+
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl md:text-3xl font-serif font-bold">
+                        Versions of Me
+                    </h3>
+
+                    <p class="text-gray-400 mt-2 text-sm">
+                        A poem in six pieces
+                    </p>
+                </div>
+
+
+                <!-- Poem Navigator -->
+                <div class="protected-gallery poem-reader">
+
+                    <!-- Image -->
+                    <div class="poem-slide-wrapper">
+                        <img
+                            id="versionsOfMeImage"
+                            src="Post_1.jpg"
+                            alt="Versions of Me — Part 1"
+                            class="poem-slide"
+                        >
+                    </div>
+
+
+                    <!-- Navigation -->
+                    <div class="poem-navigation">
+
+                        <button
+                            id="prevPoem"
+                            type="button"
+                            class="poem-nav-btn"
+                            aria-label="Previous part"
+                        >
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <span>Previous</span>
+                        </button>
+
+
+                        <div class="poem-counter">
+                            <span id="poemCurrent">1</span>
+                            <span class="mx-1 text-gray-600">/</span>
+                            <span>6</span>
+                        </div>
+
+
+                        <button
+                            id="nextPoem"
+                            type="button"
+                            class="poem-nav-btn"
+                            aria-label="Next part"
+                        >
+                            <span>Next</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
         <!-- Life & Outdoors Section -->
         <div>
             <h2 class="text-2xl font-bold mb-8 border-b border-gray-800 pb-4"><i class="fa-solid fa-person-hiking text-green-400 mr-2"></i> Life & Outdoors</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+            <div class="protected-gallery grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
                 
                 <!-- Trekking -->
                 <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group col-span-2 row-span-2">
@@ -87,7 +291,7 @@
                 </div>
 
                 <!-- Travel -->
-                <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group">
+                <div class="protected-gallery photo-frame bg-gray-800 rounded-lg relative overflow-hidden group">
                      <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100" style="background-color: #2d3748;"></div>
                      <div class="absolute inset-0 flex items-center justify-center">
                         <i class="fa-solid fa-plane text-3xl text-gray-400"></i>
@@ -96,7 +300,7 @@
                 </div>
 
                 <!-- Sports -->
-                <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group">
+                <div class="protected-gallery photo-frame bg-gray-800 rounded-lg relative overflow-hidden group">
                      <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100" style="background-color: #1a202c;"></div>
                      <div class="absolute inset-0 flex items-center justify-center">
                         <i class="fa-solid fa-volleyball text-3xl text-gray-400"></i>
@@ -105,7 +309,7 @@
                 </div>
 
                  <!-- Nature -->
-                 <div class="photo-frame bg-gray-800 rounded-lg relative overflow-hidden group col-span-2">
+                 <div class="protected-gallery photo-frame bg-gray-800 rounded-lg relative overflow-hidden group col-span-2">
                     <div class="absolute inset-0 bg-cover bg-center transition duration-500 opacity-60 group-hover:opacity-100" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1000&auto=format&fit=crop');"></div>
                     <span class="absolute bottom-2 left-4 text-sm font-bold text-white z-10">Nature Photography</span>
                 </div>
@@ -120,5 +324,100 @@
             <span class="font-serif font-bold text-xl text-white">Yugesh Bhoge</span>
         </div>
     </footer>
+<script>
+/* ─── Versions of Me Navigator ─────────────────────────── */
+
+    const poemPages = [
+        "Post_1.jpg",
+        "Post_2.jpg",
+        "Post_3.jpg",
+        "Post_4.jpg",
+        "Post_5.jpg",
+        "Post_6.jpg"
+    ];
+
+    let currentPoemPage = 0;
+
+    const poemImage = document.getElementById("versionsOfMeImage");
+    const currentPage = document.getElementById("poemCurrent");
+    const previousButton = document.getElementById("prevPoem");
+    const nextButton = document.getElementById("nextPoem");
+
+    function updatePoemPage() {
+
+        poemImage.style.opacity = "0";
+
+        setTimeout(() => {
+
+            poemImage.src = poemPages[currentPoemPage];
+
+            poemImage.alt =
+                `Versions of Me — Part ${currentPoemPage + 1}`;
+
+            currentPage.textContent = currentPoemPage + 1;
+
+            previousButton.disabled = currentPoemPage === 0;
+            nextButton.disabled = currentPoemPage === poemPages.length - 1;
+
+            poemImage.style.opacity = "1";
+
+        }, 150);
+    }
+
+
+    previousButton.addEventListener("click", () => {
+
+        if (currentPoemPage > 0) {
+            currentPoemPage--;
+            updatePoemPage();
+        }
+
+    });
+
+
+    nextButton.addEventListener("click", () => {
+
+        if (currentPoemPage < poemPages.length - 1) {
+            currentPoemPage++;
+            updatePoemPage();
+        }
+
+    });
+
+
+    /* Keyboard navigation */
+    document.addEventListener("keydown", (event) => {
+
+        if (event.key === "ArrowLeft" && currentPoemPage > 0) {
+            currentPoemPage--;
+            updatePoemPage();
+        }
+
+        if (
+            event.key === "ArrowRight" &&
+            currentPoemPage < poemPages.length - 1
+        ) {
+            currentPoemPage++;
+            updatePoemPage();
+        }
+
+    });
+
+
+    /* Initialise */
+    updatePoemPage();
+
+document.addEventListener("contextmenu", function (e) {
+    if (e.target.closest(".protected-gallery")) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener("dragstart", function (e) {
+    if (e.target.closest(".protected-gallery")) {
+        e.preventDefault();
+    }
+});
+</script>
 </body>
 </html>
