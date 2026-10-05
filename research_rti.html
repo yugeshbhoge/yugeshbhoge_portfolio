@@ -191,7 +191,175 @@
                 </p>
             </section>
 
-            <!-- Embedded Interactive Plot 1: Magnetic Field Stabilization -->
+            
+            <!-- Simulation Snapshots: interactive viewer -->
+        <section id="snapshots" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
+                <h3 class="text-lg font-serif font-bold text-gray-900">Simulation Snapshots: Field Geometry Study</h3>
+                <span class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full font-medium">5 runs</span>
+            </div>
+            <p class="text-sm text-gray-500 mb-4">
+                Density at six times for each run, with magnetic field lines in black. Pick a run, or compare two side by side. Click an image to enlarge it.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div id="snap-tabs" role="tablist" aria-label="Simulation runs" class="flex flex-wrap gap-2"></div>
+                <label class="flex items-center gap-2 text-xs text-gray-600 cursor-pointer select-none">
+                    <input type="checkbox" id="snap-compare" class="accent-teal-700"> Compare two runs
+                </label>
+            </div>
+
+            <div id="snap-view" class="grid gap-6"></div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="snap-lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex-col items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Enlarged snapshot">
+            <button type="button" id="snap-close" class="absolute top-4 right-5 text-white text-3xl leading-none hover:text-teal-300" aria-label="Close">&times;</button>
+            <button type="button" id="snap-prev" class="absolute left-3 top-1/2 -translate-y-1/2 text-white text-4xl px-3 hover:text-teal-300" aria-label="Previous run">&#8249;</button>
+            <button type="button" id="snap-next" class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-4xl px-3 hover:text-teal-300" aria-label="Next run">&#8250;</button>
+            <img id="snap-big" src="" alt="" class="max-h-[85vh] max-w-full rounded bg-white">
+            <p id="snap-big-cap" class="text-teal-100 text-sm mt-3 text-center"></p>
+        </div>
+
+        <script>
+        (() => {
+            // Ordered as a progression: no field -> vertical -> horizontal (strong, weak) -> tilted
+            const runs = [
+                {
+                    label: 'No field',
+                    file: 'RTI_No_Field.png',
+                    alt: 'Hydrodynamic RTI: density snapshots from t=0 to 3.0 showing spikes rolling into mushroom caps',
+                    params: [['B₀', '0'], ['B_z', '0'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    note: 'Unmagnetised baseline. Perturbations grow into spikes and bubbles by t = 2.4, and at t = 3.0 the spikes roll up into mushroom caps.'
+                },
+                {
+                    label: 'Vertical field',
+                    file: 'RTI_verticle_field.png',
+                    alt: 'RTI with vertical field Bz=0.2: interface stays flat until about t=1.8, then broad fingers form',
+                    params: [['B₀', '0'], ['B_z', '0.2'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    note: 'The field crosses the interface, so for perturbations along x we have k·B = 0 and tension offers no direct resistance. Growth is delayed compared with the baseline, and fingers still form by t = 3.0, dragging field lines with them. No mushroom caps yet.'
+                },
+                {
+                    label: 'Cross (B₀ = B_z = 0.2)',
+                    file: 'RTI_Cross_Field.png',
+                    alt: 'RTI with tilted 45 degree field B0=0.2, Bz=0.2: interface mostly flat, field lines sweep into curves',
+                    params: [['B₀', '0.2'], ['B_z', '0.2'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    note: 'The field starts at 45° to the interface. The interface stays largely flat, the field lines relax into long sweeping curves, and only a small distortion appears near x ≈ 0.4 at t = 3.0.'
+                },
+                {
+                    label: 'Horizontal, B₀ = 0.2, uniform',
+                    file: 'RTI_Horizontal.png',
+                    alt: 'RTI with horizontal field B0=0.2, exponential profile, 128x128 grid: interface stays near flat to t=2.5',
+                    params: [['B₀', '0.2'], ['B_z', '0'], ['profile', 'unifrorm'], ['grid', '128×128'], ['t', '0 – 2.5']],
+                    note: 'Weaker horizontal field: The interface stays close to flat, with only gentle bending of the field lines near it, showing the suppressing effect of magnetic tension.'
+                },
+                {
+                    label: 'Horizontal, B₀ = 0.4, uniform',
+                    file: 'RTI_Horizontal_Strong.png',
+                    alt: 'RTI with strong horizontal field B0=0.4: interface stays flat through t=3.0',
+                    params: [['B₀', '0.4'], ['B_z', '0'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    note: 'The interface stays flat through t = 3.0 and the field lines remain nearly straight. Tension along the field suppresses the perturbation, in line with the B² stabilising term in the dispersion relation.'
+                }
+
+            ];
+
+            const $ = id => document.getElementById(id);
+            const tabs = $('snap-tabs'), view = $('snap-view'), box = $('snap-lightbox');
+            let a = 0, b = 2, compare = false, zoomIdx = null;
+
+            const chip = (k, v) =>
+                `<span class="px-2 py-1 rounded bg-gray-50 border border-gray-100 text-xs text-gray-700"><strong>${k}</strong> ${v}</span>`;
+
+            function panel(idx, which) {
+                const r = runs[idx];
+                const select = compare
+                    ? `<select data-which="${which}" aria-label="Run ${which === 'a' ? 'A' : 'B'}" class="snap-select w-full mb-2 border border-gray-200 rounded-lg text-sm px-2 py-1.5 bg-white">
+                         ${runs.map((x, i) => `<option value="${i}" ${i === idx ? 'selected' : ''}>${x.label}</option>`).join('')}
+                       </select>`
+                    : '';
+                return `<figure>
+                    ${select}
+                    <button type="button" data-zoom="${idx}" class="block w-full rounded-lg overflow-hidden border border-gray-100 cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600">
+                        <img src="${r.file}" alt="${r.alt}" loading="lazy" class="w-full h-auto">
+                    </button>
+                    <div class="flex flex-wrap gap-2 mt-3">${r.params.map(([k, v]) => chip(k, v)).join('')}</div>
+                    <figcaption class="text-sm text-gray-600 mt-3 leading-relaxed border-l-2 border-teal-500 pl-3">${r.note}</figcaption>
+                </figure>`;
+            }
+
+            function render() {
+                tabs.classList.toggle('hidden', compare);
+                tabs.innerHTML = runs.map((r, i) =>
+                    `<button type="button" role="tab" data-tab="${i}" aria-selected="${i === a}" class="px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                        i === a ? 'bg-teal-800 text-white border-teal-800' : 'bg-white text-gray-700 border-gray-200 hover:border-teal-600'}">${r.label}</button>`
+                ).join('');
+                view.className = compare ? 'grid gap-6 lg:grid-cols-2' : 'grid gap-6';
+                view.innerHTML = compare ? panel(a, 'a') + panel(b, 'b') : panel(a, 'a');
+                view.querySelectorAll('img').forEach(img => img.addEventListener('error', () => {
+                    const p = document.createElement('p');
+                    p.className = 'p-6 text-sm text-red-400';
+                    p.textContent = 'Image not found: ' + img.getAttribute('src') + '. Keep it in the same folder as this page.';
+                    img.replaceWith(p);
+                }));
+            }
+
+            function showZoom(i) {
+                zoomIdx = (i + runs.length) % runs.length;
+                const r = runs[zoomIdx];
+                $('snap-big').src = r.file;
+                $('snap-big').alt = r.alt;
+                $('snap-big-cap').textContent = r.label + '  (' + (zoomIdx + 1) + ' / ' + runs.length + ')';
+                box.classList.remove('hidden');
+                box.classList.add('flex');
+            }
+            function closeZoom() {
+                zoomIdx = null;
+                box.classList.add('hidden');
+                box.classList.remove('flex');
+            }
+
+            tabs.addEventListener('click', e => {
+                const t = e.target.closest('[data-tab]');
+                if (t) { a = +t.dataset.tab; render(); }
+            });
+            tabs.addEventListener('keydown', e => {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                a = (a + (e.key === 'ArrowRight' ? 1 : -1) + runs.length) % runs.length;
+                render();
+                tabs.querySelector(`[data-tab="${a}"]`).focus();
+            });
+            view.addEventListener('click', e => {
+                const z = e.target.closest('[data-zoom]');
+                if (z) showZoom(+z.dataset.zoom);
+            });
+            view.addEventListener('change', e => {
+                if (!e.target.matches('.snap-select')) return;
+                if (e.target.dataset.which === 'a') a = +e.target.value; else b = +e.target.value;
+                render();
+            });
+            $('snap-compare').addEventListener('change', e => {
+                compare = e.target.checked;
+                if (compare && a === b) b = (a + 1) % runs.length;
+                render();
+            });
+            $('snap-close').addEventListener('click', closeZoom);
+            $('snap-prev').addEventListener('click', () => showZoom(zoomIdx - 1));
+            $('snap-next').addEventListener('click', () => showZoom(zoomIdx + 1));
+            box.addEventListener('click', e => { if (e.target === box) closeZoom(); });
+            document.addEventListener('keydown', e => {
+                if (zoomIdx === null) return;
+                if (e.key === 'Escape') closeZoom();
+                if (e.key === 'ArrowRight') showZoom(zoomIdx + 1);
+                if (e.key === 'ArrowLeft') showZoom(zoomIdx - 1);
+            });
+
+            render();
+        })();
+        </script>
+
+        </div>
+        <div class="lg:col-span-3 grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
+        <!-- Embedded Interactive Plot 1: Magnetic Field Stabilization -->
             <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-serif font-bold text-gray-900">Magnetic Field Stabilization</h3>
@@ -235,8 +403,8 @@
                     <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'threshold_surface.html' must be in the same directory for this plot to load.
                 </p>
             </section>
+            </div>
 
-        </div>
     </main>
 
     <!-- Footer with Joke -->
