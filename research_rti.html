@@ -148,14 +148,14 @@
                     <h2 class="text-2xl font-serif font-bold text-gray-900">Implications</h2>
                 </div>
                 <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    Our results confirm that a critical magnetic field $B_c$ exists. If $B > B_c$, the instability is completely suppressed. This explains why certain astrophysical boundaries remain sharp despite strong density contrasts—magnetic tension acts as a "skin" holding the fluid interface together.
+                    Our results confirm that a critical magnetic field $B_c$ exists. If $B > B_c$, the instability is completely suppressed. This explains why certain astrophysical boundaries remain sharp despite strong density contrasts, magnetic tension acts as a "skin" holding the fluid interface together.
                 </p>
             </section>
             <section id="documentation" class="bg-teal-800 text-white rounded-xl p-8 shadow-md">
                 <div class="flex flex-col items-start">
                     <h3 class="text-2xl font-serif font-bold mb-4">Detailed Project Report</h3>
                     <p class="text-slate-300 text-sm mb-6 w-full">
-                        Access the full detailed derivation of effect of magnetic field in supressing RTI including stability region plots and 2-D finite volume analysis code.
+                        Access the full detailed derivation of effect of magnetic field in suppressing RTI including stability region plots and 2-D finite volume analysis code.
                     </p>
                     <a href="RTI in stellar interior.pdf" target="_blank" class="flex items-center px-6 py-3 bg-white text-teal-900 rounded-lg font-bold hover:bg-teal-400 transition-colors shadow-lg group">
                         <i class="fa-solid fa-file-pdf text-xl mr-3 text-teal-600 group-hover:text-slate-900 transition-colors"></i>
@@ -163,6 +163,50 @@
                     </a>
                 </div>
             </section>
+
+             <!-- Embedded Interactive Plot 1: Magnetic Field Stabilization -->
+            <div class="grid grid-cols-1 gap-6 pt-2">
+                <section class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="flex justify-between items-center mb-3 gap-2">
+                        <h3 class="text-lg font-serif font-bold text-gray-900">Magnetic Field Stabilization</h3>
+                        <div class="text-xs text-gray-400 shrink-0">
+                            <i class="fa-solid fa-cube mr-1"></i> Interactive 3D Surface
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">
+                        Growth Rate Squared ($\gamma^2$) vs Wavenumber ($k$) and Magnetic Field ($B$). The "valley" indicates stability.
+                    </p>
+                    <div class="h-[320px] w-full border border-gray-100 rounded-lg overflow-hidden bg-white relative">
+                        <iframe src="mag_field.html" title="Magnetic Field Plot" class="w-full h-full border-none">
+                            <p>Your browser does not support iframes. Please open mag_field.html directly.</p>
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-red-400 mt-2 hidden" id="error-msg-1">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'mag_field.html' must be in the same directory for this plot to load.
+                    </p>
+                </section>
+
+                <!-- Embedded Interactive Plot 2: Stability Threshold -->
+                <section class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="flex justify-between items-center mb-3 gap-2">
+                        <h3 class="text-lg font-serif font-bold text-gray-900">Stability Threshold Surface</h3>
+                        <div class="text-xs text-gray-400 shrink-0">
+                            <i class="fa-solid fa-cube mr-1"></i> Interactive 3D Surface
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">
+                        Critical magnetic field required to suppress the instability as a function of wavenumber and mode parameters.
+                    </p>
+                    <div class="h-[320px] w-full border border-gray-100 rounded-lg overflow-hidden bg-white relative">
+                        <iframe src="threshold_surface.html" title="Threshold Surface Plot" class="w-full h-full border-none">
+                            <p>Your browser does not support iframes. Please open threshold_surface.html directly.</p>
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-red-400 mt-2 hidden" id="error-msg-2">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'threshold_surface.html' must be in the same directory for this plot to load.
+                    </p>
+                </section>
+            </div>
         </div>
 
         <!-- Right Column: Visuals & Synthesis -->
@@ -190,25 +234,26 @@
                     Simulation showing the evolution of density. Note the formation of characteristic Kelvin-Helmholtz mushroom structures on the spikes as the instability grows.
                 </p>
             </section>
-
-            
             <!-- Simulation Snapshots: interactive viewer -->
         <section id="snapshots" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
             <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
-                <h3 class="text-lg font-serif font-bold text-gray-900">Simulation Snapshots: Field Geometry Study</h3>
-                <span class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full font-medium">5 runs</span>
+                <h3 class="text-lg font-serif font-bold text-gray-900">Mode Study: Short Wavelengths Are Stabilized First</h3>
+                <span class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full font-medium">13 runs</span>
             </div>
             <p class="text-sm text-gray-500 mb-4">
-                Density at six times for each run, with magnetic field lines in black. Pick a run, or compare two side by side. Click an image to enlarge it.
+                Each run perturbs the interface with a single mode <em>m</em> (the number of wavelengths across the box) under a horizontal field B₀. Density is colored and field lines are black. The matrix maps the outcome: high-<em>m</em> (short-wavelength) modes are suppressed first, and the cutoff moves to longer wavelengths as B₀ increases.
             </p>
 
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <div id="snap-tabs" role="tablist" aria-label="Simulation runs" class="flex flex-wrap gap-2"></div>
-                <label class="flex items-center gap-2 text-xs text-gray-600 cursor-pointer select-none">
-                    <input type="checkbox" id="snap-compare" class="accent-teal-700"> Compare two runs
-                </label>
+                <div id="snap-modes" role="tablist" class="inline-flex rounded-full border border-gray-200 p-0.5 bg-gray-50 text-xs font-medium">
+                    <button type="button" role="tab" data-mode="explore">Explore</button>
+                    <button type="button" role="tab" data-mode="compare">Compare</button>
+                </div>
+                <div id="snap-legend" class="flex flex-wrap gap-3 text-xs text-gray-600"></div>
             </div>
 
+            <div id="snap-matrix" class="mb-5"></div>
+            <div id="snap-compare-bar" class="hidden mb-5 flex-wrap items-center gap-2"></div>
             <div id="snap-view" class="grid gap-6"></div>
         </section>
 
@@ -223,62 +268,110 @@
 
         <script>
         (() => {
-            // Ordered as a progression: no field -> vertical -> horizontal (strong, weak) -> tilted
+            const ST = {
+                grows:  { label: 'Grows',       short: 'grows',  dot: 'bg-rose-500',  badge: 'bg-rose-50 text-rose-700 border-rose-200' },
+                weak:   { label: 'Weak growth', short: 'weak',   dot: 'bg-amber-400', badge: 'bg-amber-50 text-amber-700 border-amber-200' },
+                stable: { label: 'Suppressed',  short: 'stable', dot: 'bg-teal-600',  badge: 'bg-teal-50 text-teal-700 border-teal-200' }
+            };
+
+            // Horizontal-field mode study: B0 x mode m (t = 0 – 6.0)
+            const mk = (b0, m, s, note) => ({
+                b0, m, s, note,
+                label: `B₀ = ${b0}, m = ${m}`,
+                file: `B0.${Math.round(b0 * 10)}_0_(${m},)_uniform_256x256.png`,
+                alt: `Magneto-RTI with B0 = ${b0}, mode m = ${m}: ${ST[s].label.toLowerCase()}`,
+                params: [['B₀', b0], ['B_z', '0'], ['mode m', m], ['grid', '256×256'], ['t', '0 – 6.0']]
+            });
+
             const runs = [
                 {
-                    label: 'No field',
+                    b0: 0, m: null, s: 'grows', label: 'No field (B₀ = B_z = 0)',
                     file: 'RTI_No_Field.png',
-                    alt: 'Hydrodynamic RTI: density snapshots from t=0 to 3.0 showing spikes rolling into mushroom caps',
-                    params: [['B₀', '0'], ['B_z', '0'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
-                    note: 'Unmagnetised baseline. Perturbations grow into spikes and bubbles by t = 2.4, and at t = 3.0 the spikes roll up into mushroom caps.'
+                    alt: 'Unmagnetized RTI: spikes and bubbles by t = 2.4, mushroom caps by t = 3.0',
+                    params: [['B₀', '0'], ['B_z', '0'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    note: 'Unmagnetized baseline. Several fingers of different sizes grow at once; spikes and bubbles are clear by t = 2.4 and the spikes roll up into mushroom caps at t = 3.0. Note the shorter time range (to t = 3.0) compared with the mode-study runs (to t = 6.0).'
                 },
+                mk(0.1, 1, 'grows',  'Slow start, then one large bubble. By t = 6.0 the light fluid has risen to z ≈ 0.8, heavy fluid has fallen down both sides, and the interface rolls into a mushroom cap. At this field strength tension does little against the longest wavelength.'),
+                mk(0.1, 2, 'grows',  'Two bubbles form and roll up by t = 6.0. At t = 3.6 the interface is already more deformed than for m = 1, consistent with a growth rate that peaks at an intermediate wavenumber rather than at the longest one.'),
+                mk(0.1, 4, 'stable', 'Short-wavelength ripples stay small and never roll over. Their amplitude fluctuates (nearly gone at t = 4.8, back at t = 6.0) instead of growing, so tension holds this mode in check.'),
+                mk(0.1, 8, 'stable', 'No visible growth. The interface stays flat to t = 6.0, apart from slight smearing of the transition layer.'),
+                mk(0.2, 1, 'weak',   'The longest mode still grows, but slowly. By t = 6.0 it is a smooth bulge of moderate amplitude with no roll-up, and the field lines follow the interface.'),
+                mk(0.2, 2, 'stable', 'Only faint ripples appear (t = 1.2 – 2.4) and they die away. This mode rolled into mushroom caps at B₀ = 0.1; doubling the field suppresses it.'),
+                mk(0.2, 4, 'stable', 'Essentially flat from t = 2.4 onward. The small ripples seen at B₀ = 0.1 are gone.'),
+                mk(0.4, 1, 'stable', 'Even the longest wavelength is suppressed: the interface stays flat and the field lines remain straight through t = 6.0.'),
+                mk(0.4, 2, 'stable', 'Flat interface and straight field lines through t = 6.0.'),
+                mk(0.5, 1, 'stable', 'Strongest field in the set. The interface stays flat through t = 6.0.'),
                 {
-                    label: 'Vertical field',
+                    b0: 0, m: null, s: 'grows', label: 'Vertical field (B_z = 0.2)',
                     file: 'RTI_verticle_field.png',
-                    alt: 'RTI with vertical field Bz=0.2: interface stays flat until about t=1.8, then broad fingers form',
-                    params: [['B₀', '0'], ['B_z', '0.2'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
-                    note: 'The field crosses the interface, so for perturbations along x we have k·B = 0 and tension offers no direct resistance. Growth is delayed compared with the baseline, and fingers still form by t = 3.0, dragging field lines with them. No mushroom caps yet.'
+                    alt: 'Magneto-RTI with vertical field Bz = 0.2: fingers form by t = 3.0',
+                    params: [['B₀', '0'], ['B_z', '0.2'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    note: 'Control run. The field crosses the interface, so k·B = 0 for perturbations along x and tension offers no resistance. Fingers form by t = 2.4 – 3.0 and drag the field lines with them. Compare with the horizontal-field runs.'
                 },
                 {
-                    label: 'Cross (B₀ = B_z = 0.2)',
+                    b0: 0.2, m: null, s: 'weak', label: 'Tilted field (B₀ = B_z = 0.2)',
                     file: 'RTI_Cross_Field.png',
-                    alt: 'RTI with tilted 45 degree field B0=0.2, Bz=0.2: interface mostly flat, field lines sweep into curves',
-                    params: [['B₀', '0.2'], ['B_z', '0.2'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
+                    alt: 'Magneto-RTI with field tilted at 45 degrees: interface mostly flat to t = 3.0',
+                    params: [['B₀', '0.2'], ['B_z', '0.2'], ['grid', '256×256'], ['t', '0 – 3.0']],
                     note: 'The field starts at 45° to the interface. The interface stays largely flat, the field lines relax into long sweeping curves, and only a small distortion appears near x ≈ 0.4 at t = 3.0.'
-                },
-                {
-                    label: 'Horizontal, B₀ = 0.2, uniform',
-                    file: 'RTI_Horizontal.png',
-                    alt: 'RTI with horizontal field B0=0.2, exponential profile, 128x128 grid: interface stays near flat to t=2.5',
-                    params: [['B₀', '0.2'], ['B_z', '0'], ['profile', 'unifrorm'], ['grid', '128×128'], ['t', '0 – 2.5']],
-                    note: 'Weaker horizontal field: The interface stays close to flat, with only gentle bending of the field lines near it, showing the suppressing effect of magnetic tension.'
-                },
-                {
-                    label: 'Horizontal, B₀ = 0.4, uniform',
-                    file: 'RTI_Horizontal_Strong.png',
-                    alt: 'RTI with strong horizontal field B0=0.4: interface stays flat through t=3.0',
-                    params: [['B₀', '0.4'], ['B_z', '0'], ['profile', 'uniform'], ['grid', '256×256'], ['t', '0 – 3.0']],
-                    note: 'The interface stays flat through t = 3.0 and the field lines remain nearly straight. Tension along the field suppresses the perturbation, in line with the B² stabilising term in the dispersion relation.'
                 }
+            ];
 
+            const ROWS = [0.1, 0.2, 0.4, 0.5], COLS = [1, 2, 4, 8];
+            const find = (b0, m) => runs.findIndex(r => r.b0 === b0 && r.m === m);
+            const VERT = runs.findIndex(r => r.label.startsWith('Vertical'));
+            const TILT = runs.findIndex(r => r.label.startsWith('Tilted'));
+            const NOFIELD = runs.findIndex(r => r.label.startsWith('No field'));
+            const presets = [
+                ['B₀ = 0.1: m = 1 vs m = 8', find(0.1, 1), find(0.1, 8)],
+                ['B₀ = 0.1: m = 2 vs m = 4', find(0.1, 2), find(0.1, 4)],
+                ['m = 1: B₀ = 0.1 vs 0.5',   find(0.1, 1), find(0.5, 1)],
+                ['m = 2: B₀ = 0.1 vs 0.2',   find(0.1, 2), find(0.2, 2)],
+                ['No field vs B₀ = 0.4', NOFIELD, find(0.4, 1)],
+                ['Horizontal (0.4) vs vertical field', find(0.4, 1), VERT]
             ];
 
             const $ = id => document.getElementById(id);
-            const tabs = $('snap-tabs'), view = $('snap-view'), box = $('snap-lightbox');
-            let a = 0, b = 2, compare = false, zoomIdx = null;
+            const sec = $('snapshots'), view = $('snap-view'), matrix = $('snap-matrix'), bar = $('snap-compare-bar'), box = $('snap-lightbox');
+            let a = 0, b = find(0.1, 8), compare = false, side = false, zoomIdx = null;
+
+            $('snap-legend').innerHTML = Object.values(ST).map(s =>
+                `<span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full ${s.dot}"></span>${s.label}</span>`).join('');
 
             const chip = (k, v) =>
                 `<span class="px-2 py-1 rounded bg-gray-50 border border-gray-100 text-xs text-gray-700"><strong>${k}</strong> ${v}</span>`;
 
+            const cell = (i, text) => {
+                const r = runs[i], on = i === a;
+                return `<button type="button" data-run="${i}" aria-pressed="${on}" title="${r.label}: ${ST[r.s].label}"
+                    class="flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg border text-xs font-medium transition-colors ${
+                        on ? 'border-teal-800 ring-2 ring-teal-600 bg-teal-50 text-teal-900' : 'border-gray-200 bg-white text-gray-700 hover:border-teal-600'}">
+                    <span class="w-2.5 h-2.5 rounded-full ${ST[r.s].dot}"></span>${text}</button>`;
+            };
+
+            function renderMatrix() {
+                const head = COLS.map(m => `<div class="text-center text-xs font-semibold text-gray-500">m = ${m}</div>`).join('');
+                const rows = ROWS.map(b0 =>
+                    `<div class="text-xs font-semibold text-gray-500 pr-1">B₀ = ${b0}</div>` +
+                    COLS.map(m => { const i = find(b0, m); return i < 0 ? '<div class="text-center text-gray-300 text-xs">–</div>' : cell(i, ST[runs[i].s].short); }).join('')
+                ).join('');
+                matrix.innerHTML = `
+                    <div class="grid grid-cols-[auto_repeat(4,minmax(0,1fr))] gap-2 items-center"><div></div>${head}${rows}</div>
+                    <div class="flex flex-wrap items-center gap-2 mt-3">
+                        <span class="text-xs font-semibold text-gray-500">Reference runs:</span>
+                        ${cell(NOFIELD, 'No field')}${cell(VERT, 'Vertical B_z')}${cell(TILT, 'Tilted 45°')}
+                    </div>`;
+            }
+
             function panel(idx, which) {
-                const r = runs[idx];
-                const select = compare
-                    ? `<select data-which="${which}" aria-label="Run ${which === 'a' ? 'A' : 'B'}" class="snap-select w-full mb-2 border border-gray-200 rounded-lg text-sm px-2 py-1.5 bg-white">
-                         ${runs.map((x, i) => `<option value="${i}" ${i === idx ? 'selected' : ''}>${x.label}</option>`).join('')}
-                       </select>`
-                    : '';
+                const r = runs[idx], st = ST[r.s];
+                const head = compare
+                    ? `<select data-which="${which}" aria-label="Run ${which === 'a' ? 'A' : 'B'}" class="snap-select flex-1 min-w-0 border border-gray-200 rounded-lg text-sm px-2 py-1.5 bg-white">
+                         ${runs.map((x, i) => `<option value="${i}" ${i === idx ? 'selected' : ''}>${x.label}</option>`).join('')}</select>`
+                    : `<span class="text-sm font-semibold text-gray-800">${r.label}</span>`;
                 return `<figure>
-                    ${select}
+                    <div class="flex items-center justify-between gap-2 mb-2">${head}
+                        <span class="shrink-0 text-xs px-2 py-0.5 rounded-full border ${st.badge}">${st.label}</span></div>
                     <button type="button" data-zoom="${idx}" class="block w-full rounded-lg overflow-hidden border border-gray-100 cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600">
                         <img src="${r.file}" alt="${r.alt}" loading="lazy" class="w-full h-auto">
                     </button>
@@ -288,12 +381,20 @@
             }
 
             function render() {
-                tabs.classList.toggle('hidden', compare);
-                tabs.innerHTML = runs.map((r, i) =>
-                    `<button type="button" role="tab" data-tab="${i}" aria-selected="${i === a}" class="px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                        i === a ? 'bg-teal-800 text-white border-teal-800' : 'bg-white text-gray-700 border-gray-200 hover:border-teal-600'}">${r.label}</button>`
-                ).join('');
-                view.className = compare ? 'grid gap-6 lg:grid-cols-2' : 'grid gap-6';
+                sec.querySelectorAll('[data-mode]').forEach(btn => {
+                    const on = (btn.dataset.mode === 'compare') === compare;
+                    btn.setAttribute('aria-selected', on);
+                    btn.className = 'px-4 py-1.5 rounded-full transition-colors ' + (on ? 'bg-teal-800 text-white' : 'text-gray-600 hover:text-teal-800');
+                });
+                matrix.classList.toggle('hidden', compare);
+                bar.classList.toggle('hidden', !compare);
+                bar.classList.toggle('flex', compare);
+                if (compare) {
+                    bar.innerHTML = presets.map((p, i) =>
+                        `<button type="button" data-preset="${i}" class="px-3 py-1.5 rounded-full text-xs font-medium border bg-white text-gray-700 border-gray-200 hover:border-teal-600">${p[0]}</button>`).join('') +
+                        `<button type="button" data-layout class="ml-auto px-3 py-1.5 rounded-full text-xs font-medium border border-teal-800 text-teal-800 hover:bg-teal-50">${side ? 'Stack vertically' : 'Side by side'}</button>`;
+                } else renderMatrix();
+                view.className = compare && side ? 'grid gap-6 md:grid-cols-2' : 'grid gap-6';
                 view.innerHTML = compare ? panel(a, 'a') + panel(b, 'b') : panel(a, 'a');
                 view.querySelectorAll('img').forEach(img => img.addEventListener('error', () => {
                     const p = document.createElement('p');
@@ -308,7 +409,7 @@
                 const r = runs[zoomIdx];
                 $('snap-big').src = r.file;
                 $('snap-big').alt = r.alt;
-                $('snap-big-cap').textContent = r.label + '  (' + (zoomIdx + 1) + ' / ' + runs.length + ')';
+                $('snap-big-cap').textContent = `${r.label} – ${ST[r.s].label}  (${zoomIdx + 1} / ${runs.length})`;
                 box.classList.remove('hidden');
                 box.classList.add('flex');
             }
@@ -318,30 +419,33 @@
                 box.classList.remove('flex');
             }
 
-            tabs.addEventListener('click', e => {
-                const t = e.target.closest('[data-tab]');
-                if (t) { a = +t.dataset.tab; render(); }
-            });
-            tabs.addEventListener('keydown', e => {
-                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-                a = (a + (e.key === 'ArrowRight' ? 1 : -1) + runs.length) % runs.length;
+            sec.addEventListener('click', e => {
+                const t = e.target.closest('[data-run],[data-mode],[data-preset],[data-layout],[data-zoom]');
+                if (!t) return;
+                if (t.dataset.zoom !== undefined) return showZoom(+t.dataset.zoom);
+                if (t.dataset.run !== undefined) a = +t.dataset.run;
+                else if (t.dataset.mode) {
+                    compare = t.dataset.mode === 'compare';
+                    if (compare && a === b) b = (a + 1) % runs.length;
+                } else if (t.dataset.preset !== undefined) [, a, b] = presets[+t.dataset.preset];
+                else if (t.dataset.layout !== undefined) side = !side;
                 render();
-                tabs.querySelector(`[data-tab="${a}"]`).focus();
             });
-            view.addEventListener('click', e => {
-                const z = e.target.closest('[data-zoom]');
-                if (z) showZoom(+z.dataset.zoom);
-            });
-            view.addEventListener('change', e => {
+            sec.addEventListener('change', e => {
                 if (!e.target.matches('.snap-select')) return;
                 if (e.target.dataset.which === 'a') a = +e.target.value; else b = +e.target.value;
                 render();
             });
-            $('snap-compare').addEventListener('change', e => {
-                compare = e.target.checked;
-                if (compare && a === b) b = (a + 1) % runs.length;
+            // Arrow keys step through runs while the matrix has focus
+            matrix.addEventListener('keydown', e => {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                e.preventDefault();
+                a = (a + (e.key === 'ArrowRight' ? 1 : -1) + runs.length) % runs.length;
                 render();
+                const f = matrix.querySelector(`[data-run="${a}"]`);
+                if (f) f.focus();
             });
+
             $('snap-close').addEventListener('click', closeZoom);
             $('snap-prev').addEventListener('click', () => showZoom(zoomIdx - 1));
             $('snap-next').addEventListener('click', () => showZoom(zoomIdx + 1));
@@ -356,54 +460,6 @@
             render();
         })();
         </script>
-
-        </div>
-        <div class="lg:col-span-3 grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
-        <!-- Embedded Interactive Plot 1: Magnetic Field Stabilization -->
-            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-serif font-bold text-gray-900">Magnetic Field Stabilization</h3>
-                    <div class="text-xs text-gray-400">
-                        <i class="fa-solid fa-cube mr-1"></i> Interactive 3D Surface
-                    </div>
-                </div>
-                <p class="text-sm text-gray-500 mb-4">
-                    Growth Rate Squared ($\gamma^2$) vs Wavenumber ($k$) and Magnetic Field ($B$). The "valley" indicates stability.
-                </p>
-                
-                <div class="h-[500px] w-full border border-gray-100 rounded-lg overflow-hidden bg-white relative">
-                     <!-- EMBEDDED IFRAME FOR mag_field.html -->
-                     <iframe src="mag_field.html" title="Magnetic Field Plot" class="w-full h-full border-none">
-                         <p>Your browser does not support iframes. Please open mag_field.html directly.</p>
-                     </iframe>
-                </div>
-                <p class="text-xs text-red-400 mt-2 hidden" id="error-msg-1">
-                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'mag_field.html' must be in the same directory for this plot to load.
-                </p>
-            </section>
-
-            <!-- Embedded Interactive Plot 2: Stability Threshold -->
-            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-serif font-bold text-gray-900">Stability Threshold Surface</h3>
-                    <div class="text-xs text-gray-400">
-                        <i class="fa-solid fa-cube mr-1"></i> Interactive 3D Surface
-                    </div>
-                </div>
-                <p class="text-sm text-gray-500 mb-4">
-                </p>
-                
-                <div class="h-[500px] w-full border border-gray-100 rounded-lg overflow-hidden bg-white relative">
-                    <!-- EMBEDDED IFRAME FOR threshold_surface.html -->
-                    <iframe src="threshold_surface.html" title="Threshold Surface Plot" class="w-full h-full border-none">
-                        <p>Your browser does not support iframes. Please open threshold_surface.html directly.</p>
-                    </iframe>
-                </div>
-                <p class="text-xs text-red-400 mt-2 hidden" id="error-msg-2">
-                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Note: 'threshold_surface.html' must be in the same directory for this plot to load.
-                </p>
-            </section>
-            </div>
 
     </main>
 
