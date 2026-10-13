@@ -24,7 +24,7 @@
         }
 
 
-        /* ─── Versions of Me Reader ─────────────────────────────── */
+        /* ─── Poem Reader (shared by every multi-part poem) ──────── */
 
         .poem-reader {
             background: #111827;
@@ -32,10 +32,16 @@
             border-radius: 1rem;
             overflow: hidden;
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45);
+            /* shrink to the slide's width instead of stretching to the page column */
+            width: fit-content;
+            min-width: min(340px, 100%);
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .poem-slide-wrapper {
-            background: #030712;
+            background: #f5f2ea; /* matches the slide paper, so any sub-pixel gap is invisible */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -43,9 +49,10 @@
 
         .poem-slide {
             display: block;
-            width: 100%;
+            width: auto;
+            height: auto;
+            max-width: 100%;
             max-height: 80vh;
-            object-fit: contain;
             transition: opacity 0.2s ease;
         }
 
@@ -177,7 +184,7 @@
             </h2>
 
             <!-- Standalone Poems -->
-            <div class="protected-gallery grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="protected-gallery grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-start">
 
                 <!-- The Lighthouse -->
                 <div class="poem-card bg-gray-800 rounded-xl overflow-hidden border border-gray-800">
@@ -224,12 +231,17 @@
 
 
                 <!-- Poem Navigator -->
-                <div class="protected-gallery poem-reader">
+                <div
+                    class="protected-gallery poem-reader"
+                    data-poem-reader
+                    data-title="Versions of Me"
+                    data-pages="Post_1.jpg,Post_2.jpg,Post_3.jpg,Post_4.jpg,Post_5.jpg,Post_6.jpg"
+                >
 
                     <!-- Image -->
                     <div class="poem-slide-wrapper">
                         <img
-                            id="versionsOfMeImage"
+                            data-poem-image
                             src="Post_1.jpg"
                             alt="Versions of Me — Part 1"
                             class="poem-slide"
@@ -241,7 +253,7 @@
                     <div class="poem-navigation">
 
                         <button
-                            id="prevPoem"
+                            data-poem-prev
                             type="button"
                             class="poem-nav-btn"
                             aria-label="Previous part"
@@ -252,14 +264,85 @@
 
 
                         <div class="poem-counter">
-                            <span id="poemCurrent">1</span>
+                            <span data-poem-current>1</span>
                             <span class="mx-1 text-gray-600">/</span>
                             <span>6</span>
                         </div>
 
 
                         <button
-                            id="nextPoem"
+                            data-poem-next
+                            type="button"
+                            class="poem-nav-btn"
+                            aria-label="Next part"
+                        >
+                            <span>Next</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- A loan from the light -->
+            <div class="max-w-4xl mx-auto mt-20">
+
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl md:text-3xl font-serif font-bold">
+                        A loan from the light
+                    </h3>
+
+                    <p class="text-gray-400 mt-2 text-sm">
+                        A poem in four pieces
+                    </p>
+                </div>
+
+
+                <!-- Poem Navigator -->
+                <div
+                    class="protected-gallery poem-reader"
+                    data-poem-reader
+                    data-title="A loan from the light"
+                    data-pages="Loan_1.png,Loan_2.png,Loan_3.png,Loan_4.png"
+                >
+
+                    <!-- Image -->
+                    <div class="poem-slide-wrapper">
+                        <img
+                            data-poem-image
+                            src="Loan_1.png"
+                            alt="A loan from the light — Part 1"
+                            class="poem-slide"
+                        >
+                    </div>
+
+
+                    <!-- Navigation -->
+                    <div class="poem-navigation">
+
+                        <button
+                            data-poem-prev
+                            type="button"
+                            class="poem-nav-btn"
+                            aria-label="Previous part"
+                        >
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <span>Previous</span>
+                        </button>
+
+
+                        <div class="poem-counter">
+                            <span data-poem-current>1</span>
+                            <span class="mx-1 text-gray-600">/</span>
+                            <span>4</span>
+                        </div>
+
+
+                        <button
+                            data-poem-next
                             type="button"
                             class="poem-nav-btn"
                             aria-label="Next part"
@@ -325,87 +408,94 @@
         </div>
     </footer>
 <script>
-/* ─── Versions of Me Navigator ─────────────────────────── */
+/* ─── Poem Readers ──────────────────────────────────────────
+   Every element with [data-poem-reader] becomes its own navigator.
+   To add another multi-part poem, copy one reader block in the HTML
+   and change data-title, data-pages, the first <img> and the total.
+   ──────────────────────────────────────────────────────────── */
 
-    const poemPages = [
-        "Post_1.jpg",
-        "Post_2.jpg",
-        "Post_3.jpg",
-        "Post_4.jpg",
-        "Post_5.jpg",
-        "Post_6.jpg"
-    ];
+const poemReaders = [];
 
-    let currentPoemPage = 0;
+function initPoemReader(root) {
 
-    const poemImage = document.getElementById("versionsOfMeImage");
-    const currentPage = document.getElementById("poemCurrent");
-    const previousButton = document.getElementById("prevPoem");
-    const nextButton = document.getElementById("nextPoem");
+    const pages = root.dataset.pages.split(",").map(p => p.trim());
+    const title = root.dataset.title;
 
-    function updatePoemPage() {
+    const image = root.querySelector("[data-poem-image]");
+    const counter = root.querySelector("[data-poem-current]");
+    const previousButton = root.querySelector("[data-poem-prev]");
+    const nextButton = root.querySelector("[data-poem-next]");
 
-        poemImage.style.opacity = "0";
+    let current = 0;
+
+    function update() {
+
+        image.style.opacity = "0";
 
         setTimeout(() => {
 
-            poemImage.src = poemPages[currentPoemPage];
+            image.src = pages[current];
+            image.alt = `${title} — Part ${current + 1}`;
+            counter.textContent = current + 1;
 
-            poemImage.alt =
-                `Versions of Me — Part ${currentPoemPage + 1}`;
+            previousButton.disabled = current === 0;
+            nextButton.disabled = current === pages.length - 1;
 
-            currentPage.textContent = currentPoemPage + 1;
-
-            previousButton.disabled = currentPoemPage === 0;
-            nextButton.disabled = currentPoemPage === poemPages.length - 1;
-
-            poemImage.style.opacity = "1";
+            image.style.opacity = "1";
 
         }, 150);
     }
 
+    function go(step) {
+        const next = current + step;
+        if (next < 0 || next >= pages.length) return;
+        current = next;
+        update();
+    }
 
-    previousButton.addEventListener("click", () => {
+    previousButton.addEventListener("click", () => go(-1));
+    nextButton.addEventListener("click", () => go(1));
 
-        if (currentPoemPage > 0) {
-            currentPoemPage--;
-            updatePoemPage();
+    update();
+
+    return { root, go };
+}
+
+document.querySelectorAll("[data-poem-reader]").forEach(root => {
+    poemReaders.push(initPoemReader(root));
+});
+
+
+/* Keyboard navigation — arrow keys control whichever reader
+   is most visible on screen, so the two poems don't clash. */
+function mostVisibleReader() {
+
+    let best = null;
+    let bestVisible = 0;
+
+    poemReaders.forEach(reader => {
+        const rect = reader.root.getBoundingClientRect();
+        const visible = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+        if (visible > bestVisible) {
+            bestVisible = visible;
+            best = reader;
         }
-
     });
 
+    return best;
+}
 
-    nextButton.addEventListener("click", () => {
+document.addEventListener("keydown", (event) => {
 
-        if (currentPoemPage < poemPages.length - 1) {
-            currentPoemPage++;
-            updatePoemPage();
-        }
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
 
-    });
+    const reader = mostVisibleReader();
+    if (!reader) return;
 
+    reader.go(event.key === "ArrowLeft" ? -1 : 1);
 
-    /* Keyboard navigation */
-    document.addEventListener("keydown", (event) => {
+});
 
-        if (event.key === "ArrowLeft" && currentPoemPage > 0) {
-            currentPoemPage--;
-            updatePoemPage();
-        }
-
-        if (
-            event.key === "ArrowRight" &&
-            currentPoemPage < poemPages.length - 1
-        ) {
-            currentPoemPage++;
-            updatePoemPage();
-        }
-
-    });
-
-
-    /* Initialise */
-    updatePoemPage();
 
 document.addEventListener("contextmenu", function (e) {
     if (e.target.closest(".protected-gallery")) {
